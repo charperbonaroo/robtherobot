@@ -97,15 +97,15 @@ function processMessage(content: string) {
 
 async function main() {
   const messages: (OpenAI.Chat.Completions.ChatCompletionMessage|{role:string, content:string})[] = [
-    { role: "user", content: SYSTEM },
+    { role: "developer", content: SYSTEM },
     { role: "user", content: USER },
   ];
 
   let i = 0;
   while (true) {
     const completion = await openai.chat.completions.create({
-      // model: "gpt-4o-mini",
-      model: "o1-mini",
+      model: "gpt-4o",
+      // model: "o1-mini",
       messages: messages as any,
     });
 
