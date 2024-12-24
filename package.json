@@ -1,16 +1,18 @@
 {
   "name": "robtherobot",
   "packageManager": "yarn@4.5.3",
-  "type": "module",
+  "type": "commonjs",
   "dependencies": {
+    "chalk": "^5.4.1",
     "lodash": "^4.17.21",
     "openai": "^4.77.0"
   },
   "scripts": {
-    "build": "esbuild --outdir=dist src/main.ts",
-    "start": "yarn build && node dist/main.js"
+    "build": "esbuild --bundle --platform=node --target=node18 --outdir=dist src/main.ts",
+    "start": "yarn build && node --no-deprecation dist/main.js"
   },
   "devDependencies": {
+    "@types/chalk": "^2.2.4",
     "@types/jest": "^29.5.14",
     "@types/lodash": "^4.17.13",
     "@types/node": "^22.10.2",

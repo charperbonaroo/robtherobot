@@ -1,6 +1,6 @@
-import { set } from "lodash";
 import { execFileSync } from "node:child_process";
-import { PathLike, realpathSync } from "node:fs";
+import { PathLike, readFileSync, realpathSync, writeFileSync } from "node:fs";
+import { join, resolve } from "node:path";
 
 export class Workspace {
   #rootDir: string;
@@ -22,31 +22,19 @@ export class Workspace {
   }
 
   getGitInfo(): GitInfo|null {
-    let output: string;
+    let porcelainv1: string;
     try {
-      output = execFileSync(
-        "git", ["status", "--porcelain=v2", "--branch"],
-        { cwd: this.#rootDir, encoding: "utf-8", stdio: ['ignore', 'pipe', 'pipe'] }
-      );
+      porcelainv1 = this.execFile("git", ["status", "--porcelain=v1"]);
     } catch (error) {
       if (error.stderr.includes("not a git repository"))
         return null;
       throw error;
     }
-    const gitInfo: GitInfo = {};
-    for (let line of output.split("\n")) {
-      const fragments = line.split(" ");
-      const sym = fragments.shift();
-      if (sym == "#") {
-        set(gitInfo, fragments.shift()!, fragments.length == 1 ? fragments[0] : fragments);
-      } else if (sym == "?") {
-        gitInfo.untracked ??= [];
-        gitInfo.untracked.push(fragments[0]);
-      } else if (sym == "A.") {
-        console.log(line);
-      } else {
-        console.log({ line, sym, fragments });
-      }
+
+    const branch = this.execFile("git", ["branch", "--show-current"]).trim();
+    const gitInfo: GitInfo = {
+      porcelainv1,
+      branch
     };
     return gitInfo;
   }
@@ -63,17 +51,43 @@ export class Workspace {
     execFileSync("git", ["commit", "--message", message], { cwd: this.#rootDir });
   }
 
-  describe(): any {
-    return {
-      gitInfo: this.getGitInfo(),
+  listAllFiles(depth?: number) {
+    const argv = [".", "-path", "./.git", "-prune", "-o", "-print"];
+    if (typeof depth !== "undefined")
+      argv.push("-maxdepth", depth.toString());
+    return this.execFile("find", argv)
+      .split("\n")
+      .map((line) => resolve(this.#rootDir, line).replace(this.#rootDir, "").replace(/^\//, ""))
+      .filter((line) => line !== "");
+  }
+
+  execFile(file: string, args: readonly string[], cwd?: string|{ cwd: string }) {
+    if (cwd && typeof cwd === "object") {
+      if (Object.keys(cwd).length > 1) {
+        throw new Error(`execFile's 3rd param only supports object with cwd property`)
+      }
+      cwd = cwd.cwd;
     }
+    try {
+      return execFileSync(
+        file, args,
+        { cwd: cwd ? join(this.#rootDir, cwd) : this.#rootDir, encoding: "utf-8", stdio: ['ignore', 'pipe', 'pipe'] });
+    } catch (error) {
+      error.message += "\n" + error.stdout;
+      throw error;
+    }
+  }
+
+  writeFile(file: string, data: string | NodeJS.ArrayBufferView): void {
+    writeFileSync(resolve(this.#rootDir, file), data);
+  }
+
+  readFile(file: string): string {
+    return readFileSync(resolve(this.#rootDir, file), { encoding: "utf-8" });
   }
 }
 
 export interface GitInfo {
-  untracked?: string[];
-  branch?: {
-    head?: string;
-    oid?: string;
-  };
+  porcelainv1?: string;
+  branch?: string;
 }

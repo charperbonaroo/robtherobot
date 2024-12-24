@@ -1,4 +1,4 @@
-import { mkdirSync, rmSync, writeFileSync } from "node:fs";
+import { mkdirSync, rmSync } from "node:fs";
 import { Workspace } from "../src/Workspace";
 import { execFileSync } from "node:child_process";
 
@@ -30,7 +30,7 @@ describe("Workspace", () => {
     it(".getGitInfo returns git info", () => {
       const workspace = new Workspace(directory);
       workspace.gitInit();
-      expect(workspace.getGitInfo()).toEqual({ branch: { head: "master", oid: "(initial)" } });
+      expect(workspace.getGitInfo()).toMatchObject({ branch: "master" });
     });
 
     it(".gitInit initializes a git repository", () => {
@@ -50,10 +50,10 @@ describe("Workspace", () => {
 
     it("describe", () => {
       const workspace = new Workspace(directory);
-      writeFileSync(`${workspace.rootDir}/README.md`, "# Hello, world!");
-      writeFileSync(`${workspace.rootDir}/index.js`, "console.log('Hello, world!');");
-      execFileSync("git", ["add", "README.md"], { cwd: workspace.rootDir });
-      console.log(workspace.describe());
+      workspace.writeFile("README.md", "# Hello, world!");
+      workspace.writeFile("index.js", "console.log('Hello, world!');");
+      workspace.execFile("git", ["add", "README.md"]);
+      expect(workspace.execFile("node", ["index.js"])).toEqual("Hello, world!\n");
     });
   });
 });

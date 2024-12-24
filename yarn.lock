@@ -969,6 +969,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/chalk@npm:^2.2.4":
+  version: 2.2.4
+  resolution: "@types/chalk@npm:2.2.4"
+  dependencies:
+    chalk: "npm:*"
+  checksum: 10c0/77541a759f1038f28549dca6e63cbd4af19c765d7d2e2797b35469e88429960f59959074cd18bcc2cf7ba1f27028d077d9f6594e5bdd08ba7cf469a32b640884
+  languageName: node
+  linkType: hard
+
 "@types/graceful-fs@npm:^4.1.3":
   version: 4.1.9
   resolution: "@types/graceful-fs@npm:4.1.9"
@@ -1380,6 +1389,13 @@ __metadata:
   version: 1.0.30001690
   resolution: "caniuse-lite@npm:1.0.30001690"
   checksum: 10c0/646bd469032afa90400a84dec30a2b00a6eda62c03ead358117e3f884cda8aacec02ec058a6dbee5eaf9714f83e483b9b0eb4fb42febb8076569f5ca40f1d347
+  languageName: node
+  linkType: hard
+
+"chalk@npm:*, chalk@npm:^5.4.1":
+  version: 5.4.1
+  resolution: "chalk@npm:5.4.1"
+  checksum: 10c0/b23e88132c702f4855ca6d25cb5538b1114343e41472d5263ee8a37cccfccd9c4216d111e1097c6a27830407a1dc81fecdf2a56f2c63033d4dbbd88c10b0dcef
   languageName: node
   linkType: hard
 
@@ -3419,9 +3435,11 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "robtherobot@workspace:."
   dependencies:
+    "@types/chalk": "npm:^2.2.4"
     "@types/jest": "npm:^29.5.14"
     "@types/lodash": "npm:^4.17.13"
     "@types/node": "npm:^22.10.2"
+    chalk: "npm:^5.4.1"
     esbuild: "npm:^0.24.2"
     jest: "npm:^29.7.0"
     lodash: "npm:^4.17.21"
