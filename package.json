@@ -8,7 +8,9 @@
     "openai": "^4.77.0"
   },
   "scripts": {
-    "build": "esbuild --bundle --platform=node --target=node18 --outdir=dist src/main.ts",
+    "type-check": "tsc --noEmit",
+    "build:skip-types": "esbuild --bundle --platform=node --target=node18 --outdir=dist src/main.ts",
+    "build": "yarn type-check && yarn build:skip-types",
     "start": "yarn build && node --no-deprecation dist/main.js"
   },
   "devDependencies": {

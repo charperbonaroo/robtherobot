@@ -87,7 +87,9 @@ function processMessage(content: string) {
       try {
         return { code, output: runInContext(code, context) };
       } catch (error) {
-        return { code, output: `ERROR: ${error.message}` };
+        if (error instanceof Error)
+          return { code, output: `ERROR: ${error.message}` };
+        throw error;
       }
     })
     .map(({ code, output }, _, arr) =>

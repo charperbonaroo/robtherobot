@@ -26,7 +26,10 @@ export class Workspace {
     try {
       porcelainv1 = this.execFile("git", ["status", "--porcelain=v1"]);
     } catch (error) {
-      if (error.stderr.includes("not a git repository"))
+      if (error instanceof Error
+        && "stderr" in error
+        && typeof error.stderr === "string"
+        && error.stderr.includes("not a git repository"))
         return null;
       throw error;
     }
@@ -71,9 +74,15 @@ export class Workspace {
     try {
       return execFileSync(
         file, args,
-        { cwd: cwd ? join(this.#rootDir, cwd) : this.#rootDir, encoding: "utf-8", stdio: ['ignore', 'pipe', 'pipe'] });
-    } catch (error) {
-      error.message += "\n" + error.stdout;
+        { cwd: cwd ? join(this.#rootDir, cwd) : this.#rootDir,
+          encoding: "utf-8",
+          stdio: ['ignore', 'pipe', 'pipe']
+        });
+    } catch (error: unknown) {
+      if (!(error instanceof Error))
+        throw error;
+      if ("stdout" in error)
+        error.message += "\n" + error.stdout;
       throw error;
     }
   }
