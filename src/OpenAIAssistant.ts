@@ -23,6 +23,10 @@ to see if there's a known tool manager available (like nvm, asdf, rvm, etc)
 Be sure to continue until the user's problem is solved. Don't ask for
 confirmation, the session is NOT interactive. Just do your job and be sure to
 complete it.
+
+Be sure not to respond with instructions how to do something. I expect you to
+solve the user's problem. Answer briefly, don't respond with code, just fix it
+yourself.
 `;
 
 export class OpenAIAssistant {
