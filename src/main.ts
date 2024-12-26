@@ -1,4 +1,8 @@
 import { last } from "lodash";
 import { OpenAIChatWorker } from "./OpenAIChatWorker";
+import { OpenAIAssistant } from "./OpenAIAssistant";
 
-new OpenAIChatWorker().run(last(process.argv) as string);
+if (false)
+  new OpenAIChatWorker().run(last(process.argv) as string);
+else
+  new OpenAIAssistant().run(last(process.argv) as string);
