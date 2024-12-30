@@ -2,26 +2,34 @@ import OpenAI from "openai";
 import { resolve } from "node:path";
 import { AITool } from "./AITool";
 import { OpenAIAssistant } from "./OpenAIAssistant";
-import { ShellTool } from "./tools/ShellTool";
 import { mkdirSync, realpathSync } from "node:fs";
 import { AssistantTool } from "./tools/AssistantTool";
+import { VectorStoreManager } from "./VectorStoreManager";
+import { FileWritingShellTool } from "./tools/FileWritingShellTool";
+import { WorkspaceUploadTool } from "./tools/WorkspaceUploadTool";
+
+const FILE_WRITE_THRESHOLD = 1000;
 
 export class OpenAIAssistantManager {
   #manager: OpenAIAssistant;
   #directory: string;
+  #vectorStoreManager: VectorStoreManager;
   #log: (...args: any[]) => void;
 
   constructor(directory?: string) {
     this.#directory = OpenAIAssistantManager.ensureWorkingDirectory(directory);
     this.#log = (...args: any[]) => console.log(...args);
     this.#log("WORKING DIR", this.#directory);
+    this.#vectorStoreManager = new VectorStoreManager(this.#directory);
 
-    const tools = OpenAIAssistantManager.ROLES.map((role) => new AssistantTool(role.id, new OpenAIAssistant({
+    const roles = OpenAIAssistantManager.createRoles(this.#directory, this.#vectorStoreManager, FILE_WRITE_THRESHOLD);
+    const tools = roles.map((role) => new AssistantTool(role.id, new OpenAIAssistant({
       name: `RobTheRobot ${role.name}`,
       instructions: role.instructions,
       tools: role.tools,
       directory: this.#directory,
       log: (...args: any[]) => this.#log(role.name, ...args),
+      vectorStoreManager: this.#vectorStoreManager,
     })));
 
     let instructions = `
@@ -32,16 +40,19 @@ export class OpenAIAssistantManager {
 
     If QA finds the task not completed, you should order the developer to fix it.
 
+    Don't ask the user to upload files. You, and your employees, can read them
+    using the shell tool.
+
     The following roles are available to you (as tools):
     `;
 
-    for (const role of OpenAIAssistantManager.ROLES) {
+    for (const role of roles) {
       instructions += `
         ## ${role.name}
 
         ID ${role.id}
 
-        The assistant has access to the following tools:\
+        The assistant has access to the following tools:
 
         ${JSON.stringify(role.tools, null, 2)}
 
@@ -57,9 +68,9 @@ export class OpenAIAssistantManager {
       instructions,
       directory: this.#directory,
       log: (...args: any[]) => this.#log("Manager", ...args),
+      vectorStoreManager: this.#vectorStoreManager,
     });
   }
-
 
   async run(prompt: string): Promise<void> {
     await this.#clearAssistants();
@@ -75,7 +86,7 @@ export class OpenAIAssistantManager {
 }
 
 export namespace OpenAIAssistantManager {
-  export function ensureWorkingDirectory(directory?: string|undefined): string {
+  export function ensureWorkingDirectory(directory?: string | undefined): string {
     if (!directory)
       directory = resolve(`../robtherobot-tmp/tmp-${Math.random().toString(36).substring(7)}`);
     mkdirSync(directory, { recursive: true });
@@ -89,11 +100,15 @@ export namespace OpenAIAssistantManager {
     tools: AITool[];
   }
 
-  export const ROLES: Role[] = [{
-    id: "developer",
-    name: "Developer",
-    tools: [new ShellTool()],
-    instructions: `
+  export function createRoles(directory: string, vectorStoreManager: VectorStoreManager, threshold: number): Role[] {
+    const shellTool = new FileWritingShellTool(directory, vectorStoreManager, threshold);
+    const uploadTool = new WorkspaceUploadTool(vectorStoreManager);
+
+    return [{
+      id: "developer",
+      name: "Developer",
+      tools: [shellTool, uploadTool],
+      instructions: `
       You're a senior developer at a software company. You will be given an arbitrary
       task and you're expected to complete it.
 
@@ -114,12 +129,14 @@ export namespace OpenAIAssistantManager {
       Be sure not to respond with instructions how to do something. I expect you to
       solve the user's problem. Answer briefly, don't respond with code, just fix it
       yourself.
+
+      Don't ask the user to upload files. You can read them using the shell tool.
     `,
-  }, {
-    id: "qa",
-    name: "Quality Assurance",
-    tools: [new ShellTool()],
-    instructions: `
+    }, {
+      id: "qa",
+      name: "Quality Assurance",
+      tools: [shellTool, uploadTool],
+      instructions: `
       You're a senior quality assurance at a software company. You will be given
       an arbitrary task and you're expected to complete it.
 
@@ -131,6 +148,9 @@ export namespace OpenAIAssistantManager {
 
       The the previous developer's job was to create an application, verify it
       runs. Verify it has tests.
+
+      Don't ask the user to upload files. You can read them using the shell tool.
     `,
-  }]
+    }];
+  }
 }

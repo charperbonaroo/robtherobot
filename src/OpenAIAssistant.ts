@@ -2,10 +2,13 @@ import { appendFileSync, mkdirSync, writeFileSync } from "fs";
 import OpenAI from "openai";
 import { AITool } from "./AITool";
 import { chain, omit } from "lodash";
+import { formatDateAsISO } from "./formatDateAsISO";
+import { VectorStoreManager } from "./VectorStoreManager";
+import { inspect } from "util";
 
 export class OpenAIAssistant {
   #openai: OpenAI;
-  #assistant: OpenAI.Beta.Assistants.Assistant|null = null;
+  #assistant: OpenAI.Beta.Assistants.Assistant | null = null;
   #directory: string;
   #thread: OpenAI.Beta.Threads.Thread | null = null;
   #stream: ReturnType<OpenAI.Beta.Threads.Runs["stream"]> | null = null;
@@ -13,18 +16,20 @@ export class OpenAIAssistant {
   #name: string;
   #tools: AITool[];
   #log: (...args: any[]) => void;
-  #logFile: string|null = null;
+  #logFile: string | null = null;
   #messages: Map<string, OpenAI.Beta.Threads.Message> = new Map();
   #steps: OpenAIAssistant.Step[] = [];
-  #complete: ((resolveValue: OpenAIAssistant.Step[]|null, rejectValue: Error|null) => void)|null = null;
+  #complete: ((resolveValue: OpenAIAssistant.Step[] | null, rejectValue: Error | null) => void) | null = null;
+  #vectorStoreManager: VectorStoreManager;
 
-  constructor({ instructions, name, tools, directory, log }: OpenAIAssistant.Props) {
+  constructor({ instructions, name, tools, directory, log, vectorStoreManager }: OpenAIAssistant.Props) {
     this.#openai = new OpenAI();
     this.#instructions = instructions;
     this.#name = name;
     this.#tools = tools;
     this.#directory = directory;
     this.#log = log;
+    this.#vectorStoreManager = vectorStoreManager;
   }
 
   get name() { return this.#name; }
@@ -40,7 +45,7 @@ export class OpenAIAssistant {
       };
 
       this.#thread = await this.#openai.beta.threads.create();
-      this.#logFile = `logs/${formatDateAsISO(new Date())}-${this.#thread!.id}.jsonl`;
+      this.#logFile = `logs/${formatDateAsISO()}-${this.#thread!.id}.jsonl`;
 
       mkdirSync("logs", { recursive: true });
       writeFileSync(this.#logFile, JSON.stringify({ directory: this.#directory }, null, 2) + "\n\n");
@@ -49,6 +54,10 @@ export class OpenAIAssistant {
         this.#thread.id, { role: "user", content: prompt });
 
       await this.#loadAssistant();
+
+      await this.#openai.beta.assistants.update(this.#assistant!.id, {
+        tool_resources: { file_search: { vector_store_ids: [await this.#vectorStoreManager!.getId()] } },
+      });
 
       this.#stream = this.#openai.beta.threads.runs.stream(this.#thread!.id, {
         assistant_id: this.#assistant!.id
@@ -109,7 +118,8 @@ export class OpenAIAssistant {
             output: JSON.parse(toolCall.function.output!),
           }))
       };
-      this.#steps.push(functionCallsStep);
+      if (functionCallsStep.functionCalls.length > 0)
+        this.#steps.push(functionCallsStep);
     } else if (step.step_details.type === "message_creation") {
       const message = this.#messages.get(step.step_details.message_creation.message_id);
       if (!message) throw new Error("Message not found?");
@@ -134,20 +144,26 @@ export class OpenAIAssistant {
     this.#assistant ??= await this.#openai.beta.assistants.create({
       name: `Rob the Robot - ${this.#name}`,
       instructions: this.#instructions,
-      tools: this.#tools.map((tool) => ({
-        type: "function",
-        function: {
-          strict: true,
-          name: tool.name,
-          description: tool.description,
-          parameters: {
-            type: "object",
-            required: chain(tool.params).keys().value(),
-            additionalProperties: false,
-            properties: chain(tool.params).mapValues((param) => omit(param, "required", "run")).value()
-          }
+      tools: [{
+        type: "file_search",
+        file_search: {
+          max_num_results: 10,
         }
-      })),
+      } as OpenAI.Beta.Assistants.AssistantTool]
+        .concat(this.#tools.map((tool) => ({
+          type: "function",
+          function: {
+            strict: true,
+            name: tool.name,
+            description: tool.description,
+            parameters: {
+              type: "object",
+              required: chain(tool.params).keys().value(),
+              additionalProperties: false,
+              properties: chain(tool.params).mapValues((param) => omit(param, "required", "run")).value()
+            }
+          }
+        }))),
       model: "gpt-4o"
       // model: "gpt-4o-mini"
       // model: "o1-mini"
@@ -174,6 +190,7 @@ export namespace OpenAIAssistant {
     tools: AITool[];
     directory: string;
     log: (...args: any[]) => void;
+    vectorStoreManager: VectorStoreManager;
   }
 
   export interface FunctionCall {
@@ -192,15 +209,4 @@ export namespace OpenAIAssistant {
   }
 
   export type Step = FunctionCallsStep | MessageCreationStep;
-}
-
-function formatDateAsISO(date: Date) {
-  const year = date.getFullYear();
-  const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are 0-indexed
-  const day = String(date.getDate()).padStart(2, '0');
-  const hours = String(date.getHours()).padStart(2, '0');
-  const minutes = String(date.getMinutes()).padStart(2, '0');
-  const seconds = String(date.getSeconds()).padStart(2, '0');
-
-  return `${year}${month}${day}T${hours}${minutes}${seconds}`;
 }

@@ -37,7 +37,7 @@ export class AssistantTool implements AITool {
 
     console.log(chalk.red(`$ ${prompt}`));
     const output = await this.#assistant.run(prompt);
-    // console.log(chalk.gray(inspect(output, false, null, true)));
+    console.log(chalk.gray(inspect(output, false, null, true)));
     return output;
   }
 }

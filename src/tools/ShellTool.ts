@@ -47,7 +47,7 @@ export class ShellTool implements AITool {
     return this.exec(command, realpathCwd, timeout);
   }
 
-  async exec(command: string, cwd: string, timeout: number) {
+  async exec(command: string, cwd: string, timeout: number): Promise<ShellTool.ExecResult> {
     console.log(chalk.red(`$ ${command}`));
     return new Promise((resolve) => {
       exec(command, { encoding: "utf-8", cwd, timeout: timeout * 1000 }, (error, stdout, stderr) => {
@@ -60,5 +60,13 @@ export class ShellTool implements AITool {
         resolve({ error, stdout, stderr });
       });
     });
+  }
+}
+
+export namespace ShellTool {
+  export interface ExecResult {
+    stdout: string|null;
+    stderr: string|null;
+    error: Error|null;
   }
 }

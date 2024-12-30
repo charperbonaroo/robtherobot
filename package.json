@@ -8,6 +8,7 @@
     "openai": "^4.77.0"
   },
   "scripts": {
+    "clean": "rm -rf dist logs/* .tmp ../robtherobot-tmp",
     "type-check": "tsc --noEmit",
     "build:skip-types": "esbuild --bundle --platform=node --target=node18 --outdir=dist src/main.ts",
     "build": "yarn type-check && yarn build:skip-types",
