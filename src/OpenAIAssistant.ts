@@ -4,7 +4,6 @@ import { AITool } from "./AITool";
 import { chain, omit } from "lodash";
 import { formatDateAsISO } from "./formatDateAsISO";
 import { VectorStoreManager } from "./VectorStoreManager";
-import { inspect } from "util";
 
 export class OpenAIAssistant {
   #openai: OpenAI;

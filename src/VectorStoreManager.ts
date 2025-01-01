@@ -4,7 +4,9 @@ import OpenAI from "openai";
 import { createReadStream } from "fs";
 import { extname, join } from "path";
 
-const EXTS = ["c", "cpp", "css", "csv", "doc", "docx", "gif", "go", "html", "java", "jpeg", "jpg", "js", "json", "md", "pdf", "php", "pkl", "png", "pptx", "py", "rb", "tar", "tex", "ts", "txt", "webp", "xlsx", "xml", "zip"];
+const EXTS = ["c", "cpp", "css", "csv", "doc", "docx", "gif", "go", "html",
+  "java", "jpeg", "jpg", "js", "json", "md", "pdf", "php", "pkl", "png", "pptx",
+  "py", "rb", "tar", "tex", "ts", "txt", "webp", "xlsx", "xml", "zip"];
 
 export class VectorStoreManager {
   #openai = new OpenAI();
