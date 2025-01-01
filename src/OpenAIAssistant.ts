@@ -163,7 +163,7 @@ export class OpenAIAssistant {
             }
           }
         }))),
-      model: "gpt-4o"
+      model: "gpt-4o-mini"
       // model: "gpt-4o-mini"
       // model: "o1-mini"
     });

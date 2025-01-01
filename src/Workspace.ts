@@ -26,7 +26,8 @@ export class Workspace {
     try {
       porcelainv1 = this.execFile("git", ["status", "--porcelain=v1"]);
     } catch (error) {
-      if (error instanceof Error
+      if (error
+        && typeof error === "object"
         && "stderr" in error
         && typeof error.stderr === "string"
         && error.stderr.includes("not a git repository"))

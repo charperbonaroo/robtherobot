@@ -1,0 +1,27 @@
+name: "XML feed reader"
+entrypoint: home
+variables:
+  xml_feed_url: The URL to load XML data from
+  xml_feed_file: >
+    A filename relative to the working directory to store the raw XML feed in.
+  config_description: Description of the XML feed's structure
+
+steps:
+  home:
+    type: llm-gpt4o
+    instruction: >
+      If there is no xml_feed_url yet, ask the user. If there is, continue to
+      the next step. Don't forget to assign a xml_feed_file variable.
+    next: load-xml
+  load-xml:
+    type: llm-gpt4o
+    instruction: >
+      Load the xml_feed_url's contents to a file named xml_feed_file. When
+      completed, continue to the next step.
+    next: describe-xml
+  describe-xml:
+    type: llm-gpt4o
+    instruction: >
+      Read (some of the) XML data in file xml_feed_file. Note that the file
+      might be really big! Don't read it all at once. You can upload it to your
+      workspace or use shell commands to analyze (part) of the XML file.
