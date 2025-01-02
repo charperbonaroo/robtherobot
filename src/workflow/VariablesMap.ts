@@ -41,4 +41,8 @@ export class VariablesMap {
       if (Object.hasOwn(variables, key))
         this.set(key, variables[key]);
   }
+
+  toObject() {
+    return Object.fromEntries(this.#values.entries());
+  }
 }

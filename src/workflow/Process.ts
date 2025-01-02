@@ -3,15 +3,15 @@ import { Activity } from "./Activity";
 import { Config } from "./Config";
 import { VariablesMap } from "./VariablesMap";
 import { last } from "lodash";
-import { OpenAIAssistant } from "../OpenAIAssistant";
+import { OpenAIAssistantStream } from "../OpenAIAssistantStream";
 
 export class Process {
   #config: Config;
   #activities: Activity[] = [];
   #variables: VariablesMap;
-  #assistant: OpenAIAssistant;
+  #assistant: OpenAIAssistantStream;
 
-  constructor(assistant: OpenAIAssistant, config: Config, variables?: Record<string, unknown>) {
+  constructor(assistant: OpenAIAssistantStream, config: Config, variables?: Record<string, unknown>) {
     this.#assistant = assistant;
     this.#config = config;
 
@@ -32,12 +32,12 @@ export class Process {
       const result = await this.#activity!.run();
       if (!result.nextStep) return;
 
-      this.#activity = new Activity(this.#assistant, this.#config.steps[result.nextStep]);
+      this.#activity = new Activity(this.#assistant, this.#variables, this.#config.steps[result.nextStep]);
     }
   }
 
   #assignNextActivity() {
-    this.#activity = new Activity(this.#assistant, this.#entrypointStep);
+    this.#activity = new Activity(this.#assistant, this.#variables, this.#entrypointStep);
   }
 
   get #activity(): Activity|null {

@@ -1,4 +1,4 @@
-import { Reference } from "@/Reference";
+import { Reference } from "../Reference";
 import { AITool } from "../AITool";
 import { Process } from "../workflow/Process";
 

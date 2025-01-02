@@ -1,5 +1,5 @@
 import { AITool } from "@/AITool";
-import { OpenAIAssistant } from "@/OpenAIAssistant";
+import { OpenAIAssistantStream } from "@/OpenAIAssistantStream";
 import chalk from "chalk";
 import { inspect } from "util";
 
@@ -12,9 +12,9 @@ export class AssistantTool implements AITool {
   })
 
   #name: string;
-  #assistant: OpenAIAssistant;
+  #assistant: OpenAIAssistantStream;
 
-  constructor(name: string, assistant: OpenAIAssistant) {
+  constructor(name: string, assistant: OpenAIAssistantStream) {
     this.#name = name;
     this.#assistant = assistant;
   }

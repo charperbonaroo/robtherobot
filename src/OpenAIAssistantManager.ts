@@ -1,7 +1,7 @@
 import OpenAI from "openai";
 import { resolve } from "node:path";
 import { AITool } from "./AITool";
-import { OpenAIAssistant } from "./OpenAIAssistant";
+import { OpenAIAssistantStream } from "./OpenAIAssistantStream";
 import { mkdirSync, realpathSync } from "node:fs";
 import { AssistantTool } from "./tools/AssistantTool";
 import { VectorStoreManager } from "./VectorStoreManager";
@@ -11,7 +11,7 @@ import { WorkspaceUploadTool } from "./tools/WorkspaceUploadTool";
 const FILE_WRITE_THRESHOLD = 1000;
 
 export class OpenAIAssistantManager {
-  #manager: OpenAIAssistant;
+  #manager: OpenAIAssistantStream;
   #directory: string;
   #vectorStoreManager: VectorStoreManager;
   #log: (...args: any[]) => void;
@@ -23,12 +23,11 @@ export class OpenAIAssistantManager {
     this.#vectorStoreManager = new VectorStoreManager(this.#directory);
 
     const roles = OpenAIAssistantManager.createRoles(this.#directory, this.#vectorStoreManager, FILE_WRITE_THRESHOLD);
-    const tools = roles.map((role) => new AssistantTool(role.id, new OpenAIAssistant({
+    const tools = roles.map((role) => new AssistantTool(role.id, new OpenAIAssistantStream({
       name: `RobTheRobot ${role.name}`,
       instructions: role.instructions,
       tools: role.tools,
       directory: this.#directory,
-      log: (...args: any[]) => this.#log(role.name, ...args),
       vectorStoreManager: this.#vectorStoreManager,
     })));
 
@@ -62,12 +61,11 @@ export class OpenAIAssistantManager {
       `;
     }
 
-    this.#manager = new OpenAIAssistant({
+    this.#manager = new OpenAIAssistantStream({
       name: `RobTheRobot Manager`,
       tools,
       instructions,
       directory: this.#directory,
-      log: (...args: any[]) => this.#log("Manager", ...args),
       vectorStoreManager: this.#vectorStoreManager,
     });
   }

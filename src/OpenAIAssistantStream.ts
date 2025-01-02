@@ -4,8 +4,10 @@ import { AITool } from "./AITool";
 import { chain, omit } from "lodash";
 import { formatDateAsISO } from "./formatDateAsISO";
 import { VectorStoreManager } from "./VectorStoreManager";
+import chalk from "chalk";
+import { inspect } from "util";
 
-export class OpenAIAssistant {
+export class OpenAIAssistantStream {
   #openai: OpenAI;
   #assistant: OpenAI.Beta.Assistants.Assistant | null = null;
   #directory: string;
@@ -14,20 +16,19 @@ export class OpenAIAssistant {
   #instructions: string;
   #name: string;
   #tools: AITool[];
-  #log: (...args: any[]) => void;
   #logFile: string | null = null;
   #messages: Map<string, OpenAI.Beta.Threads.Message> = new Map();
-  #steps: OpenAIAssistant.Step[] = [];
-  #complete: ((resolveValue: OpenAIAssistant.Step[] | null, rejectValue: Error | null) => void) | null = null;
+  #steps: OpenAIAssistantStream.Step[] = [];
+  #complete: ((resolveValue: OpenAIAssistantStream.Step[] | null, rejectValue: Error | null) => void) | null = null;
   #vectorStoreManager: VectorStoreManager;
+  #running = false;
 
-  constructor({ instructions, name, tools, directory, log, vectorStoreManager }: OpenAIAssistant.Props) {
+  constructor({ instructions, name, tools, directory, vectorStoreManager }: OpenAIAssistantStream.Props) {
     this.#openai = new OpenAI();
     this.#instructions = instructions;
     this.#name = name;
     this.#tools = tools;
     this.#directory = directory;
-    this.#log = log;
     this.#vectorStoreManager = vectorStoreManager;
   }
 
@@ -36,12 +37,19 @@ export class OpenAIAssistant {
   get steps() { return this.#steps; }
   get tools() { return this.#tools; }
 
-  async run(prompt: string): Promise<OpenAIAssistant.Step[]> {
+  async run(prompt: string): Promise<OpenAIAssistantStream.Step[]> {
+    if (this.#running)
+      throw new Error(`Assistant already running.`)
+    this.#running = true;
+    this.#steps = [];
     return new Promise(async (resolve, reject) => {
       this.#complete = (resolveValue, rejectValue) => {
+        this.#running = false;
         if (resolveValue) resolve(resolveValue);
         else reject(rejectValue ?? new Error(`Rejected without error`));
       };
+
+      console.log(chalk.grey(`create thread`));
 
       this.#thread = await this.#openai.beta.threads.create();
       this.#logFile = `logs/${formatDateAsISO()}-${this.#thread!.id}.jsonl`;
@@ -49,21 +57,19 @@ export class OpenAIAssistant {
       mkdirSync("logs", { recursive: true });
       writeFileSync(this.#logFile, JSON.stringify({ directory: this.#directory }, null, 2) + "\n\n");
 
+      console.log(chalk.grey(`create message`, prompt));
+
       await this.#openai.beta.threads.messages.create(
         this.#thread.id, { role: "user", content: prompt });
 
       await this.#loadAssistant();
-
-      await this.#openai.beta.assistants.update(this.#assistant!.id, {
-        tool_resources: { file_search: { vector_store_ids: [await this.#vectorStoreManager!.getId()] } },
-      });
 
       this.#stream = this.#openai.beta.threads.runs.stream(this.#thread!.id, {
         assistant_id: this.#assistant!.id
       });
 
       await this.#handleStream(this.#stream);
-    })
+    });
   }
 
   async #handleStream(stream: ReturnType<OpenAI.Beta.Threads.Runs["stream"]>): Promise<void> {
@@ -89,7 +95,12 @@ export class OpenAIAssistant {
       if (call.type === "function") {
         const params = JSON.parse(call.function.arguments);
         const tool = this.#tools.find((tool) => tool.name === call.function.name);
-        if (!tool) throw new Error(`Tool "${call.function.name}" not found?`);
+        if (!tool) {
+          const result = `Tool ${inspect(call.function.name)} not found...`;
+          console.warn({ tool, result })
+          tool_outputs.push({ tool_call_id: call.id, output: JSON.stringify(result) });
+          continue;
+        }
 
         const result = await tool.run(params, this.#directory);
         tool_outputs.push({ tool_call_id: call.id, output: JSON.stringify(result) });
@@ -108,7 +119,7 @@ export class OpenAIAssistant {
 
   async "#ON_thread.run.step.completed"(step: OpenAI.Beta.Threads.Runs.RunStep) {
     if (step.step_details.type === "tool_calls") {
-      const functionCallsStep: OpenAIAssistant.FunctionCallsStep = {
+      const functionCallsStep: OpenAIAssistantStream.FunctionCallsStep = {
         functionCalls: step.step_details.tool_calls
           .filter((toolCall) => toolCall.type === "function")
           .map((toolCall) => ({
@@ -123,7 +134,7 @@ export class OpenAIAssistant {
       const message = this.#messages.get(step.step_details.message_creation.message_id);
       if (!message) throw new Error("Message not found?");
 
-      const messageCreationStep: OpenAIAssistant.MessageCreationStep = {
+      const messageCreationStep: OpenAIAssistantStream.MessageCreationStep = {
         role: message.role,
         content: message.content,
       };
@@ -140,33 +151,39 @@ export class OpenAIAssistant {
   }
 
   async #loadAssistant(): Promise<OpenAI.Beta.Assistants.Assistant> {
-    this.#assistant ??= await this.#openai.beta.assistants.create({
-      name: `Rob the Robot - ${this.#name}`,
-      instructions: this.#instructions,
-      tools: [{
-        type: "file_search",
-        file_search: {
-          max_num_results: 10,
-        }
-      } as OpenAI.Beta.Assistants.AssistantTool]
-        .concat(this.#tools.map((tool) => ({
-          type: "function",
-          function: {
-            strict: true,
-            name: tool.name,
-            description: tool.description,
-            parameters: {
-              type: "object",
-              required: chain(tool.params).keys().value(),
-              additionalProperties: false,
-              properties: chain(tool.params).mapValues((param) => omit(param, "required", "run")).value()
-            }
+    if (!this.#assistant) {
+      this.#assistant = await this.#openai.beta.assistants.create({
+        name: `Rob the Robot - ${this.#name}`,
+        instructions: this.#instructions,
+        tools: [{
+          type: "file_search",
+          file_search: {
+            max_num_results: 10,
           }
-        }))),
-      model: "gpt-4o-mini"
-      // model: "gpt-4o-mini"
-      // model: "o1-mini"
-    });
+        } as OpenAI.Beta.Assistants.AssistantTool]
+          .concat(this.#tools.map((tool) => ({
+            type: "function",
+            function: {
+              strict: true,
+              name: tool.name,
+              description: tool.description,
+              parameters: {
+                type: "object",
+                required: chain(tool.params).keys().value(),
+                additionalProperties: false,
+                properties: chain(tool.params).mapValues((param) => omit(param, "required", "run")).value()
+              }
+            }
+          }))),
+        model: "gpt-4o-mini"
+        // model: "gpt-4o"
+        // model: "o1-mini"
+      });
+
+      await this.#openai.beta.assistants.update(this.#assistant!.id, {
+        tool_resources: { file_search: { vector_store_ids: [await this.#vectorStoreManager!.getId()] } },
+      });
+    }
     return this.#assistant;
   }
 
@@ -182,13 +199,12 @@ export class OpenAIAssistant {
   }
 }
 
-export namespace OpenAIAssistant {
+export namespace OpenAIAssistantStream {
   export interface Props {
     name: string;
     instructions: string;
     tools: AITool[];
     directory: string;
-    log: (...args: any[]) => void;
     vectorStoreManager: VectorStoreManager;
   }
 

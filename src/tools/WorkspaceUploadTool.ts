@@ -2,10 +2,12 @@ import { AITool } from "@/AITool";
 import { formatDateAsISO } from "@/formatDateAsISO";
 import { VectorStoreManager } from "@/VectorStoreManager";
 import chalk from "chalk";
+import { fromPairs } from "lodash";
 import { exec } from "node:child_process";
 import { writeFile } from "node:fs/promises";
 import { join } from "node:path";
 import { inspect } from "node:util";
+import { stringify } from "yaml";
 
 const description = `
 List or Uploads a list of files to your vector store.
@@ -13,6 +15,9 @@ List or Uploads a list of files to your vector store.
 The pattern is passed to \`find $PATTERN -type f\`. A value of "**/*" uploads all
 files. All matching files are returned, and all matching files are uploaded
 unless 'preview' was true.
+
+Some files might be renamed to bypass the filetype restrictions of the vector
+storage.
 
 The pattern is always executed relative to the root of the workspace.
 `;
@@ -42,9 +47,14 @@ export class WorkspaceUploadTool implements AITool {
   }
 
   async run(params: Record<string, unknown>, directory: string):
-  Promise<{ filesList?: string, files?: string[], message: string; uploaded: boolean; }> {
+  Promise<{
+    filesList?: string;
+    files?: Record<string, { ok: string }|{error: string}|"">;
+    message: string;
+    uploaded: boolean;
+  }> {
     const { pattern, preview } = params as { pattern: string, preview: boolean };
-    const files = await new Promise<string[]>((resolve, reject) => {
+    let files = await new Promise<Record<string, { ok: string }|{error: string}|"">>((resolve, reject) => {
       const command = `find ${pattern} -type f`;
       console.log(this.name, chalk.red(`$ ${command}`));
       exec(command, { cwd: directory, encoding: "utf-8" }, (error, stdout, stderr) => {
@@ -58,19 +68,19 @@ export class WorkspaceUploadTool implements AITool {
           console.log({ error });
           reject(error);
         }
-        else resolve(stdout.split(/\n/g).filter((_) => _));
+        else resolve(fromPairs(stdout.split(/\n/g).filter((_) => _).map((_) => [_, ""])));
       });
     });
     let uploaded = false;
     if (!preview) {
-      await this.#vectorStoreManager.uploadFiles(files);
+      files = await this.#vectorStoreManager.uploadFiles(Object.keys(files));
       uploaded = true;
       console.log(this.name, chalk.grey(`Uploaded ${files.length} files matching ${pattern}`));
     }
-    if (files.length > TRUNCATE_THRESHOLD) {
+    if (Object.keys(files).length > TRUNCATE_THRESHOLD) {
       const filename = `${formatDateAsISO()}-files-${pattern.replace(/[^a-z]+/g, "-")}.txt`;
       const filesList = join(directory, filename);
-      await writeFile(filesList, files.join("\n") + "\n");
+      await writeFile(filesList, stringify(files));
       await this.#vectorStoreManager.uploadFiles([filename]);
       return { filesList, uploaded,
         message: `Because there were a large number of files, `
