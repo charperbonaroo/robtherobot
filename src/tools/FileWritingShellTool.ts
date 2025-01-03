@@ -47,7 +47,7 @@ export class FileWritingShellTool extends ShellTool {
         const path = filename + suffix;
         const fullPath = join(this.#directory, path);
         await writeFile(fullPath, output[prop]);
-        output[prop] = `Written to ${inspect(path)}`;
+        output[prop] = `Written to ${inspect(path)}, available in your vector store!`;
         uploadables.push(path);
         console.log(chalk.gray(`uploaded ${prop} as ${inspect(path)}`));
       }

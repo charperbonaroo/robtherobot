@@ -41,7 +41,8 @@ export class VectorStoreManager {
       files.push(Object.assign(stream, { name: filePath + append }));
       uploadedFiles[filePath] = { ok: filePath + append };
     }
-    await this.#openai.beta.vectorStores.fileBatches.uploadAndPoll(id, { files });
+    const result = await this.#openai.beta.vectorStores.fileBatches.uploadAndPoll(id, { files });
+    console.log(result);
     return uploadedFiles;
   }
 

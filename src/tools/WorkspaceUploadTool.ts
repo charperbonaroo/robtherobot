@@ -75,7 +75,7 @@ export class WorkspaceUploadTool implements AITool {
     if (!preview) {
       files = await this.#vectorStoreManager.uploadFiles(Object.keys(files));
       uploaded = true;
-      console.log(this.name, chalk.grey(`Uploaded ${files.length} files matching ${pattern}`));
+      console.log(this.name, chalk.grey(`Uploaded ${Object.keys(files).length} files matching ${pattern}`));
     }
     if (Object.keys(files).length > TRUNCATE_THRESHOLD) {
       const filename = `${formatDateAsISO()}-files-${pattern.replace(/[^a-z]+/g, "-")}.txt`;
@@ -86,6 +86,10 @@ export class WorkspaceUploadTool implements AITool {
         message: `Because there were a large number of files, `
          + `I've uploaded the file-list to ${inspect(filename)} in your vector store.` };
     }
-    return { files, uploaded, message: "Here's the filelist." };
+    return {
+      files,
+      uploaded,
+      message: "Here's the filelist. The files are stored in your vector store!"
+    };
   }
 }

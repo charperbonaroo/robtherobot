@@ -31,7 +31,7 @@ export class WorkflowManager {
     const name = `RobTheRobot Workflow For ${config.name}`;
     const tools = [
       new PromptTool(),
-      new FileWritingShellTool(directory, vectorStoreManager, 1000),
+      new FileWritingShellTool(directory, vectorStoreManager, 10_000),
       new WorkspaceUploadTool(vectorStoreManager),
       new ProcessVariableReadTool(processRef),
       new ProcessVariableWriteTool(processRef),
@@ -51,6 +51,8 @@ export class WorkflowManager {
   getInstructions(config: Config) {
     const instructions = [
       `You're an assistant working in a workflow engine.`,
+      `Note that you have access to a shell tool, which might upload the output
+      to a file. The file is uploaded to your vector store. Use file_search to access it.`,
       "The following variables are available in this workflow:",
       stringify(config.variables),
       "You can read & write them using read-variable and write-variable.",
