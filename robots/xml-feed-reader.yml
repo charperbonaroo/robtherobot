@@ -30,3 +30,15 @@ steps:
       to convert the XML feed to a list of job openings. Describe how to get the
       properties id, title, description, min/max hours, hourly rate or monthly
       compensation, job type, and job requirements.
+    next: write-class
+  write-class:
+    type: llm-gpt4o
+    instruction: >
+      Create a NPM/NodeJS package with a `new XmlFeeds(url).getJobOpenings()`
+      class and method that loads all xml feed's job openings using the data
+      from the xml feeds.
+      The function must return an array of objects with the following
+      properties: id, url, title, description, boost_weight, is_top_job,
+      company_name, country_code, location (which is the city).
+      Be sure to create an appropriate package.json for the dependencies, and
+      write a test. Make sure the test succeeds.
