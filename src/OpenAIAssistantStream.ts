@@ -152,14 +152,11 @@ export class OpenAIAssistantStream {
 
   async #loadAssistant(): Promise<OpenAI.Beta.Assistants.Assistant> {
     if (!this.#assistant) {
-      this.#assistant = await this.#openai.beta.assistants.create({
+      const opts = {
         name: `Rob the Robot - ${this.#name}`,
         instructions: this.#instructions,
         tools: [{
-          type: "file_search",
-          file_search: {
-            max_num_results: 10,
-          }
+          type: "file_search"
         } as OpenAI.Beta.Assistants.AssistantTool]
           .concat(this.#tools.map((tool) => ({
             type: "function",
@@ -175,10 +172,12 @@ export class OpenAIAssistantStream {
               }
             }
           }))),
-        model: "gpt-4o-mini"
+        model: "gpt-4o"
         // model: "gpt-4o"
         // model: "o1-mini"
-      });
+      };
+      console.log(opts);
+      this.#assistant = await this.#openai.beta.assistants.create(opts);
 
       await this.#openai.beta.assistants.update(this.#assistant!.id, {
         tool_resources: { file_search: { vector_store_ids: [await this.#vectorStoreManager!.getId()] } },
