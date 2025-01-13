@@ -1,5 +1,8 @@
 import OpenAI from "openai";
 import { AITool } from "./AITool";
+import { realpathSync, writeFileSync } from "node:fs";
+import { formatDateAsISO } from "./formatDateAsISO";
+import chalk from "chalk";
 
 export class OpenAIAssistant {
   private openai = new OpenAI();
@@ -78,8 +81,12 @@ export class OpenAIAssistant {
         body.messages = this.messages;
       }
 
-      if (choice.message.content)
+      if (choice.message.content) {
+        const log = `logs/${formatDateAsISO()}.json`;
+        writeFileSync(log, JSON.stringify(this.messages, null, 2));
+        console.log(chalk.gray(`LOG: ${realpathSync(log)}`));
         return choice.message as OpenAIAssistant.Message;
+      }
     }
   }
 }

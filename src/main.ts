@@ -3,7 +3,6 @@ import { OpenAIChatWorker } from "./OpenAIChatWorker";
 import { OpenAIAssistantManager } from "./OpenAIAssistantManager";
 import { WorkflowManager } from "./WorkflowManager";
 import { OpenAIAssistant } from "./OpenAIAssistant";
-import { ShellTool } from "./tools/ShellTool";
 import { PromptTool } from "./tools/PromptTool";
 import { FileTools } from "./tools/FileTools";
 
@@ -19,7 +18,7 @@ if (true) {
     new FileTools.LoggingShellTool(),
     new PromptTool(),
   );
-  assistant.send(prompt!).then((x) => console.log(x), console.error);
+  assistant.send(prompt!).then((x) => console.log(x.content), console.error);
 } else if (false)
   new OpenAIChatWorker().run(last(process.argv) as string);
 else if (false) {
