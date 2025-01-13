@@ -6,9 +6,30 @@ import { resolve } from "node:path";
 import { inspect } from "node:util";
 
 export class ShellTool implements AITool {
-  name = ShellTool.name;
-  description = ShellTool.description;
-  params = ShellTool.params;
+  name = "shell";
+
+  description = `
+  Execute a shell command inside a temporary folder. You should not escape that
+  folder, but you can use it as a working directory. You're given the option to
+  set a timeout. Be sure to set a broad timeout, but no more than 9 minutes
+  (540 seconds) since we need to supply a function output to the OpenAI API in 10
+  minutes.
+  `;
+
+  params = Object.freeze({
+    command: {
+      type: "string",
+      description: "The shell command to execute"
+    },
+    cwd: {
+      type: "string",
+      description: "The working directory relative to your temporary folder"
+    },
+    timeout: {
+      type: "number",
+      description: "The process will be killed in this amount of seconds."
+    }
+  }) as AITool.Params;
 
   async run(params: Record<string, unknown>, directory: string) {
     const { command, cwd, timeout } = params as { command: string, cwd: string, timeout: number };
@@ -39,31 +60,6 @@ export class ShellTool implements AITool {
 }
 
 export namespace ShellTool {
-  export const name = "shell";
-
-  export const description = `
-  Execute a shell command inside a temporary folder. You should not escape that
-  folder, but you can use it as a working directory. You're given the option to
-  set a timeout. Be sure to set a broad timeout, but no more than 9 minutes
-  (540 seconds) since we need to supply a function output to the OpenAI API in 10
-  minutes.
-  `;
-
-  export const params = Object.freeze({
-    command: {
-      type: "string",
-      description: "The shell command to execute"
-    },
-    cwd: {
-      type: "string",
-      description: "The working directory relative to your temporary folder"
-    },
-    timeout: {
-      type: "number",
-      description: "The process will be killed in this amount of seconds."
-    }
-  }) as AITool.Params;
-
   export interface ExecResult {
     stdout: string|null;
     stderr: string|null;
