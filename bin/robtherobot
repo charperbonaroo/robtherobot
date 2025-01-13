@@ -1,0 +1,10 @@
+#!/bin/bash
+
+TOOL_DIR="$HOME/Projects/charperbonaroo/robtherobot"
+TOOL_CMD="yarn start"
+CALLER_DIR="$PWD"
+
+cd "$TOOL_DIR" || { echo "Error: Unable to access $TOOL_DIR"; exit 1; }
+
+source .envrc
+$TOOL_CMD "$CALLER_DIR" "$@"
