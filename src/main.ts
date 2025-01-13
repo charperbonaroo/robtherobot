@@ -16,7 +16,7 @@ if (true) {
   assistant.addTools(
     new FileTools.LoggingReader(),
     new FileTools.LoggingWriter(),
-    new ShellTool(),
+    new FileTools.LoggingShellTool(),
     new PromptTool(),
   );
   assistant.send(prompt!).then((x) => console.log(x), console.error);
