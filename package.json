@@ -3,7 +3,7 @@
   "packageManager": "yarn@4.5.3",
   "type": "commonjs",
   "dependencies": {
-    "chalk": "^5.4.1",
+    "chalk": "^4.1.2",
     "lodash": "^4.17.21",
     "openai": "^4.77.0",
     "yaml": "^2.7.0"

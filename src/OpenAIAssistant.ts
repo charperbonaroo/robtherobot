@@ -4,9 +4,20 @@ import { AITool } from "./AITool";
 export class OpenAIAssistant {
   private openai = new OpenAI();
   private messages: OpenAI.Chat.Completions.ChatCompletionMessageParam[] = [];
-  public tools: AITool[] = [];
+  private tools: AITool[] = [];
 
   constructor(private model: OpenAI.Chat.ChatModel, private directory: string) {
+  }
+
+  addTools(...tools: AITool[]) {
+    for (const tool of tools) {
+      this.tools.push(tool);
+      this.messages.push({
+        role: "system",
+        content: `You've been given access to the following tool: ${tool.name}.\n`
+          + `Use it when you think is appropriate. The tool's description is:\n\n${tool.description}`
+      });
+    }
   }
 
   /**
@@ -15,8 +26,8 @@ export class OpenAIAssistant {
    */
   async send(prompt: string): Promise<OpenAIAssistant.Message> {
     this.messages.push({
-      "role": "user",
-      "content": [{ "type": "text", "text": prompt }]
+      role: "user",
+      content: [{ "type": "text", "text": prompt }]
     });
 
     const body: OpenAI.Chat.Completions.ChatCompletionCreateParamsNonStreaming = {
