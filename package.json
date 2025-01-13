@@ -13,7 +13,8 @@
     "type-check": "tsc --noEmit",
     "build:skip-types": "esbuild --bundle --platform=node --target=node18 --outdir=dist src/main.ts",
     "build": "yarn type-check && yarn build:skip-types",
-    "start": "yarn build && node --no-deprecation dist/main.js"
+    "dev": "yarn build && node --no-deprecation dist/main.js",
+    "start": "node --no-deprecation dist/main.js"
   },
   "devDependencies": {
     "@types/chalk": "^2.2.4",

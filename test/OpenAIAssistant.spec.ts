@@ -45,7 +45,11 @@ describe("OpenAIAssistant", () => {
 
   describe("with file tools", () => {
     beforeEach(async () => {
-      assistant.addTools(new FileTools.LoggingReader(), new FileTools.LoggingWriter());
+      assistant.addTools(
+        new FileTools.LoggingReader(),
+        new FileTools.LoggingWriter(),
+        new FileTools.LoggingShellTool(),
+      );
     });
 
     it("reads a file", async () => {
@@ -59,6 +63,12 @@ describe("OpenAIAssistant", () => {
       const message = await assistant.send("Read 'README', find my name, and replace my name with Pineapple!");
       expect(message).toMatchObject({ content: expect.stringMatching(/Pineapple/i) });
       expect(readFileSync(path + "/README", { encoding: "utf-8" })).toContain("Hello, my name is Pineapple!");
+    }, 10_000);
+
+    it("uses the shell", async () => {
+      writeFileSync(path + "/README", "Hello, my name is Banana!");
+      const message = await assistant.send("What is the wordcount of the 'README'? Use the `wc` command!");
+      expect(message).toMatchObject({ content: expect.stringMatching(/5 words/i) });
     }, 10_000);
   });
 });

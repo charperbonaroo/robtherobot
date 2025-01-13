@@ -1,8 +1,9 @@
 import { AITool } from "@/AITool";
-import { existsSync, mkdirSync, readFileSync, realpathSync, writeFileSync } from "fs";
+import { existsSync, mkdirSync, readFileSync, realpathSync, statSync, writeFileSync } from "fs";
 import { dirname, resolve } from "path";
 import { inspect } from "util";
 import chalk from "chalk";
+import { exec, ExecException } from "child_process";
 
 export namespace FileTools {
   function getPath(directory: string, path: string): string {
@@ -16,7 +17,7 @@ export namespace FileTools {
     return resolvedPath;
   }
 
-  function linesToFileFragment(
+  export function linesToFileFragment(
     lineNumber: number,
     lineCount: number,
     maxLineLength: number,
@@ -76,6 +77,13 @@ export namespace FileTools {
       const realPath = getPath(directory, path);
       if (!existsSync(realPath))
         return { error: "not-found", message: `File ${inspect(path)} not found!` };
+
+      const stat = statSync(realPath);
+      if (stat.isDirectory())
+        return { error: "is-directory", message: `Path ${inspect(path)} is a directory!` };
+
+      if (!stat.isFile())
+        return { error: "is-no-file", message: `Path ${inspect(path)} is not a file!` };
 
       const lines = readFileSync(realPath, { encoding: "utf-8" }).split(/\n/g);
       return linesToFileFragment(lineNumber, lineCount, maxLineLength, lines);
@@ -166,7 +174,22 @@ export namespace FileTools {
       { directory, path, appendContent, lineNumber, deleteLineCount, maxLineLength, contextLineCount }: WriterExecParams
     ): Promise<FileFragment|ErrorResponse> {
       const realPath = getPath(directory, path);
-      const lines = existsSync(realPath) ? readFileSync(realPath, { encoding: "utf-8" }).split(/\n/g) : [];
+
+      let lines: string[];
+
+      if (existsSync(realPath)) {
+        const stat = statSync(realPath);
+        if (stat.isDirectory())
+          return { error: "is-directory", message: `Path ${inspect(path)} is a directory!` };
+
+        if (!stat.isFile())
+          return { error: "is-no-file", message: `Path ${inspect(path)} is not a file!` };
+
+        lines = readFileSync(realPath, { encoding: "utf-8" }).split(/\n/g);
+      } else {
+        lines = [];
+      }
+
       const newLines = appendContent.split(/\n/g);
 
       lines.splice(Math.max(lineNumber, 0), deleteLineCount, ...newLines);
@@ -199,6 +222,161 @@ export namespace FileTools {
         console.log(chalk.gray(formatFragmentLines(result)));
       }
       return result;
+    }
+  }
+
+  export interface ShellToolCacheEntry {
+    command: string;
+    cwd: string;
+    error: ExecException | null;
+    lines: string[];
+  }
+
+  export class ShellToolCache {
+    private cache = new Map<string, ShellToolCacheEntry>();
+
+    public put(command: string, cwd: string, error: ExecException | null, lines: string[]) {
+      this.cache.set(`${cwd}|${command}`, { command, cwd, error, lines });
+    }
+
+    public get(command: string, cwd: string): ShellToolCacheEntry|null {
+      return this.cache.get(`${cwd}|${command}`) ?? null;
+    }
+  }
+
+  export class ShellTool implements AITool {
+    public name = "shell-tool";
+    public description = `
+      Execute a shell command inside a temporary folder. You should not escape
+      that folder, but you can use it as a working directory. You're given the
+      option to set a timeout. Be sure to set a broad timeout, but no more than
+      9 minutes (540 seconds).
+
+      This tool will only read a number of lines from the output, starting at
+      lineNumber, with a maximum of lineCount lines. Lines longer than
+      maxLineLength are truncated to that length.
+
+      The return value is an object which includes an array of objects with
+      (truncated) line content, index (line number) and original line length.
+      The return value also includes the total number of lines.
+
+      If the output was truncated, you can re-run this tool with the same
+      command, but with 'execute' to false. This allows you to navigate the
+      previous output.
+    `;
+
+    public params = {
+      command: {
+        type: "string",
+        description: "The shell command to execute"
+      },
+      cwd: {
+        type: "string",
+        description: "The working directory relative to your temporary folder"
+      },
+      timeout: {
+        type: "number",
+        description: "The process will be killed in this amount of seconds."
+      },
+      lineNumber: {
+        type: "number",
+        description: "Which line to start reading at. Use 0 to start at top of file.",
+      },
+      lineCount: {
+        type: "number",
+        description: "Maximum number of lines to read. Recommended: 100"
+      },
+      maxLineLength: {
+        type: "number",
+        description: "Maximum number of characters to return per line. Recommended: 200",
+      },
+      execute: {
+        type: "boolean",
+        description: `
+          If true, the command is always executed. If false, previous output of
+          the same command is returned.
+        `.replace(/\s+/g, " "),
+      }
+    };
+
+    constructor(private cache: ShellToolCache = new ShellToolCache()) {
+    }
+
+    async run(params: Record<string, unknown>, directory: string) {
+      const { command, cwd, timeout, lineNumber, maxLineLength, execute, lineCount } = params as any as ShellToolExecParams;
+
+      const resolvedCwd = resolve(directory, cwd);
+      mkdirSync(resolvedCwd, { recursive: true });
+      const realpathCwd = realpathSync(resolvedCwd);
+      if (!realpathCwd.startsWith(directory))
+        throw new Error(`Resolved CWD ${inspect(realpathCwd)} not inside working directory ${inspect(directory)}`);
+
+      return this.exec({
+        command,
+        realpathCwd,
+        cwd,
+        timeout,
+        lineNumber,
+        maxLineLength,
+        execute,
+        lineCount,
+      });
+    }
+
+    protected async exec(params: ShellToolExecParams): Promise<ShellToolResponse|ErrorResponse> {
+      const { command, realpathCwd, lineNumber, lineCount, maxLineLength } = params;
+      let output: { error: ExecException | null; lines: string[]; };
+      if (params.execute) {
+        output = await this.execNoCache(params);
+        this.cache.put(command, realpathCwd, output.error, output.lines);
+      } else {
+        const cachedOutput = this.cache.get(command, realpathCwd);
+        if (!cachedOutput) {
+          return { error: "cache-not-found", message: "This command is not found in cache. Did you run it before?" };
+        }
+        output = cachedOutput;
+      }
+      return { error: output.error, ...linesToFileFragment(lineNumber, lineCount, maxLineLength, output.lines) };
+    }
+
+    protected async execNoCache({ command, timeout, realpathCwd }: ShellToolExecParams): Promise<{ error: ExecException | null, lines: string[] }> {
+      return new Promise((resolve) => {
+        exec(command, { encoding: "utf-8", cwd: realpathCwd, timeout: timeout * 1000 }, (error, stdout, stderr) => {
+          const lines = stdout.split(/\n/g).concat(stderr.split(/\n/g));
+          resolve({ error, lines });
+        });
+      });
+    }
+  }
+
+  export interface ShellToolResponse extends FileFragment {
+    error: ExecException | null;
+  }
+
+  export interface ShellToolExecParams {
+    command: string;
+    cwd: string;
+    realpathCwd: string;
+    timeout: number;
+    lineNumber: number;
+    lineCount: number;
+    maxLineLength: number;
+    execute: boolean;
+  }
+
+  export class LoggingShellTool extends ShellTool {
+    protected async exec(params: ShellToolExecParams): Promise<ShellToolResponse|ErrorResponse> {
+      console.log(chalk.red(`${params.cwd} $ ${params.command} `
+        + `(${params.execute ? "exec" : "read"} ${params.lineNumber}:${params.lineCount}:${params.maxLineLength})`));
+      const output = await super.exec(params);
+      if (output.error)
+        console.log(chalk.red(output.error));
+      if ("totalLineCount" in output)
+        console.log(chalk.gray(formatFragmentLines(output)));
+      else
+        console.log(chalk.red(output.message));
+
+      return output;
     }
   }
 

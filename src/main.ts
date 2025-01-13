@@ -5,6 +5,7 @@ import { WorkflowManager } from "./WorkflowManager";
 import { OpenAIAssistant } from "./OpenAIAssistant";
 import { ShellTool } from "./tools/ShellTool";
 import { PromptTool } from "./tools/PromptTool";
+import { FileTools } from "./tools/FileTools";
 
 if (true) {
   const prompt = process.argv.pop();
@@ -12,11 +13,13 @@ if (true) {
   console.log("WORKING DIR", dir);
 
   const assistant = new OpenAIAssistant("gpt-4o", dir);
-  assistant.tools = [
+  assistant.addTools(
+    new FileTools.LoggingReader(),
+    new FileTools.LoggingWriter(),
     new ShellTool(),
     new PromptTool(),
-  ];
-  assistant.send(prompt!).then((x) => console.log(x.content), console.error);
+  );
+  assistant.send(prompt!).then((x) => console.log(x), console.error);
 } else if (false)
   new OpenAIChatWorker().run(last(process.argv) as string);
 else if (false) {

@@ -56,4 +56,32 @@ describe("tools/FileTools", () => {
       });
     });
   });
+
+  describe("ShellTool", () => {
+    let shellTool = new FileTools.ShellTool();
+
+    it("executes a shell command", async () => {
+      writeFileSync(path + "/001.txt", ["a", "b", "c"].join("\n"));
+
+      const result = await shellTool.run({
+        command: "cat 001.txt",
+        cwd: ".",
+        execute: true,
+        timeout: 1,
+        lineNumber: 0,
+        lineCount: 100,
+        maxLineLength: 200,
+      }, path);
+      expect(result).toEqual({
+        error: null,
+        lines: [
+          { content: "a", index: 0, length: 1 },
+          { content: "b", index: 1, length: 1 },
+          { content: "c", index: 2, length: 1 },
+          { content: "", index: 3, length: 0 },
+        ],
+        totalLineCount: 4,
+      });
+    });
+  });
 });
