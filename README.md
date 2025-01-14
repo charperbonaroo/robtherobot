@@ -1,9 +1,9 @@
 > **THIS THING HAS ACCESS TO YOUR SHELL. IT BASICALLY READS ANY FILE ON YOUR SYSTEM, UPLOADS IT TO CHATGPT, AND EXECUTES THE OUTPUT. PLEASE USE WITH CAUTION.**
 >
->You'll need an OpenAI API key. Make sure it is available on your ENV as `OPENAI_API_KEY`, EG:
+>You'll need an [OpenAI API key](https://platform.openai.com/settings/organization/api-keys). Make sure it is available on your ENV as `OPENAI_API_KEY`, EG:
 >
 > ```sh
-> export OPENAI_API_KEY="sk-proj-XXXXXXXX"
+> echo 'export OPENAI_API_KEY="sk-proj-XXXXXXXX"' > .envrc.local
 > robtherobot "Hello!"
 > ```
 >
