@@ -9,5 +9,5 @@ yarn install
 ## RUNNING
 
 ```sh
-yarn start "Write a C++ hello world"
+yarn start /my-working-directory "Write a C++ hello world"
 ```
