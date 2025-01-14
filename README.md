@@ -5,6 +5,8 @@
 
 Rob the Robot is an AI-powered assistant, termed as a footgun, that has the capability to access your machine, execute shell commands, and manipulate files. Designed for performing simple code-related tasks, it operates within the current working directory but be aware of its broad access and capabilities.
 
+**THIS THING HAS ACCESS TO YOUR SHELL. IT BASICALLY READS ANY FILE ON YOUR SYSTEM, UPLOADS IT TO CHATGPT, AND EXECUTES THE OUTPUT. PLEASE USE WITH CAUTION.**
+
 ### Features
 
 - Execute tasks given by the user within a new context each time.
