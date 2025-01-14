@@ -38,7 +38,7 @@ async function runAssistant() {
     const messagesSlice = messages.slice(index);
 
     // ensure the tool message is paired with a tool_calls message
-    if (messagesSlice[0].role == "tool")
+    while (index > 0 && messagesSlice[0].role == "tool")
       messagesSlice.unshift(messages[--index]);
 
     // insert the first message
