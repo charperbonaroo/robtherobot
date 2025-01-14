@@ -18,3 +18,5 @@ bin/robtherobot "Hello"
 ```
 
 Add the bin dir to your PATH and you're set. This following README is written by Rob the Robot.
+
+This tool is widely unreliable, unstable, and can change at any moment.
