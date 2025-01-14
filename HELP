@@ -1,0 +1,22 @@
+ROB THE ROBOT is an AI powered footgun that has complete, unlimited access to
+your machine, your machine's shell and any file. It should be capable of
+performing simple code-related tasks and it is instructed not to escape the
+current working directory, but nothing is guaranteed.
+
+Every time you call robtherobot, a new context is created and it will attempt to
+perform the task you've given it. You might need to order it to actually use the
+tools given to it, and you might need to order it to read the documentation or
+README of your repo.
+
+If you want robtherobot to continue working on something, you can use
+--continue. Using --continue, it will load a slice of the last conversation and
+attempt to improve upon the last conversation.
+
+Results are widely unpredictable. Use git to rollback changes it made. You might
+need to re-run the tool multiple times to get the desired result, optionally
+altering your prompt to clarify.
+
+EXAMPLES
+
+robtherobot "Describe this repo"
+robtherobot --continue "You made an oopsie, fix it"

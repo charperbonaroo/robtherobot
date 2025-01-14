@@ -13,6 +13,11 @@ import { execSync } from "node:child_process";
 import { ChatCompletionMessageParam } from "openai/resources";
 
 async function runAssistant() {
+  if (process.argv.includes("--help")) {
+    console.log(readFileSync("HELP", { encoding: "utf-8" }));
+    return;
+  }
+
   const prompt = process.argv.pop();
   const dirOrContinue = process.argv.pop();
   const cont = dirOrContinue && dirOrContinue.includes("--continue");
@@ -28,7 +33,17 @@ async function runAssistant() {
     }
     const content = readFileSync(logFile, { encoding: "utf-8" });
     const messages = JSON.parse(content) as ChatCompletionMessageParam[];
-    const messagesSlice = [messages[0]].concat(messages.slice(Math.max(messages.length - 4, 1)));
+
+    let index = Math.max(messages.length - 4, 1);
+    const messagesSlice = messages.slice(index);
+
+    // ensure the tool message is paired with a tool_calls message
+    if (messagesSlice[0].role == "tool")
+      messagesSlice.unshift(messages[--index]);
+
+    // insert the first message
+    if (index > 0)
+      messagesSlice.unshift(messages[0]);
 
     console.log(`Restored ${messagesSlice.length} of ${messages.length} messages from the previous conversation.`);
     assistant.pushMessage(...messagesSlice);
@@ -46,15 +61,13 @@ async function runAssistant() {
     const result = await assistant.send(prompt!);
     console.log(result.content);
 
-    const summary = await assistant.sendMessage({
+    await assistant.sendMessage({
       role: "system",
       content: [{ type: "text", text: `
         Summerize the conversation so a future AI agent or human can continue to
         work on it. Include technical details!
       `.replace(/\s+/g, " ") }]
     });
-
-    console.log(chalk.gray(summary.content));
   } finally {
     const messages = assistant.getMessages();
     const log = `logs/${formatDateAsISO()}.json`;
@@ -86,7 +99,7 @@ function safeStringify(obj: any): string {
 }
 
 if (true) {
-  runAssistant().then(console.log, console.error);
+  runAssistant().then((x) => x && console.log(x), console.error);
 } else if (false)
   new OpenAIChatWorker().run(last(process.argv) as string);
 else if (false) {
