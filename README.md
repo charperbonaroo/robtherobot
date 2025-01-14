@@ -1,11 +1,19 @@
+> **THIS THING HAS ACCESS TO YOUR SHELL. IT BASICALLY READS ANY FILE ON YOUR SYSTEM, UPLOADS IT TO CHATGPT, AND EXECUTES THE OUTPUT. PLEASE USE WITH CAUTION.**
+>
+>You'll need an OpenAI API key. Make sure it is available on your ENV as `OPENAI_API_KEY`, EG:
+>
+> ```sh
+> export OPENAI_API_KEY="sk-proj-XXXXXXXX"
+> robtherobot "Hello!"
+> ```
+>
+> This following README is written by Rob the Robot.
 
 # Rob the Robot
 
 ## Overview
 
 Rob the Robot is an AI-powered assistant, termed as a footgun, that has the capability to access your machine, execute shell commands, and manipulate files. Designed for performing simple code-related tasks, it operates within the current working directory but be aware of its broad access and capabilities.
-
-**THIS THING HAS ACCESS TO YOUR SHELL. IT BASICALLY READS ANY FILE ON YOUR SYSTEM, UPLOADS IT TO CHATGPT, AND EXECUTES THE OUTPUT. PLEASE USE WITH CAUTION.**
 
 ### Features
 
