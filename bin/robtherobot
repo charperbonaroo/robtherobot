@@ -1,6 +1,6 @@
 #!/bin/bash
 
-TOOL_DIR="$HOME/Projects/charperbonaroo/robtherobot"
+TOOL_DIR=$(dirname "$(realpath "$0")")/..
 TOOL_CMD="yarn start"
 CALLER_DIR="$PWD"
 
