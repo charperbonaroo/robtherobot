@@ -1,5 +1,5 @@
 import { AITool } from "@/AITool";
-import chalk from "chalk";
+import * as chalk from "chalk";
 import { exec } from "node:child_process";
 import { mkdirSync, realpathSync } from "node:fs";
 import { resolve } from "node:path";

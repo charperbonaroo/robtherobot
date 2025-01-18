@@ -1,6 +1,6 @@
 import { AITool } from "@/AITool";
 import { OpenAIAssistantStream } from "@/OpenAIAssistantStream";
-import chalk from "chalk";
+import * as chalk from "chalk";
 import { inspect } from "util";
 
 export class AssistantTool implements AITool {

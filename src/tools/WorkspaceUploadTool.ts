@@ -1,7 +1,7 @@
 import { AITool } from "@/AITool";
 import { formatDateAsISO } from "@/formatDateAsISO";
 import { VectorStoreManager } from "@/VectorStoreManager";
-import chalk from "chalk";
+import * as chalk from "chalk";
 import { fromPairs } from "lodash";
 import { exec } from "node:child_process";
 import { writeFile } from "node:fs/promises";

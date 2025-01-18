@@ -1399,7 +1399,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"chalk@npm:4, chalk@npm:^4.0.0, chalk@npm:^4.0.2":
+"chalk@npm:^4.0.0, chalk@npm:^4.0.2, chalk@npm:^4.1.2":
   version: 4.1.2
   resolution: "chalk@npm:4.1.2"
   dependencies:
@@ -3439,7 +3439,7 @@ __metadata:
     "@types/jest": "npm:^29.5.14"
     "@types/lodash": "npm:^4.17.13"
     "@types/node": "npm:^22.10.2"
-    chalk: "npm:4"
+    chalk: "npm:^4.1.2"
     esbuild: "npm:^0.24.2"
     jest: "npm:^29.7.0"
     lodash: "npm:^4.17.21"

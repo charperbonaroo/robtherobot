@@ -2,7 +2,7 @@ import { AITool } from "@/AITool";
 import { existsSync, mkdirSync, readFileSync, realpathSync, statSync, writeFileSync } from "fs";
 import { dirname, resolve } from "path";
 import { inspect } from "util";
-import chalk from "chalk";
+import * as chalk from "chalk";
 import { exec, ExecException } from "child_process";
 
 export namespace FileTools {

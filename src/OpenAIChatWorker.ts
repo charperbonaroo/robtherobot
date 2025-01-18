@@ -4,7 +4,7 @@ import { mkdirSync, writeFileSync } from "node:fs";
 import { createContext, runInContext } from "node:vm";
 import { Context } from "./Context";
 import { inspect } from "node:util";
-import chalk from "chalk";
+import * as chalk from "chalk";
 import { limitSize } from "./limitSize";
 
 const MESSAGE_LIMIT = 50;

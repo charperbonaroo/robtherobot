@@ -4,7 +4,7 @@ import { join } from "node:path";
 import { formatDateAsISO } from "@/formatDateAsISO";
 import { writeFile } from "node:fs/promises";
 import { inspect } from "node:util";
-import chalk from "chalk";
+import * as chalk from "chalk";
 
 export class FileWritingShellTool extends ShellTool {
   #vectorStoreManager: VectorStoreManager;

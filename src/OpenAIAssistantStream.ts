@@ -4,7 +4,7 @@ import { AITool } from "./AITool";
 import { chain, omit } from "lodash";
 import { formatDateAsISO } from "./formatDateAsISO";
 import { VectorStoreManager } from "./VectorStoreManager";
-import chalk from "chalk";
+import * as chalk from "chalk";
 import { inspect } from "util";
 
 export class OpenAIAssistantStream {

@@ -8,7 +8,7 @@ import { FileTools } from "./tools/FileTools";
 
 import { readFileSync, realpathSync, writeFileSync } from "node:fs";
 import { formatDateAsISO } from "./formatDateAsISO";
-import chalk from "chalk";
+import * as chalk from "chalk";
 import { execSync } from "node:child_process";
 import { ChatCompletionMessageParam } from "openai/resources";
 

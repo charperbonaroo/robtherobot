@@ -46,9 +46,9 @@ describe("OpenAIAssistant", () => {
   describe("with file tools", () => {
     beforeEach(async () => {
       assistant.addTools(
-        new FileTools.LoggingReader(),
-        new FileTools.LoggingWriter(),
-        new FileTools.LoggingShellTool(),
+        new FileTools.Reader(),
+        new FileTools.Writer(),
+        new FileTools.ShellTool(),
       );
     });
 
