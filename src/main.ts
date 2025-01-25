@@ -11,6 +11,7 @@ import { formatDateAsISO } from "./formatDateAsISO";
 import * as chalk from "chalk";
 import { execSync } from "node:child_process";
 import { ChatCompletionMessageParam } from "openai/resources";
+import { HttpServer } from "./web/HttpServer";
 
 async function runAssistant() {
   program
@@ -21,11 +22,14 @@ async function runAssistant() {
     .action((prompt, opts) => {
       console.log("DEFAULT", { prompt, opts });
     })
-    .command("serve [port]")
+    .command("serve")
+    .argument("[port]", "HTTP port", 1815)
+    .option("-h, --host <host>", "127.0.0.1")
     .option("-d, --cwd <cwd>", "The working directory", process.cwd())
     .description("Run HTTP server at a given port")
-    .action((port, opts) => {
-      console.log("serve", { port, opts });
+    .action(async (port, opts) => {
+      console.log(`ROB THE ROBOT $ ${chalk.blue(opts.cwd)}`);
+      await new HttpServer(opts.cwd).listen(port, opts.host);
     })
 
   program.addHelpText('after', HELP_TEXT);
