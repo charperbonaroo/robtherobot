@@ -1,0 +1,37 @@
+{
+  "name": "rob-host",
+  "packageManager": "yarn@4.5.3",
+  "type": "commonjs",
+  "dependencies": {
+    "bootstrap": "^5.3.3",
+    "chalk": "^4.1.2",
+    "commander": "^13.0.0",
+    "lodash": "^4.17.21",
+    "openai": "^4.77.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "yaml": "^2.7.0"
+  },
+  "scripts": {
+    "clean": "rm -rf dist logs/* .tmp ../robtherobot-tmp",
+    "type-check": "tsc --noEmit",
+    "build:skip-types": "esbuild --platform=node --target=node18 --sourcemap --bundle --outdir=dist src/index.ts",
+    "build": "yarn type-check && yarn build:skip-types",
+    "dev": "yarn build && node --no-deprecation dist/main.js",
+    "start": "node --no-deprecation dist/main.js"
+  },
+  "devDependencies": {
+    "@types/bootstrap": "^5",
+    "@types/chalk": "^2.2.4",
+    "@types/commander": "^2.12.5",
+    "@types/jest": "^29.5.14",
+    "@types/lodash": "^4.17.13",
+    "@types/node": "^22.10.2",
+    "@types/react": "^19.0.8",
+    "@types/react-dom": "^19",
+    "esbuild": "^0.24.2",
+    "jest": "^29.7.0",
+    "ts-jest": "^29.2.5",
+    "typescript": "^5.7.2"
+  }
+}

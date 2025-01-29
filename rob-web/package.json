@@ -1,0 +1,21 @@
+{
+  "name": "rob-web",
+  "version": "1.0.0",
+  "type": "commonjs",
+  "dependencies": {
+    "esbuild": "^0.24.0",
+    "jest": "^29.7.0",
+    "typescript": "^5.7.2"
+  },
+  "main": "dist/index.js",
+  "scripts": {
+    "type-check": "tsc --noEmit",
+    "build:skip-types": "esbuild --platform=node --target=node18 --sourcemap --bundle --outdir=dist src/index.ts",
+    "build": "yarn type-check && yarn build:skip-types",
+    "test": "jest"
+  },
+  "devDependencies": {
+    "@types/jest": "^29.5.14",
+    "ts-jest": "^29.2.5"
+  }
+}
