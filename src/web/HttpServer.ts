@@ -2,6 +2,8 @@ import Fastify, { FastifyInstance, FastifyListenOptions, FastifyServerOptions } 
 import fastifyStatic from '@fastify/static';
 import fastifyWebsocket from '@fastify/websocket';
 import { join } from 'path';
+import { RobTheRobotServer } from './RobTheRobotServer';
+import { RobTheRobot } from 'shared/RobTheRobot';
 
 export class HttpServer {
   static DEFAULT_FASTIFY_OPTIONS: FastifyServerOptions = {
@@ -10,7 +12,7 @@ export class HttpServer {
 
   private fastify: FastifyInstance;
 
-  constructor(private cwd: string, opts: Partial<FastifyServerOptions> = {}) {
+  constructor(private server: RobTheRobotServer, opts: Partial<FastifyServerOptions> = {}) {
     this.fastify = Fastify({ ...HttpServer.DEFAULT_FASTIFY_OPTIONS, ...opts });
 
     this.fastify.register(fastifyStatic, {
@@ -24,14 +26,18 @@ export class HttpServer {
       this.fastify.get("/ws", { websocket: true }, (socket, req) => {
         req.log.info("/ws client connected");
 
-        socket.on("message", (messageBuffer: Buffer) => {
-          const { id, payload } = JSON.parse(messageBuffer.toString("utf-8"));
+        socket.on("message", async (messageBuffer: Buffer) => {
+          const { id, payload: [command, ...args] } = JSON.parse(messageBuffer.toString("utf-8"));
           let result: any;
 
-          if (payload[0] === "cwd") {
-            result = { id, payload: this.cwd };
-          } else {
-            result = { id, error: { message: `invalid-payload`, payload } };
+          try {
+            if (RobTheRobot.KEYS.includes(command)) {
+              result = { id, value: await (this.server as any)[command](...args) };
+            } else {
+              result = { id, error: { message: `invalid-command`, command, args } };
+            }
+          } catch (error: any) {
+            result = { id, error: { message: error.message, command, args } }
           }
 
           socket.send(JSON.stringify(result));

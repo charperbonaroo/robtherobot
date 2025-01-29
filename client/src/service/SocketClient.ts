@@ -18,23 +18,17 @@ export class SocketClient implements Queryable {
   constructor() {
     this.socket = new WebSocket("/ws");
 
-    this.socket.addEventListener("message", (event) => {
-      console.log("message", event);
-      this.onMessage(event);
-    });
+    this.socket.addEventListener("message", (event) => this.onMessage(event));
 
-    this.socket.addEventListener("open", (event) => {
-      console.log("open", event);
-      this.ready.set(true);
-    });
+    this.socket.addEventListener("open", () => this.ready.setValue(true));
 
     this.socket.addEventListener("error", (error) => {
       console.error("SOCKET ERROR", error);
-    })
+    });
 
     this.socket.addEventListener("close", (close) => {
       console.error("SOCKET CLOSED", close);
-    })
+    });
   }
 
   async query<T>(payload: SocketClient.QueryPayload): Promise<T> {
@@ -56,10 +50,15 @@ export class SocketClient implements Queryable {
 
   private onMessage(event: MessageEvent) {
     console.log("onMessage", { event });
-    const { id, payload } = JSON.parse(event.data);
+    const { id, value, error } = JSON.parse(event.data);
     if (id) {
-      const value = this.queryResponses.get(id);
-      if (value) value.set(payload);
+      const deferred = this.queryResponses.get(id);
+      if (!deferred)
+        throw new Error(`No deferred value for ID=${id}`);
+      if (error)
+        deferred.setError(error);
+      else
+        deferred.setValue(value);
     }
   }
 

@@ -12,6 +12,7 @@ import * as chalk from "chalk";
 import { execSync } from "node:child_process";
 import { ChatCompletionMessageParam } from "openai/resources";
 import { HttpServer } from "./web/HttpServer";
+import { RobTheRobotServer } from "./web/RobTheRobotServer";
 
 async function runAssistant() {
   program
@@ -29,7 +30,8 @@ async function runAssistant() {
     .description("Run HTTP server at a given port")
     .action(async (port, opts) => {
       console.log(`ROB THE ROBOT $ ${chalk.blue(opts.cwd)}`);
-      await new HttpServer(opts.cwd).listen(port, opts.host);
+      const server = new RobTheRobotServer(opts.cwd);
+      await new HttpServer(server).listen(port, opts.host);
     })
 
   program.addHelpText('after', HELP_TEXT);

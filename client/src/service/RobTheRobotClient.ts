@@ -21,10 +21,10 @@ export class RobTheRobotClient implements RobTheRobot.Async {
 export interface RobTheRobotClient extends RobTheRobot.Async {}
 
 for (const key of RobTheRobot.KEYS) {
-  RobTheRobotClient.prototype[key] = function(
+  (RobTheRobotClient.prototype as any)[key] = function(
     this: RobTheRobotClient,
     ...args: Parameters<RobTheRobot[typeof key]>
   ) {
-    return this.queryable.query<ReturnType<RobTheRobot[typeof key]>>([ key, ...args ]);
-  } as RobTheRobot.Async[typeof key]
+    return this.queryable.query([ key, ...args ]);
+  };
 }

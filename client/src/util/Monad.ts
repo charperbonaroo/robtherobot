@@ -32,7 +32,7 @@ export namespace Monad {
     return { value, error: null, loading: false };
   }
 
-  export function ofError<T>(error: GlobalError): Error {
+  export function ofError(error: GlobalError): Error {
     return { value: null, error, loading: false };
   }
 
