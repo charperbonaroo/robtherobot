@@ -1,16 +1,18 @@
 import { useEffect, useState } from "react";
-import { MonadResult } from "../util/MonadResult";
+import { Monad } from "../util/Monad";
 
-export function useAsync<T>(fn: () => Promise<T>, deps: React.DependencyList = []) {
-  const [result, setResult] = useState<MonadResult<T>>({ loading: true, value: null, error: null });
+export function useAsync<T>(
+  fn: () => Promise<T>,
+  deps: React.DependencyList = []
+) {
+  const [result, setResult] = useState<Monad<T>>(Monad.LOADING);
 
   useEffect(() => {
     (async () => {
       try {
-        const value = await fn();
-        setResult({ loading: false, error: null, value });
+        setResult(Monad.ofValue(await fn()));
       } catch (error) {
-        setResult({ loading: false, error, value: null });
+        setResult(Monad.ofError(error));
       }
     })();
   }, deps);

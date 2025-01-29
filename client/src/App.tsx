@@ -1,12 +1,13 @@
 import React from "react";
-import { useQuery } from "./hooks/useQuery";
-import { Monad } from "./components/Monad";
+import { MonadValue } from "./components/MonadValue";
+import { usePromise } from "./hooks/usePromise";
+import { RobTheRobotClient } from "./service/RobTheRobotClient";
 
 export function App() {
-  const cwdResult = useQuery<string>(["cwd"]);
+  const cwdResult = usePromise(RobTheRobotClient.instance.cwd());
 
   return <div className="container">
     <h1>Hello, world</h1>
-    <code>CWD: <Monad {...cwdResult}>{(cwd) => cwd}</Monad></code>
+    <code>CWD: <MonadValue {...cwdResult}>{(cwd) => cwd}</MonadValue></code>
   </div>;
 }

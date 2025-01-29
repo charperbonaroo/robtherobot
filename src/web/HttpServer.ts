@@ -26,12 +26,15 @@ export class HttpServer {
 
         socket.on("message", (messageBuffer: Buffer) => {
           const { id, payload } = JSON.parse(messageBuffer.toString("utf-8"));
+          let result: any;
 
           if (payload[0] === "cwd") {
-            socket.send(JSON.stringify({ id, payload: this.cwd }));
+            result = { id, payload: this.cwd };
           } else {
-            socket.send(JSON.stringify({ id, error: { message: `invalid-payload`, payload } }))
+            result = { id, error: { message: `invalid-payload`, payload } };
           }
+
+          socket.send(JSON.stringify(result));
         });
 
         socket.on("close", () => {

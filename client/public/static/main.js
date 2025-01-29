@@ -29,9 +29,9 @@
     mod
   ));
 
-  // ../../.yarn/berry/cache/scheduler-npm-0.25.0-f89e6cad04-10c0.zip/node_modules/scheduler/cjs/scheduler.development.js
+  // ../../../.yarn/berry/cache/scheduler-npm-0.25.0-f89e6cad04-10c0.zip/node_modules/scheduler/cjs/scheduler.development.js
   var require_scheduler_development = __commonJS({
-    "../../.yarn/berry/cache/scheduler-npm-0.25.0-f89e6cad04-10c0.zip/node_modules/scheduler/cjs/scheduler.development.js"(exports) {
+    "../../../.yarn/berry/cache/scheduler-npm-0.25.0-f89e6cad04-10c0.zip/node_modules/scheduler/cjs/scheduler.development.js"(exports) {
       "use strict";
       (function() {
         function performWorkUntilDeadline() {
@@ -297,9 +297,9 @@
     }
   });
 
-  // ../../.yarn/berry/cache/scheduler-npm-0.25.0-f89e6cad04-10c0.zip/node_modules/scheduler/index.js
+  // ../../../.yarn/berry/cache/scheduler-npm-0.25.0-f89e6cad04-10c0.zip/node_modules/scheduler/index.js
   var require_scheduler = __commonJS({
-    "../../.yarn/berry/cache/scheduler-npm-0.25.0-f89e6cad04-10c0.zip/node_modules/scheduler/index.js"(exports, module) {
+    "../../../.yarn/berry/cache/scheduler-npm-0.25.0-f89e6cad04-10c0.zip/node_modules/scheduler/index.js"(exports, module) {
       "use strict";
       if (false) {
         module.exports = null;
@@ -309,9 +309,9 @@
     }
   });
 
-  // ../../.yarn/berry/cache/react-npm-19.0.0-e33c9aa1c0-10c0.zip/node_modules/react/cjs/react.development.js
+  // ../../../.yarn/berry/cache/react-npm-19.0.0-e33c9aa1c0-10c0.zip/node_modules/react/cjs/react.development.js
   var require_react_development = __commonJS({
-    "../../.yarn/berry/cache/react-npm-19.0.0-e33c9aa1c0-10c0.zip/node_modules/react/cjs/react.development.js"(exports, module) {
+    "../../../.yarn/berry/cache/react-npm-19.0.0-e33c9aa1c0-10c0.zip/node_modules/react/cjs/react.development.js"(exports, module) {
       "use strict";
       (function() {
         function defineDeprecationWarning(methodName, info) {
@@ -1416,9 +1416,9 @@
     }
   });
 
-  // ../../.yarn/berry/cache/react-npm-19.0.0-e33c9aa1c0-10c0.zip/node_modules/react/index.js
+  // ../../../.yarn/berry/cache/react-npm-19.0.0-e33c9aa1c0-10c0.zip/node_modules/react/index.js
   var require_react = __commonJS({
-    "../../.yarn/berry/cache/react-npm-19.0.0-e33c9aa1c0-10c0.zip/node_modules/react/index.js"(exports, module) {
+    "../../../.yarn/berry/cache/react-npm-19.0.0-e33c9aa1c0-10c0.zip/node_modules/react/index.js"(exports, module) {
       "use strict";
       if (false) {
         module.exports = null;
@@ -1428,9 +1428,9 @@
     }
   });
 
-  // .yarn/__virtual__/react-dom-virtual-a77ada3a35/3/.yarn/berry/cache/react-dom-npm-19.0.0-b7981c573e-10c0.zip/node_modules/react-dom/cjs/react-dom.development.js
+  // .yarn/__virtual__/react-dom-virtual-a77ada3a35/4/.yarn/berry/cache/react-dom-npm-19.0.0-b7981c573e-10c0.zip/node_modules/react-dom/cjs/react-dom.development.js
   var require_react_dom_development = __commonJS({
-    ".yarn/__virtual__/react-dom-virtual-a77ada3a35/3/.yarn/berry/cache/react-dom-npm-19.0.0-b7981c573e-10c0.zip/node_modules/react-dom/cjs/react-dom.development.js"(exports) {
+    ".yarn/__virtual__/react-dom-virtual-a77ada3a35/4/.yarn/berry/cache/react-dom-npm-19.0.0-b7981c573e-10c0.zip/node_modules/react-dom/cjs/react-dom.development.js"(exports) {
       "use strict";
       (function() {
         function noop() {
@@ -1672,9 +1672,9 @@
     }
   });
 
-  // .yarn/__virtual__/react-dom-virtual-a77ada3a35/3/.yarn/berry/cache/react-dom-npm-19.0.0-b7981c573e-10c0.zip/node_modules/react-dom/index.js
+  // .yarn/__virtual__/react-dom-virtual-a77ada3a35/4/.yarn/berry/cache/react-dom-npm-19.0.0-b7981c573e-10c0.zip/node_modules/react-dom/index.js
   var require_react_dom = __commonJS({
-    ".yarn/__virtual__/react-dom-virtual-a77ada3a35/3/.yarn/berry/cache/react-dom-npm-19.0.0-b7981c573e-10c0.zip/node_modules/react-dom/index.js"(exports, module) {
+    ".yarn/__virtual__/react-dom-virtual-a77ada3a35/4/.yarn/berry/cache/react-dom-npm-19.0.0-b7981c573e-10c0.zip/node_modules/react-dom/index.js"(exports, module) {
       "use strict";
       if (false) {
         checkDCE();
@@ -1685,9 +1685,9 @@
     }
   });
 
-  // .yarn/__virtual__/react-dom-virtual-a77ada3a35/3/.yarn/berry/cache/react-dom-npm-19.0.0-b7981c573e-10c0.zip/node_modules/react-dom/cjs/react-dom-client.development.js
+  // .yarn/__virtual__/react-dom-virtual-a77ada3a35/4/.yarn/berry/cache/react-dom-npm-19.0.0-b7981c573e-10c0.zip/node_modules/react-dom/cjs/react-dom-client.development.js
   var require_react_dom_client_development = __commonJS({
-    ".yarn/__virtual__/react-dom-virtual-a77ada3a35/3/.yarn/berry/cache/react-dom-npm-19.0.0-b7981c573e-10c0.zip/node_modules/react-dom/cjs/react-dom-client.development.js"(exports) {
+    ".yarn/__virtual__/react-dom-virtual-a77ada3a35/4/.yarn/berry/cache/react-dom-npm-19.0.0-b7981c573e-10c0.zip/node_modules/react-dom/cjs/react-dom-client.development.js"(exports) {
       "use strict";
       (function() {
         function findHook(fiber, id) {
@@ -19275,9 +19275,9 @@
     }
   });
 
-  // .yarn/__virtual__/react-dom-virtual-a77ada3a35/3/.yarn/berry/cache/react-dom-npm-19.0.0-b7981c573e-10c0.zip/node_modules/react-dom/client.js
+  // .yarn/__virtual__/react-dom-virtual-a77ada3a35/4/.yarn/berry/cache/react-dom-npm-19.0.0-b7981c573e-10c0.zip/node_modules/react-dom/client.js
   var require_client = __commonJS({
-    ".yarn/__virtual__/react-dom-virtual-a77ada3a35/3/.yarn/berry/cache/react-dom-npm-19.0.0-b7981c573e-10c0.zip/node_modules/react-dom/client.js"(exports, module) {
+    ".yarn/__virtual__/react-dom-virtual-a77ada3a35/4/.yarn/berry/cache/react-dom-npm-19.0.0-b7981c573e-10c0.zip/node_modules/react-dom/client.js"(exports, module) {
       "use strict";
       if (false) {
         checkDCE();
@@ -19288,163 +19288,40 @@
     }
   });
 
-  // client/src/util/DeferredValue.ts
-  var DeferredValue;
-  var init_DeferredValue = __esm({
-    "client/src/util/DeferredValue.ts"() {
+  // client/src/util/Monad.ts
+  var Monad;
+  var init_Monad = __esm({
+    "client/src/util/Monad.ts"() {
       "use strict";
-      DeferredValue = class {
-        ready = false;
-        value = null;
-        promise = null;
-        resolve = null;
-        getAsync() {
-          if (this.ready)
-            return Promise.resolve(this.value);
-          if (!this.promise)
-            this.promise = new Promise((resolve) => {
-              this.resolve = resolve;
-            });
-          return this.promise;
+      ((Monad2) => {
+        Monad2.LOADING = Object.freeze({ value: null, error: null, loading: true });
+        function ofValue(value) {
+          return { value, error: null, loading: false };
         }
-        get() {
-          if (!this.ready)
-            throw new Error(`DeferredValue not ready yet`);
-          return this.value;
+        Monad2.ofValue = ofValue;
+        function ofError(error) {
+          return { value: null, error, loading: false };
         }
-        set(value) {
-          this.ready = true;
-          this.value = value;
-          if (this.resolve)
-            this.resolve(value);
-        }
-      };
-    }
-  });
-
-  // client/src/service/SocketClient.ts
-  var SocketClient;
-  var init_SocketClient = __esm({
-    "client/src/service/SocketClient.ts"() {
-      "use strict";
-      init_DeferredValue();
-      SocketClient = class _SocketClient {
-        static _instance = null;
-        static get instance() {
-          if (!this._instance)
-            this._instance = new _SocketClient();
-          return this._instance;
-        }
-        socket;
-        nextId = 1;
-        ready = new DeferredValue();
-        queryResponses = /* @__PURE__ */ new Map();
-        constructor() {
-          this.socket = new WebSocket("/ws");
-          this.socket.addEventListener("message", (event) => {
-            console.log("message", event);
-            this.onMessage(event);
-          });
-          this.socket.addEventListener("open", (event) => {
-            console.log("open", event);
-            this.ready.set(true);
-          });
-          this.socket.addEventListener("error", (error) => {
-            console.error("SOCKET ERROR", error);
-          });
-          this.socket.addEventListener("close", (close) => {
-            console.error("SOCKET CLOSED", close);
-          });
-        }
-        async query(payload) {
-          const id = this.getNextId();
-          const value = new DeferredValue();
-          this.queryResponses.set(id, value);
-          await this.sendMessage({ id, payload });
-          return value.getAsync();
-        }
-        async sendMessage(message) {
-          await this.sendData(JSON.stringify(message));
-        }
-        async sendData(data) {
-          await this.ready.getAsync();
-          this.socket.send(data);
-        }
-        onMessage(event) {
-          console.log("onMessage", { event });
-          const { id, payload } = JSON.parse(event.data);
-          if (id) {
-            const value = this.queryResponses.get(id);
-            if (value) value.set(payload);
-          }
-        }
-        getNextId() {
-          return this.nextId++;
-        }
-      };
-    }
-  });
-
-  // client/src/hooks/useAsync.ts
-  function useAsync(fn, deps = []) {
-    const [result, setResult] = (0, import_react.useState)({ loading: true, value: null, error: null });
-    (0, import_react.useEffect)(() => {
-      (async () => {
-        try {
-          const value = await fn();
-          setResult({ loading: false, error: null, value });
-        } catch (error) {
-          setResult({ loading: false, error, value: null });
-        }
-      })();
-    }, deps);
-    return result;
-  }
-  var import_react;
-  var init_useAsync = __esm({
-    "client/src/hooks/useAsync.ts"() {
-      "use strict";
-      import_react = __toESM(require_react());
-    }
-  });
-
-  // client/src/hooks/useQuery.ts
-  function useQuery(payload) {
-    return useAsync(() => SocketClient.instance.query(payload));
-  }
-  var init_useQuery = __esm({
-    "client/src/hooks/useQuery.ts"() {
-      "use strict";
-      init_SocketClient();
-      init_useAsync();
-    }
-  });
-
-  // client/src/util/MonadResult.ts
-  var MonadResult;
-  var init_MonadResult = __esm({
-    "client/src/util/MonadResult.ts"() {
-      "use strict";
-      ((MonadResult2) => {
+        Monad2.ofError = ofError;
         function isSuccess(result) {
           return result.loading === false && result.error === null;
         }
-        MonadResult2.isSuccess = isSuccess;
+        Monad2.isSuccess = isSuccess;
         function isError(result) {
           return result.loading === false && result.error !== null;
         }
-        MonadResult2.isError = isError;
+        Monad2.isError = isError;
         function isLoading(result) {
           return result.loading === true;
         }
-        MonadResult2.isLoading = isLoading;
-      })(MonadResult || (MonadResult = {}));
+        Monad2.isLoading = isLoading;
+      })(Monad || (Monad = {}));
     }
   });
 
-  // ../../.yarn/berry/cache/react-npm-19.0.0-e33c9aa1c0-10c0.zip/node_modules/react/cjs/react-jsx-runtime.development.js
+  // ../../../.yarn/berry/cache/react-npm-19.0.0-e33c9aa1c0-10c0.zip/node_modules/react/cjs/react-jsx-runtime.development.js
   var require_react_jsx_runtime_development = __commonJS({
-    "../../.yarn/berry/cache/react-npm-19.0.0-e33c9aa1c0-10c0.zip/node_modules/react/cjs/react-jsx-runtime.development.js"(exports) {
+    "../../../.yarn/berry/cache/react-npm-19.0.0-e33c9aa1c0-10c0.zip/node_modules/react/cjs/react-jsx-runtime.development.js"(exports) {
       "use strict";
       (function() {
         function getComponentNameFromType(type) {
@@ -19883,9 +19760,9 @@
     }
   });
 
-  // ../../.yarn/berry/cache/react-npm-19.0.0-e33c9aa1c0-10c0.zip/node_modules/react/jsx-runtime.js
+  // ../../../.yarn/berry/cache/react-npm-19.0.0-e33c9aa1c0-10c0.zip/node_modules/react/jsx-runtime.js
   var require_jsx_runtime = __commonJS({
-    "../../.yarn/berry/cache/react-npm-19.0.0-e33c9aa1c0-10c0.zip/node_modules/react/jsx-runtime.js"(exports, module) {
+    "../../../.yarn/berry/cache/react-npm-19.0.0-e33c9aa1c0-10c0.zip/node_modules/react/jsx-runtime.js"(exports, module) {
       "use strict";
       if (false) {
         module.exports = null;
@@ -19895,35 +19772,204 @@
     }
   });
 
-  // client/src/components/Monad.tsx
-  function Monad(props) {
-    if (MonadResult.isLoading(props))
+  // client/src/components/MonadValue.tsx
+  function MonadValue(props) {
+    if (Monad.isLoading(props))
       return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: "Loading..." });
-    if (MonadResult.isError(props))
+    if (Monad.isError(props))
       return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", { children: [
         "Error: ",
         props.error.message
       ] });
-    if (MonadResult.isSuccess(props))
+    if (Monad.isSuccess(props))
       return props.children(props.value);
   }
   var import_jsx_runtime;
-  var init_Monad = __esm({
-    "client/src/components/Monad.tsx"() {
+  var init_MonadValue = __esm({
+    "client/src/components/MonadValue.tsx"() {
       "use strict";
-      init_MonadResult();
+      init_Monad();
       import_jsx_runtime = __toESM(require_jsx_runtime());
+    }
+  });
+
+  // client/src/hooks/useAsync.ts
+  function useAsync(fn, deps = []) {
+    const [result, setResult] = (0, import_react.useState)(Monad.LOADING);
+    (0, import_react.useEffect)(() => {
+      (async () => {
+        try {
+          setResult(Monad.ofValue(await fn()));
+        } catch (error) {
+          setResult(Monad.ofError(error));
+        }
+      })();
+    }, deps);
+    return result;
+  }
+  var import_react;
+  var init_useAsync = __esm({
+    "client/src/hooks/useAsync.ts"() {
+      "use strict";
+      import_react = __toESM(require_react());
+      init_Monad();
+    }
+  });
+
+  // client/src/hooks/usePromise.ts
+  function usePromise(promise, deps) {
+    return useAsync(() => promise, deps);
+  }
+  var init_usePromise = __esm({
+    "client/src/hooks/usePromise.ts"() {
+      "use strict";
+      init_useAsync();
+    }
+  });
+
+  // shared/RobTheRobot.ts
+  var RobTheRobot;
+  var init_RobTheRobot = __esm({
+    "shared/RobTheRobot.ts"() {
+      "use strict";
+      ((RobTheRobot2) => {
+        RobTheRobot2.KEYS = ["cwd", "hello"];
+      })(RobTheRobot || (RobTheRobot = {}));
+    }
+  });
+
+  // client/src/util/DeferredValue.ts
+  var DeferredValue;
+  var init_DeferredValue = __esm({
+    "client/src/util/DeferredValue.ts"() {
+      "use strict";
+      DeferredValue = class {
+        ready = false;
+        value = null;
+        promise = null;
+        resolve = null;
+        getAsync() {
+          if (this.ready)
+            return Promise.resolve(this.value);
+          if (!this.promise)
+            this.promise = new Promise((resolve) => {
+              this.resolve = resolve;
+            });
+          return this.promise;
+        }
+        get() {
+          if (!this.ready)
+            throw new Error(`DeferredValue not ready yet`);
+          return this.value;
+        }
+        set(value) {
+          this.ready = true;
+          this.value = value;
+          if (this.resolve)
+            this.resolve(value);
+        }
+      };
+    }
+  });
+
+  // client/src/service/SocketClient.ts
+  var SocketClient;
+  var init_SocketClient = __esm({
+    "client/src/service/SocketClient.ts"() {
+      "use strict";
+      init_DeferredValue();
+      SocketClient = class _SocketClient {
+        static _instance = null;
+        static get instance() {
+          if (!this._instance)
+            this._instance = new _SocketClient();
+          return this._instance;
+        }
+        socket;
+        nextId = 1;
+        ready = new DeferredValue();
+        queryResponses = /* @__PURE__ */ new Map();
+        constructor() {
+          this.socket = new WebSocket("/ws");
+          this.socket.addEventListener("message", (event) => {
+            console.log("message", event);
+            this.onMessage(event);
+          });
+          this.socket.addEventListener("open", (event) => {
+            console.log("open", event);
+            this.ready.set(true);
+          });
+          this.socket.addEventListener("error", (error) => {
+            console.error("SOCKET ERROR", error);
+          });
+          this.socket.addEventListener("close", (close) => {
+            console.error("SOCKET CLOSED", close);
+          });
+        }
+        async query(payload) {
+          const id = this.getNextId();
+          const value = new DeferredValue();
+          this.queryResponses.set(id, value);
+          await this.sendMessage({ id, payload });
+          return value.getAsync();
+        }
+        async sendMessage(message) {
+          await this.sendData(JSON.stringify(message));
+        }
+        async sendData(data) {
+          await this.ready.getAsync();
+          this.socket.send(data);
+        }
+        onMessage(event) {
+          console.log("onMessage", { event });
+          const { id, payload } = JSON.parse(event.data);
+          if (id) {
+            const value = this.queryResponses.get(id);
+            if (value) value.set(payload);
+          }
+        }
+        getNextId() {
+          return this.nextId++;
+        }
+      };
+    }
+  });
+
+  // client/src/service/RobTheRobotClient.ts
+  var RobTheRobotClient;
+  var init_RobTheRobotClient = __esm({
+    "client/src/service/RobTheRobotClient.ts"() {
+      "use strict";
+      init_RobTheRobot();
+      init_SocketClient();
+      RobTheRobotClient = class _RobTheRobotClient {
+        static _instance = null;
+        static get instance() {
+          if (!this._instance)
+            this._instance = new _RobTheRobotClient(SocketClient.instance);
+          return this._instance;
+        }
+        queryable;
+        constructor(queryable) {
+          this.queryable = queryable;
+        }
+      };
+      for (const key of RobTheRobot.KEYS) {
+        RobTheRobotClient.prototype[key] = function(...args) {
+          return this.queryable.query([key, ...args]);
+        };
+      }
     }
   });
 
   // client/src/App.tsx
   function App() {
-    const cwdResult = useQuery(["cwd"]);
+    const cwdResult = usePromise(RobTheRobotClient.instance.cwd());
     return /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { className: "container", children: [
       /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("h1", { children: "Hello, world" }),
       /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("code", { children: [
         "CWD: ",
-        /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(Monad, { ...cwdResult, children: (cwd) => cwd })
+        /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(MonadValue, { ...cwdResult, children: (cwd) => cwd })
       ] })
     ] });
   }
@@ -19931,8 +19977,9 @@
   var init_App = __esm({
     "client/src/App.tsx"() {
       "use strict";
-      init_useQuery();
-      init_Monad();
+      init_MonadValue();
+      init_usePromise();
+      init_RobTheRobotClient();
       import_jsx_runtime2 = __toESM(require_jsx_runtime());
     }
   });

@@ -1,6 +1,7 @@
 import { DeferredValue } from "../util/DeferredValue";
+import { Queryable } from "./Queryable";
 
-export class SocketClient {
+export class SocketClient implements Queryable {
   private static _instance: SocketClient|null = null;
 
   public static get instance() {
@@ -68,6 +69,6 @@ export class SocketClient {
 }
 
 export namespace SocketClient {
-  export type QueryPayload = any;
-  export type Message = any;
+  export type QueryPayload = unknown[];
+  export type Message = unknown;
 }
