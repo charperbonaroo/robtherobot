@@ -25,8 +25,7 @@ export class HttpServer {
         req.log.info("/ws client connected");
 
         socket.on("message", (messageBuffer: Buffer) => {
-          const message = JSON.parse(messageBuffer.toString("utf-8"));
-          const { id, payload } = message;
+          const { id, payload } = JSON.parse(messageBuffer.toString("utf-8"));
 
           if (payload[0] === "cwd") {
             socket.send(JSON.stringify({ id, payload: this.cwd }));

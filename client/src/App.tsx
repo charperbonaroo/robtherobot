@@ -1,18 +1,12 @@
-import React, { useEffect, useState } from "react";
-import { SocketClient } from "./service/SocketClient";
+import React from "react";
+import { useQuery } from "./hooks/useQuery";
+import { Monad } from "./components/Monad";
 
 export function App() {
-  const [cwd, setCwd] = useState<string|null>(null);
-
-  useEffect(() => {
-    (async () => {
-      const socketClient = new SocketClient();
-      setCwd(await socketClient.query(["cwd"]));
-    })();
-  }, []);
+  const cwdResult = useQuery<string>(["cwd"]);
 
   return <div className="container">
     <h1>Hello, world</h1>
-    <code>CWD: {cwd}</code>
+    <code>CWD: <Monad {...cwdResult}>{(cwd) => cwd}</Monad></code>
   </div>;
 }

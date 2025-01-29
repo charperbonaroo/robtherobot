@@ -29,9 +29,9 @@
     mod
   ));
 
-  // ../../../.yarn/berry/cache/scheduler-npm-0.25.0-f89e6cad04-10c0.zip/node_modules/scheduler/cjs/scheduler.development.js
+  // ../../.yarn/berry/cache/scheduler-npm-0.25.0-f89e6cad04-10c0.zip/node_modules/scheduler/cjs/scheduler.development.js
   var require_scheduler_development = __commonJS({
-    "../../../.yarn/berry/cache/scheduler-npm-0.25.0-f89e6cad04-10c0.zip/node_modules/scheduler/cjs/scheduler.development.js"(exports) {
+    "../../.yarn/berry/cache/scheduler-npm-0.25.0-f89e6cad04-10c0.zip/node_modules/scheduler/cjs/scheduler.development.js"(exports) {
       "use strict";
       (function() {
         function performWorkUntilDeadline() {
@@ -297,9 +297,9 @@
     }
   });
 
-  // ../../../.yarn/berry/cache/scheduler-npm-0.25.0-f89e6cad04-10c0.zip/node_modules/scheduler/index.js
+  // ../../.yarn/berry/cache/scheduler-npm-0.25.0-f89e6cad04-10c0.zip/node_modules/scheduler/index.js
   var require_scheduler = __commonJS({
-    "../../../.yarn/berry/cache/scheduler-npm-0.25.0-f89e6cad04-10c0.zip/node_modules/scheduler/index.js"(exports, module) {
+    "../../.yarn/berry/cache/scheduler-npm-0.25.0-f89e6cad04-10c0.zip/node_modules/scheduler/index.js"(exports, module) {
       "use strict";
       if (false) {
         module.exports = null;
@@ -309,9 +309,9 @@
     }
   });
 
-  // ../../../.yarn/berry/cache/react-npm-19.0.0-e33c9aa1c0-10c0.zip/node_modules/react/cjs/react.development.js
+  // ../../.yarn/berry/cache/react-npm-19.0.0-e33c9aa1c0-10c0.zip/node_modules/react/cjs/react.development.js
   var require_react_development = __commonJS({
-    "../../../.yarn/berry/cache/react-npm-19.0.0-e33c9aa1c0-10c0.zip/node_modules/react/cjs/react.development.js"(exports, module) {
+    "../../.yarn/berry/cache/react-npm-19.0.0-e33c9aa1c0-10c0.zip/node_modules/react/cjs/react.development.js"(exports, module) {
       "use strict";
       (function() {
         function defineDeprecationWarning(methodName, info) {
@@ -1416,9 +1416,9 @@
     }
   });
 
-  // ../../../.yarn/berry/cache/react-npm-19.0.0-e33c9aa1c0-10c0.zip/node_modules/react/index.js
+  // ../../.yarn/berry/cache/react-npm-19.0.0-e33c9aa1c0-10c0.zip/node_modules/react/index.js
   var require_react = __commonJS({
-    "../../../.yarn/berry/cache/react-npm-19.0.0-e33c9aa1c0-10c0.zip/node_modules/react/index.js"(exports, module) {
+    "../../.yarn/berry/cache/react-npm-19.0.0-e33c9aa1c0-10c0.zip/node_modules/react/index.js"(exports, module) {
       "use strict";
       if (false) {
         module.exports = null;
@@ -1428,9 +1428,9 @@
     }
   });
 
-  // .yarn/__virtual__/react-dom-virtual-a77ada3a35/4/.yarn/berry/cache/react-dom-npm-19.0.0-b7981c573e-10c0.zip/node_modules/react-dom/cjs/react-dom.development.js
+  // .yarn/__virtual__/react-dom-virtual-a77ada3a35/3/.yarn/berry/cache/react-dom-npm-19.0.0-b7981c573e-10c0.zip/node_modules/react-dom/cjs/react-dom.development.js
   var require_react_dom_development = __commonJS({
-    ".yarn/__virtual__/react-dom-virtual-a77ada3a35/4/.yarn/berry/cache/react-dom-npm-19.0.0-b7981c573e-10c0.zip/node_modules/react-dom/cjs/react-dom.development.js"(exports) {
+    ".yarn/__virtual__/react-dom-virtual-a77ada3a35/3/.yarn/berry/cache/react-dom-npm-19.0.0-b7981c573e-10c0.zip/node_modules/react-dom/cjs/react-dom.development.js"(exports) {
       "use strict";
       (function() {
         function noop() {
@@ -1477,7 +1477,7 @@
           return dispatcher;
         }
         "undefined" !== typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ && "function" === typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart && __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart(Error());
-        var React2 = require_react(), Internals = {
+        var React = require_react(), Internals = {
           d: {
             f: noop,
             r: function() {
@@ -1495,7 +1495,7 @@
           },
           p: 0,
           findDOMNode: null
-        }, REACT_PORTAL_TYPE = Symbol.for("react.portal"), ReactSharedInternals = React2.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE;
+        }, REACT_PORTAL_TYPE = Symbol.for("react.portal"), ReactSharedInternals = React.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE;
         "function" === typeof Map && null != Map.prototype && "function" === typeof Map.prototype.forEach && "function" === typeof Set && null != Set.prototype && "function" === typeof Set.prototype.clear && "function" === typeof Set.prototype.forEach || console.error(
           "React depends on Map and Set built-in types. Make sure that you load a polyfill in older browsers. https://reactjs.org/link/react-polyfills"
         );
@@ -1672,9 +1672,9 @@
     }
   });
 
-  // .yarn/__virtual__/react-dom-virtual-a77ada3a35/4/.yarn/berry/cache/react-dom-npm-19.0.0-b7981c573e-10c0.zip/node_modules/react-dom/index.js
+  // .yarn/__virtual__/react-dom-virtual-a77ada3a35/3/.yarn/berry/cache/react-dom-npm-19.0.0-b7981c573e-10c0.zip/node_modules/react-dom/index.js
   var require_react_dom = __commonJS({
-    ".yarn/__virtual__/react-dom-virtual-a77ada3a35/4/.yarn/berry/cache/react-dom-npm-19.0.0-b7981c573e-10c0.zip/node_modules/react-dom/index.js"(exports, module) {
+    ".yarn/__virtual__/react-dom-virtual-a77ada3a35/3/.yarn/berry/cache/react-dom-npm-19.0.0-b7981c573e-10c0.zip/node_modules/react-dom/index.js"(exports, module) {
       "use strict";
       if (false) {
         checkDCE();
@@ -1685,9 +1685,9 @@
     }
   });
 
-  // .yarn/__virtual__/react-dom-virtual-a77ada3a35/4/.yarn/berry/cache/react-dom-npm-19.0.0-b7981c573e-10c0.zip/node_modules/react-dom/cjs/react-dom-client.development.js
+  // .yarn/__virtual__/react-dom-virtual-a77ada3a35/3/.yarn/berry/cache/react-dom-npm-19.0.0-b7981c573e-10c0.zip/node_modules/react-dom/cjs/react-dom-client.development.js
   var require_react_dom_client_development = __commonJS({
-    ".yarn/__virtual__/react-dom-virtual-a77ada3a35/4/.yarn/berry/cache/react-dom-npm-19.0.0-b7981c573e-10c0.zip/node_modules/react-dom/cjs/react-dom-client.development.js"(exports) {
+    ".yarn/__virtual__/react-dom-virtual-a77ada3a35/3/.yarn/berry/cache/react-dom-npm-19.0.0-b7981c573e-10c0.zip/node_modules/react-dom/cjs/react-dom-client.development.js"(exports) {
       "use strict";
       (function() {
         function findHook(fiber, id) {
@@ -2951,7 +2951,7 @@
           "number" === type && getActiveElement(node.ownerDocument) === node || node.defaultValue === "" + value || (node.defaultValue = "" + value);
         }
         function validateOptionProps(element, props) {
-          null == props.value && ("object" === typeof props.children && null !== props.children ? React2.Children.forEach(props.children, function(child) {
+          null == props.value && ("object" === typeof props.children && null !== props.children ? React.Children.forEach(props.children, function(child) {
             null == child || "string" === typeof child || "number" === typeof child || "bigint" === typeof child || didWarnInvalidChild || (didWarnInvalidChild = true, console.error(
               "Cannot infer the option value of complex children. Pass a `value` prop or use a plain string as children to <option>."
             ));
@@ -16421,13 +16421,13 @@
           ));
         }
         "undefined" !== typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ && "function" === typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart && __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart(Error());
-        var Scheduler = require_scheduler(), React2 = require_react(), ReactDOM = require_react_dom(), REACT_LEGACY_ELEMENT_TYPE = Symbol.for("react.element"), REACT_ELEMENT_TYPE = Symbol.for("react.transitional.element"), REACT_PORTAL_TYPE = Symbol.for("react.portal"), REACT_FRAGMENT_TYPE = Symbol.for("react.fragment"), REACT_STRICT_MODE_TYPE = Symbol.for("react.strict_mode"), REACT_PROFILER_TYPE = Symbol.for("react.profiler"), REACT_PROVIDER_TYPE = Symbol.for("react.provider"), REACT_CONSUMER_TYPE = Symbol.for("react.consumer"), REACT_CONTEXT_TYPE = Symbol.for("react.context"), REACT_FORWARD_REF_TYPE = Symbol.for("react.forward_ref"), REACT_SUSPENSE_TYPE = Symbol.for("react.suspense"), REACT_SUSPENSE_LIST_TYPE = Symbol.for("react.suspense_list"), REACT_MEMO_TYPE = Symbol.for("react.memo"), REACT_LAZY_TYPE = Symbol.for("react.lazy");
+        var Scheduler = require_scheduler(), React = require_react(), ReactDOM = require_react_dom(), REACT_LEGACY_ELEMENT_TYPE = Symbol.for("react.element"), REACT_ELEMENT_TYPE = Symbol.for("react.transitional.element"), REACT_PORTAL_TYPE = Symbol.for("react.portal"), REACT_FRAGMENT_TYPE = Symbol.for("react.fragment"), REACT_STRICT_MODE_TYPE = Symbol.for("react.strict_mode"), REACT_PROFILER_TYPE = Symbol.for("react.profiler"), REACT_PROVIDER_TYPE = Symbol.for("react.provider"), REACT_CONSUMER_TYPE = Symbol.for("react.consumer"), REACT_CONTEXT_TYPE = Symbol.for("react.context"), REACT_FORWARD_REF_TYPE = Symbol.for("react.forward_ref"), REACT_SUSPENSE_TYPE = Symbol.for("react.suspense"), REACT_SUSPENSE_LIST_TYPE = Symbol.for("react.suspense_list"), REACT_MEMO_TYPE = Symbol.for("react.memo"), REACT_LAZY_TYPE = Symbol.for("react.lazy");
         Symbol.for("react.scope");
         Symbol.for("react.debug_trace_mode");
         var REACT_OFFSCREEN_TYPE = Symbol.for("react.offscreen");
         Symbol.for("react.legacy_hidden");
         Symbol.for("react.tracing_marker");
-        var REACT_MEMO_CACHE_SENTINEL = Symbol.for("react.memo_cache_sentinel"), MAYBE_ITERATOR_SYMBOL = Symbol.iterator, REACT_CLIENT_REFERENCE = Symbol.for("react.client.reference"), ReactSharedInternals = React2.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE, assign = Object.assign, disabledDepth = 0, prevLog, prevInfo, prevWarn, prevError, prevGroup, prevGroupCollapsed, prevGroupEnd;
+        var REACT_MEMO_CACHE_SENTINEL = Symbol.for("react.memo_cache_sentinel"), MAYBE_ITERATOR_SYMBOL = Symbol.iterator, REACT_CLIENT_REFERENCE = Symbol.for("react.client.reference"), ReactSharedInternals = React.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE, assign = Object.assign, disabledDepth = 0, prevLog, prevInfo, prevWarn, prevError, prevGroup, prevGroupCollapsed, prevGroupEnd;
         disabledLog.__reactDisabledLog = true;
         var prefix, suffix, reentry = false;
         var componentFrameCache = new ("function" === typeof WeakMap ? WeakMap : Map)();
@@ -19147,7 +19147,7 @@
           }
         };
         (function() {
-          var isomorphicReactPackageVersion = React2.version;
+          var isomorphicReactPackageVersion = React.version;
           if ("19.0.0" !== isomorphicReactPackageVersion)
             throw Error(
               'Incompatible React versions: The "react" and "react-dom" packages must have the exact same version. Instead got:\n  - react:      ' + (isomorphicReactPackageVersion + "\n  - react-dom:  19.0.0\nLearn more: https://react.dev/warnings/version-mismatch")
@@ -19275,9 +19275,9 @@
     }
   });
 
-  // .yarn/__virtual__/react-dom-virtual-a77ada3a35/4/.yarn/berry/cache/react-dom-npm-19.0.0-b7981c573e-10c0.zip/node_modules/react-dom/client.js
+  // .yarn/__virtual__/react-dom-virtual-a77ada3a35/3/.yarn/berry/cache/react-dom-npm-19.0.0-b7981c573e-10c0.zip/node_modules/react-dom/client.js
   var require_client = __commonJS({
-    ".yarn/__virtual__/react-dom-virtual-a77ada3a35/4/.yarn/berry/cache/react-dom-npm-19.0.0-b7981c573e-10c0.zip/node_modules/react-dom/client.js"(exports, module) {
+    ".yarn/__virtual__/react-dom-virtual-a77ada3a35/3/.yarn/berry/cache/react-dom-npm-19.0.0-b7981c573e-10c0.zip/node_modules/react-dom/client.js"(exports, module) {
       "use strict";
       if (false) {
         checkDCE();
@@ -19328,7 +19328,13 @@
     "client/src/service/SocketClient.ts"() {
       "use strict";
       init_DeferredValue();
-      SocketClient = class {
+      SocketClient = class _SocketClient {
+        static _instance = null;
+        static get instance() {
+          if (!this._instance)
+            this._instance = new _SocketClient();
+          return this._instance;
+        }
         socket;
         nextId = 1;
         ready = new DeferredValue();
@@ -19354,11 +19360,11 @@
           const id = this.getNextId();
           const value = new DeferredValue();
           this.queryResponses.set(id, value);
-          await this.sendPayload({ id, payload });
+          await this.sendMessage({ id, payload });
           return value.getAsync();
         }
-        async sendPayload(payload) {
-          await this.sendData(JSON.stringify(payload));
+        async sendMessage(message) {
+          await this.sendData(JSON.stringify(message));
         }
         async sendData(data) {
           await this.ready.getAsync();
@@ -19379,9 +19385,66 @@
     }
   });
 
-  // ../../../.yarn/berry/cache/react-npm-19.0.0-e33c9aa1c0-10c0.zip/node_modules/react/cjs/react-jsx-runtime.development.js
+  // client/src/hooks/useAsync.ts
+  function useAsync(fn, deps = []) {
+    const [result, setResult] = (0, import_react.useState)({ loading: true, value: null, error: null });
+    (0, import_react.useEffect)(() => {
+      (async () => {
+        try {
+          const value = await fn();
+          setResult({ loading: false, error: null, value });
+        } catch (error) {
+          setResult({ loading: false, error, value: null });
+        }
+      })();
+    }, deps);
+    return result;
+  }
+  var import_react;
+  var init_useAsync = __esm({
+    "client/src/hooks/useAsync.ts"() {
+      "use strict";
+      import_react = __toESM(require_react());
+    }
+  });
+
+  // client/src/hooks/useQuery.ts
+  function useQuery(payload) {
+    return useAsync(() => SocketClient.instance.query(payload));
+  }
+  var init_useQuery = __esm({
+    "client/src/hooks/useQuery.ts"() {
+      "use strict";
+      init_SocketClient();
+      init_useAsync();
+    }
+  });
+
+  // client/src/util/MonadResult.ts
+  var MonadResult;
+  var init_MonadResult = __esm({
+    "client/src/util/MonadResult.ts"() {
+      "use strict";
+      ((MonadResult2) => {
+        function isSuccess(result) {
+          return result.loading === false && result.error === null;
+        }
+        MonadResult2.isSuccess = isSuccess;
+        function isError(result) {
+          return result.loading === false && result.error !== null;
+        }
+        MonadResult2.isError = isError;
+        function isLoading(result) {
+          return result.loading === true;
+        }
+        MonadResult2.isLoading = isLoading;
+      })(MonadResult || (MonadResult = {}));
+    }
+  });
+
+  // ../../.yarn/berry/cache/react-npm-19.0.0-e33c9aa1c0-10c0.zip/node_modules/react/cjs/react-jsx-runtime.development.js
   var require_react_jsx_runtime_development = __commonJS({
-    "../../../.yarn/berry/cache/react-npm-19.0.0-e33c9aa1c0-10c0.zip/node_modules/react/cjs/react-jsx-runtime.development.js"(exports) {
+    "../../.yarn/berry/cache/react-npm-19.0.0-e33c9aa1c0-10c0.zip/node_modules/react/cjs/react-jsx-runtime.development.js"(exports) {
       "use strict";
       (function() {
         function getComponentNameFromType(type) {
@@ -19800,9 +19863,9 @@
           info || (parentType = getComponentNameFromType(parentType)) && (info = "\n\nCheck the top-level render call using <" + parentType + ">.");
           return info;
         }
-        var React2 = require_react(), REACT_ELEMENT_TYPE = Symbol.for("react.transitional.element"), REACT_PORTAL_TYPE = Symbol.for("react.portal"), REACT_FRAGMENT_TYPE = Symbol.for("react.fragment"), REACT_STRICT_MODE_TYPE = Symbol.for("react.strict_mode"), REACT_PROFILER_TYPE = Symbol.for("react.profiler");
+        var React = require_react(), REACT_ELEMENT_TYPE = Symbol.for("react.transitional.element"), REACT_PORTAL_TYPE = Symbol.for("react.portal"), REACT_FRAGMENT_TYPE = Symbol.for("react.fragment"), REACT_STRICT_MODE_TYPE = Symbol.for("react.strict_mode"), REACT_PROFILER_TYPE = Symbol.for("react.profiler");
         Symbol.for("react.provider");
-        var REACT_CONSUMER_TYPE = Symbol.for("react.consumer"), REACT_CONTEXT_TYPE = Symbol.for("react.context"), REACT_FORWARD_REF_TYPE = Symbol.for("react.forward_ref"), REACT_SUSPENSE_TYPE = Symbol.for("react.suspense"), REACT_SUSPENSE_LIST_TYPE = Symbol.for("react.suspense_list"), REACT_MEMO_TYPE = Symbol.for("react.memo"), REACT_LAZY_TYPE = Symbol.for("react.lazy"), REACT_OFFSCREEN_TYPE = Symbol.for("react.offscreen"), MAYBE_ITERATOR_SYMBOL = Symbol.iterator, REACT_CLIENT_REFERENCE$2 = Symbol.for("react.client.reference"), ReactSharedInternals = React2.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE, hasOwnProperty = Object.prototype.hasOwnProperty, assign = Object.assign, REACT_CLIENT_REFERENCE$1 = Symbol.for("react.client.reference"), isArrayImpl = Array.isArray, disabledDepth = 0, prevLog, prevInfo, prevWarn, prevError, prevGroup, prevGroupCollapsed, prevGroupEnd;
+        var REACT_CONSUMER_TYPE = Symbol.for("react.consumer"), REACT_CONTEXT_TYPE = Symbol.for("react.context"), REACT_FORWARD_REF_TYPE = Symbol.for("react.forward_ref"), REACT_SUSPENSE_TYPE = Symbol.for("react.suspense"), REACT_SUSPENSE_LIST_TYPE = Symbol.for("react.suspense_list"), REACT_MEMO_TYPE = Symbol.for("react.memo"), REACT_LAZY_TYPE = Symbol.for("react.lazy"), REACT_OFFSCREEN_TYPE = Symbol.for("react.offscreen"), MAYBE_ITERATOR_SYMBOL = Symbol.iterator, REACT_CLIENT_REFERENCE$2 = Symbol.for("react.client.reference"), ReactSharedInternals = React.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE, hasOwnProperty = Object.prototype.hasOwnProperty, assign = Object.assign, REACT_CLIENT_REFERENCE$1 = Symbol.for("react.client.reference"), isArrayImpl = Array.isArray, disabledDepth = 0, prevLog, prevInfo, prevWarn, prevError, prevGroup, prevGroupCollapsed, prevGroupEnd;
         disabledLog.__reactDisabledLog = true;
         var prefix, suffix, reentry = false;
         var componentFrameCache = new ("function" === typeof WeakMap ? WeakMap : Map)();
@@ -19820,9 +19883,9 @@
     }
   });
 
-  // ../../../.yarn/berry/cache/react-npm-19.0.0-e33c9aa1c0-10c0.zip/node_modules/react/jsx-runtime.js
+  // ../../.yarn/berry/cache/react-npm-19.0.0-e33c9aa1c0-10c0.zip/node_modules/react/jsx-runtime.js
   var require_jsx_runtime = __commonJS({
-    "../../../.yarn/berry/cache/react-npm-19.0.0-e33c9aa1c0-10c0.zip/node_modules/react/jsx-runtime.js"(exports, module) {
+    "../../.yarn/berry/cache/react-npm-19.0.0-e33c9aa1c0-10c0.zip/node_modules/react/jsx-runtime.js"(exports, module) {
       "use strict";
       if (false) {
         module.exports = null;
@@ -19832,30 +19895,45 @@
     }
   });
 
+  // client/src/components/Monad.tsx
+  function Monad(props) {
+    if (MonadResult.isLoading(props))
+      return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: "Loading..." });
+    if (MonadResult.isError(props))
+      return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", { children: [
+        "Error: ",
+        props.error.message
+      ] });
+    if (MonadResult.isSuccess(props))
+      return props.children(props.value);
+  }
+  var import_jsx_runtime;
+  var init_Monad = __esm({
+    "client/src/components/Monad.tsx"() {
+      "use strict";
+      init_MonadResult();
+      import_jsx_runtime = __toESM(require_jsx_runtime());
+    }
+  });
+
   // client/src/App.tsx
   function App() {
-    const [cwd, setCwd] = (0, import_react.useState)(null);
-    (0, import_react.useEffect)(() => {
-      (async () => {
-        const socketClient = new SocketClient();
-        setCwd(await socketClient.query(["cwd"]));
-      })();
-    }, []);
-    return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { className: "container", children: [
-      /* @__PURE__ */ (0, import_jsx_runtime.jsx)("h1", { children: "Hello, world" }),
-      /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("code", { children: [
+    const cwdResult = useQuery(["cwd"]);
+    return /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { className: "container", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("h1", { children: "Hello, world" }),
+      /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("code", { children: [
         "CWD: ",
-        cwd
+        /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(Monad, { ...cwdResult, children: (cwd) => cwd })
       ] })
     ] });
   }
-  var import_react, import_jsx_runtime;
+  var import_jsx_runtime2;
   var init_App = __esm({
     "client/src/App.tsx"() {
       "use strict";
-      import_react = __toESM(require_react());
-      init_SocketClient();
-      import_jsx_runtime = __toESM(require_jsx_runtime());
+      init_useQuery();
+      init_Monad();
+      import_jsx_runtime2 = __toESM(require_jsx_runtime());
     }
   });
 
@@ -19864,10 +19942,10 @@
     "client/src/main.tsx"() {
       var import_client = __toESM(require_client());
       init_App();
-      var import_jsx_runtime2 = __toESM(require_jsx_runtime());
+      var import_jsx_runtime3 = __toESM(require_jsx_runtime());
       window.addEventListener("DOMContentLoaded", () => {
         const root = (0, import_client.createRoot)(document.getElementById("app"));
-        root.render(/* @__PURE__ */ (0, import_jsx_runtime2.jsx)(App, {}));
+        root.render(/* @__PURE__ */ (0, import_jsx_runtime3.jsx)(App, {}));
       });
     }
   });

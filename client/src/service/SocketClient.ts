@@ -1,6 +1,14 @@
 import { DeferredValue } from "../util/DeferredValue";
 
 export class SocketClient {
+  private static _instance: SocketClient|null = null;
+
+  public static get instance() {
+    if (!this._instance)
+      this._instance = new SocketClient();
+    return this._instance;
+  }
+
   private socket: WebSocket;
   private nextId = 1;
   private ready = new DeferredValue<boolean>();
@@ -28,16 +36,16 @@ export class SocketClient {
     })
   }
 
-  async query<T>(payload: any): Promise<T> {
+  async query<T>(payload: SocketClient.QueryPayload): Promise<T> {
     const id = this.getNextId();
     const value = new DeferredValue<T>();
     this.queryResponses.set(id, value);
-    await this.sendPayload({ id, payload });
+    await this.sendMessage({ id, payload });
     return value.getAsync();
   }
 
-  async sendPayload(payload: any) {
-    await this.sendData(JSON.stringify(payload));
+  async sendMessage(message: SocketClient.Message) {
+    await this.sendData(JSON.stringify(message));
   }
 
   async sendData(data: string | ArrayBufferLike | Blob | ArrayBufferView): Promise<void> {
@@ -57,4 +65,9 @@ export class SocketClient {
   private getNextId() {
     return this.nextId++;
   }
+}
+
+export namespace SocketClient {
+  export type QueryPayload = any;
+  export type Message = any;
 }
