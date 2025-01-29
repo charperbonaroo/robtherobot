@@ -29,9 +29,9 @@
     mod
   ));
 
-  // ../../../.yarn/berry/cache/scheduler-npm-0.25.0-f89e6cad04-10c0.zip/node_modules/scheduler/cjs/scheduler.development.js
+  // ../../.yarn/berry/cache/scheduler-npm-0.25.0-f89e6cad04-10c0.zip/node_modules/scheduler/cjs/scheduler.development.js
   var require_scheduler_development = __commonJS({
-    "../../../.yarn/berry/cache/scheduler-npm-0.25.0-f89e6cad04-10c0.zip/node_modules/scheduler/cjs/scheduler.development.js"(exports) {
+    "../../.yarn/berry/cache/scheduler-npm-0.25.0-f89e6cad04-10c0.zip/node_modules/scheduler/cjs/scheduler.development.js"(exports) {
       "use strict";
       (function() {
         function performWorkUntilDeadline() {
@@ -297,9 +297,9 @@
     }
   });
 
-  // ../../../.yarn/berry/cache/scheduler-npm-0.25.0-f89e6cad04-10c0.zip/node_modules/scheduler/index.js
+  // ../../.yarn/berry/cache/scheduler-npm-0.25.0-f89e6cad04-10c0.zip/node_modules/scheduler/index.js
   var require_scheduler = __commonJS({
-    "../../../.yarn/berry/cache/scheduler-npm-0.25.0-f89e6cad04-10c0.zip/node_modules/scheduler/index.js"(exports, module) {
+    "../../.yarn/berry/cache/scheduler-npm-0.25.0-f89e6cad04-10c0.zip/node_modules/scheduler/index.js"(exports, module) {
       "use strict";
       if (false) {
         module.exports = null;
@@ -309,9 +309,9 @@
     }
   });
 
-  // ../../../.yarn/berry/cache/react-npm-19.0.0-e33c9aa1c0-10c0.zip/node_modules/react/cjs/react.development.js
+  // ../../.yarn/berry/cache/react-npm-19.0.0-e33c9aa1c0-10c0.zip/node_modules/react/cjs/react.development.js
   var require_react_development = __commonJS({
-    "../../../.yarn/berry/cache/react-npm-19.0.0-e33c9aa1c0-10c0.zip/node_modules/react/cjs/react.development.js"(exports, module) {
+    "../../.yarn/berry/cache/react-npm-19.0.0-e33c9aa1c0-10c0.zip/node_modules/react/cjs/react.development.js"(exports, module) {
       "use strict";
       (function() {
         function defineDeprecationWarning(methodName, info) {
@@ -1416,9 +1416,9 @@
     }
   });
 
-  // ../../../.yarn/berry/cache/react-npm-19.0.0-e33c9aa1c0-10c0.zip/node_modules/react/index.js
+  // ../../.yarn/berry/cache/react-npm-19.0.0-e33c9aa1c0-10c0.zip/node_modules/react/index.js
   var require_react = __commonJS({
-    "../../../.yarn/berry/cache/react-npm-19.0.0-e33c9aa1c0-10c0.zip/node_modules/react/index.js"(exports, module) {
+    "../../.yarn/berry/cache/react-npm-19.0.0-e33c9aa1c0-10c0.zip/node_modules/react/index.js"(exports, module) {
       "use strict";
       if (false) {
         module.exports = null;
@@ -1428,9 +1428,9 @@
     }
   });
 
-  // .yarn/__virtual__/react-dom-virtual-a77ada3a35/4/.yarn/berry/cache/react-dom-npm-19.0.0-b7981c573e-10c0.zip/node_modules/react-dom/cjs/react-dom.development.js
+  // .yarn/__virtual__/react-dom-virtual-a77ada3a35/3/.yarn/berry/cache/react-dom-npm-19.0.0-b7981c573e-10c0.zip/node_modules/react-dom/cjs/react-dom.development.js
   var require_react_dom_development = __commonJS({
-    ".yarn/__virtual__/react-dom-virtual-a77ada3a35/4/.yarn/berry/cache/react-dom-npm-19.0.0-b7981c573e-10c0.zip/node_modules/react-dom/cjs/react-dom.development.js"(exports) {
+    ".yarn/__virtual__/react-dom-virtual-a77ada3a35/3/.yarn/berry/cache/react-dom-npm-19.0.0-b7981c573e-10c0.zip/node_modules/react-dom/cjs/react-dom.development.js"(exports) {
       "use strict";
       (function() {
         function noop() {
@@ -1672,9 +1672,9 @@
     }
   });
 
-  // .yarn/__virtual__/react-dom-virtual-a77ada3a35/4/.yarn/berry/cache/react-dom-npm-19.0.0-b7981c573e-10c0.zip/node_modules/react-dom/index.js
+  // .yarn/__virtual__/react-dom-virtual-a77ada3a35/3/.yarn/berry/cache/react-dom-npm-19.0.0-b7981c573e-10c0.zip/node_modules/react-dom/index.js
   var require_react_dom = __commonJS({
-    ".yarn/__virtual__/react-dom-virtual-a77ada3a35/4/.yarn/berry/cache/react-dom-npm-19.0.0-b7981c573e-10c0.zip/node_modules/react-dom/index.js"(exports, module) {
+    ".yarn/__virtual__/react-dom-virtual-a77ada3a35/3/.yarn/berry/cache/react-dom-npm-19.0.0-b7981c573e-10c0.zip/node_modules/react-dom/index.js"(exports, module) {
       "use strict";
       if (false) {
         checkDCE();
@@ -1685,9 +1685,9 @@
     }
   });
 
-  // .yarn/__virtual__/react-dom-virtual-a77ada3a35/4/.yarn/berry/cache/react-dom-npm-19.0.0-b7981c573e-10c0.zip/node_modules/react-dom/cjs/react-dom-client.development.js
+  // .yarn/__virtual__/react-dom-virtual-a77ada3a35/3/.yarn/berry/cache/react-dom-npm-19.0.0-b7981c573e-10c0.zip/node_modules/react-dom/cjs/react-dom-client.development.js
   var require_react_dom_client_development = __commonJS({
-    ".yarn/__virtual__/react-dom-virtual-a77ada3a35/4/.yarn/berry/cache/react-dom-npm-19.0.0-b7981c573e-10c0.zip/node_modules/react-dom/cjs/react-dom-client.development.js"(exports) {
+    ".yarn/__virtual__/react-dom-virtual-a77ada3a35/3/.yarn/berry/cache/react-dom-npm-19.0.0-b7981c573e-10c0.zip/node_modules/react-dom/cjs/react-dom-client.development.js"(exports) {
       "use strict";
       (function() {
         function findHook(fiber, id) {
@@ -19275,9 +19275,9 @@
     }
   });
 
-  // .yarn/__virtual__/react-dom-virtual-a77ada3a35/4/.yarn/berry/cache/react-dom-npm-19.0.0-b7981c573e-10c0.zip/node_modules/react-dom/client.js
+  // .yarn/__virtual__/react-dom-virtual-a77ada3a35/3/.yarn/berry/cache/react-dom-npm-19.0.0-b7981c573e-10c0.zip/node_modules/react-dom/client.js
   var require_client = __commonJS({
-    ".yarn/__virtual__/react-dom-virtual-a77ada3a35/4/.yarn/berry/cache/react-dom-npm-19.0.0-b7981c573e-10c0.zip/node_modules/react-dom/client.js"(exports, module) {
+    ".yarn/__virtual__/react-dom-virtual-a77ada3a35/3/.yarn/berry/cache/react-dom-npm-19.0.0-b7981c573e-10c0.zip/node_modules/react-dom/client.js"(exports, module) {
       "use strict";
       if (false) {
         checkDCE();
@@ -19285,6 +19285,12 @@
       } else {
         module.exports = require_react_dom_client_development();
       }
+    }
+  });
+
+  // client/src/main.css
+  var init_main = __esm({
+    "client/src/main.css"() {
     }
   });
 
@@ -19319,9 +19325,9 @@
     }
   });
 
-  // ../../../.yarn/berry/cache/react-npm-19.0.0-e33c9aa1c0-10c0.zip/node_modules/react/cjs/react-jsx-runtime.development.js
+  // ../../.yarn/berry/cache/react-npm-19.0.0-e33c9aa1c0-10c0.zip/node_modules/react/cjs/react-jsx-runtime.development.js
   var require_react_jsx_runtime_development = __commonJS({
-    "../../../.yarn/berry/cache/react-npm-19.0.0-e33c9aa1c0-10c0.zip/node_modules/react/cjs/react-jsx-runtime.development.js"(exports) {
+    "../../.yarn/berry/cache/react-npm-19.0.0-e33c9aa1c0-10c0.zip/node_modules/react/cjs/react-jsx-runtime.development.js"(exports) {
       "use strict";
       (function() {
         function getComponentNameFromType(type) {
@@ -19760,9 +19766,9 @@
     }
   });
 
-  // ../../../.yarn/berry/cache/react-npm-19.0.0-e33c9aa1c0-10c0.zip/node_modules/react/jsx-runtime.js
+  // ../../.yarn/berry/cache/react-npm-19.0.0-e33c9aa1c0-10c0.zip/node_modules/react/jsx-runtime.js
   var require_jsx_runtime = __commonJS({
-    "../../../.yarn/berry/cache/react-npm-19.0.0-e33c9aa1c0-10c0.zip/node_modules/react/jsx-runtime.js"(exports, module) {
+    "../../.yarn/berry/cache/react-npm-19.0.0-e33c9aa1c0-10c0.zip/node_modules/react/jsx-runtime.js"(exports, module) {
       "use strict";
       if (false) {
         module.exports = null;
@@ -20000,27 +20006,114 @@
     }
   });
 
+  // client/src/components/StaticForm.module.css
+  var StaticForm_default;
+  var init_StaticForm = __esm({
+    "client/src/components/StaticForm.module.css"() {
+      StaticForm_default = {
+        form: "StaticForm_form"
+      };
+    }
+  });
+
+  // client/src/components/StaticForm.tsx
+  function StaticForm(props) {
+    const onSubmit = (event) => {
+      if (props.onSubmit) {
+        event.preventDefault();
+        props.onSubmit(new StaticForm.Submit(event.target));
+      }
+    };
+    return /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("form", { className: StaticForm_default.form, onSubmit, children: props.children });
+  }
+  var import_jsx_runtime2;
+  var init_StaticForm2 = __esm({
+    "client/src/components/StaticForm.tsx"() {
+      "use strict";
+      init_StaticForm();
+      import_jsx_runtime2 = __toESM(require_jsx_runtime());
+      ((StaticForm2) => {
+        class Submit {
+          constructor(form) {
+            this.form = form;
+          }
+          _formData;
+          get formData() {
+            if (!this._formData)
+              this._formData = new FormData(this.form);
+            return this._formData;
+          }
+          get object() {
+            return Object.fromEntries(this.formData.entries());
+          }
+          reset() {
+            this.form.reset();
+          }
+        }
+        StaticForm2.Submit = Submit;
+      })(StaticForm || (StaticForm = {}));
+    }
+  });
+
+  // client/src/components/FormGroup.tsx
+  function FormGroup(props) {
+    return /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "mb-3", children: [
+      props.label ? /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("label", { htmlFor: props.htmlFor, className: "form-label", children: props.label }) : null,
+      props.children,
+      props.formText ? /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { className: "form-text", children: props.formText }) : null
+    ] });
+  }
+  var import_jsx_runtime3;
+  var init_FormGroup = __esm({
+    "client/src/components/FormGroup.tsx"() {
+      "use strict";
+      import_jsx_runtime3 = __toESM(require_jsx_runtime());
+    }
+  });
+
+  // client/src/components/MessageForm.tsx
+  function MessageForm(props) {
+    const onSubmit = (submit) => {
+      props.onMessage(submit.object.message);
+      submit.reset();
+    };
+    return /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)(StaticForm, { onSubmit, children: [
+      /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(FormGroup, { label: "Message", htmlFor: "message", children: /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("textarea", { className: "form-control", id: "message", name: "message" }) }),
+      /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("button", { type: "submit", className: "btn btn-primary", children: "Send" })
+    ] });
+  }
+  var import_jsx_runtime4;
+  var init_MessageForm = __esm({
+    "client/src/components/MessageForm.tsx"() {
+      "use strict";
+      init_StaticForm2();
+      init_FormGroup();
+      import_jsx_runtime4 = __toESM(require_jsx_runtime());
+    }
+  });
+
   // client/src/App.tsx
   function App() {
     const cwdResult = useClient("cwd");
     const [messages, setMessages] = (0, import_react2.useState)([]);
-    return /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { className: "container", children: [
-      /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("h1", { children: "Hello, world" }),
-      /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("code", { children: [
+    return /* @__PURE__ */ (0, import_jsx_runtime5.jsxs)("div", { className: "container", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime5.jsx)("h1", { children: "Hello, world" }),
+      /* @__PURE__ */ (0, import_jsx_runtime5.jsxs)("code", { children: [
         "CWD: ",
-        /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(MonadValue, { ...cwdResult, children: (cwd) => cwd })
+        /* @__PURE__ */ (0, import_jsx_runtime5.jsx)(MonadValue, { ...cwdResult, children: (cwd) => cwd })
       ] }),
-      /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("textarea", { type: "text" })
+      /* @__PURE__ */ (0, import_jsx_runtime5.jsx)(MessageForm, { onMessage: (message) => console.log({ message }) })
     ] });
   }
-  var import_react2, import_jsx_runtime2;
+  var import_react2, import_jsx_runtime5;
   var init_App = __esm({
     "client/src/App.tsx"() {
       "use strict";
       import_react2 = __toESM(require_react());
       init_MonadValue();
       init_useClient();
-      import_jsx_runtime2 = __toESM(require_jsx_runtime());
+      init_MessageForm();
+      import_jsx_runtime5 = __toESM(require_jsx_runtime());
     }
   });
 
@@ -20028,11 +20121,12 @@
   var require_main = __commonJS({
     "client/src/main.tsx"() {
       var import_client = __toESM(require_client());
+      init_main();
       init_App();
-      var import_jsx_runtime3 = __toESM(require_jsx_runtime());
+      var import_jsx_runtime6 = __toESM(require_jsx_runtime());
       window.addEventListener("DOMContentLoaded", () => {
         const root = (0, import_client.createRoot)(document.getElementById("app"));
-        root.render(/* @__PURE__ */ (0, import_jsx_runtime3.jsx)(App, {}));
+        root.render(/* @__PURE__ */ (0, import_jsx_runtime6.jsx)(App, {}));
       });
     }
   });

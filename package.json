@@ -5,6 +5,7 @@
   "dependencies": {
     "@fastify/static": "^8.0.4",
     "@fastify/websocket": "^11.0.2",
+    "bootstrap": "^5.3.3",
     "chalk": "^4.1.2",
     "commander": "^13.0.0",
     "fastify": "^5.2.1",
@@ -24,6 +25,7 @@
     "start": "node --no-deprecation dist/main.js"
   },
   "devDependencies": {
+    "@types/bootstrap": "^5",
     "@types/chalk": "^2.2.4",
     "@types/commander": "^2.12.5",
     "@types/jest": "^29.5.14",
