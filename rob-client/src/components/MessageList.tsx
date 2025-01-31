@@ -6,7 +6,9 @@ import { classNames } from "../util/classNames";
 
 export function MessageList(props: MessageList.Props) {
   return <div className={classNames(styles.root)}>
-    {props.messages.map((message) => <MessageListItem message={message} />)}
+    {props.messages.map((message, i) => <div key={i} className={styles.message}>
+      <MessageListItem message={message} />
+    </div>)}
   </div>
 }
 

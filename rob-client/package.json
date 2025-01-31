@@ -5,6 +5,7 @@
   "dependencies": {
     "bootstrap": "^5.3.3",
     "lodash": "^4.17.21",
+    "marked": "^15.0.6",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "rob-web": "workspace:*"
