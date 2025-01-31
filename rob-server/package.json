@@ -6,20 +6,23 @@
     "type-check": "tsc --noEmit",
     "build:skip-types": "esbuild --platform=node --target=node18 --sourcemap --bundle --outdir=dist src/main.ts",
     "build": "yarn type-check && yarn build:skip-types",
-    "start": "yarn build && node dist/main.js"
+    "start": "yarn build && node --no-deprecation dist/main.js"
   },
   "dependencies": {
-    "@fastify/static": "^8.0.4",
-    "@fastify/websocket": "^11.0.2",
+    "bufferutil": "^4.0.9",
     "esbuild": "^0.24.0",
-    "fastify": "^5.2.1",
+    "express": "^4.21.2",
+    "morgan": "^1.10.0",
     "rob-host": "workspace:*",
     "rob-web": "workspace:*",
-    "typescript": "^5.7.2"
+    "typescript": "^5.7.2",
+    "ws": "^8.18.0"
   },
   "devDependencies": {
     "@types/express": "^5.0.0",
+    "@types/morgan": "^1",
     "@types/node": "^22.12.0",
+    "@types/ws": "^8.5.14",
     "nodemon": "^3.1.7"
   }
 }

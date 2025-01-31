@@ -9,10 +9,10 @@
   },
   "main": "dist/index.js",
   "scripts": {
-    "type-check": "tsc --noEmit",
     "build:skip-types": "esbuild --platform=node --target=node18 --sourcemap --bundle --outdir=dist src/index.ts",
     "build": "yarn type-check && yarn build:skip-types",
-    "test": "jest"
+    "test": "jest",
+    "type-check": "tsc --noEmit"
   },
   "devDependencies": {
     "@types/jest": "^29.5.14",

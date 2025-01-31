@@ -9,6 +9,7 @@ export namespace RobWeb {
 
   export interface Message {
     content: string;
+    role: string;
   }
 
   export type Async = {

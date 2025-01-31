@@ -1,9 +1,27 @@
 module.exports = {
   apps: [
     {
-      name: "🛠️ Core",
-      cwd: "rob-core",
-      script: "yarn build",
+      name: "🛠️ Client",
+      cwd: "rob-client",
+      script: "yarn build:skip-types",
+      stop_exit_codes: [0],
+      watch: [
+        "src"
+      ]
+    },
+    {
+      name: "🛠️ Host",
+      cwd: "rob-host",
+      script: "yarn build:skip-types",
+      stop_exit_codes: [0],
+      watch: [
+        "src"
+      ]
+    },
+    {
+      name: "🛠️ Web",
+      cwd: "rob-web",
+      script: "yarn build:skip-types",
       stop_exit_codes: [0],
       watch: [
         "src"
@@ -12,27 +30,20 @@ module.exports = {
     {
       name: "🛠️ Server",
       cwd: "rob-server",
-      script: "yarn build",
+      script: "yarn build:skip-types",
       stop_exit_codes: [0],
       watch: [
         "src",
-        "../rob-web/dist"
+        "../rob-web/dist",
+        "../rob-host/dist",
       ]
     },
     {
       name: "🌐 Server",
       cwd: "rob-server",
-      script: "dist/main.js",
+      script: "node --no-deprecation dist/main.js",
       watch: ["dist"],
       kill_timeout: 3000
-    },
-    {
-      cwd: "rob-client",
-      name: "🌐 Client",
-      script: "yarn start",
-      watch: [
-        "../rob-web/dist"
-      ]
     }
   ]
 }

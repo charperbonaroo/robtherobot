@@ -19,7 +19,7 @@ export namespace StaticForm {
   }
 
   export class Submit {
-    private _formData: FormData;
+    private _formData: FormData|null = null;
 
     constructor(public readonly form: HTMLFormElement) {}
 

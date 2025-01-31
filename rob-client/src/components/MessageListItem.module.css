@@ -1,0 +1,19 @@
+.root {
+  max-width: 80%;
+}
+
+.user {
+  align-self: flex-end;
+}
+
+.assistant {
+  align-self: flex-start;
+}
+
+.role {
+  font-weight: bold;
+}
+
+.content {
+
+}

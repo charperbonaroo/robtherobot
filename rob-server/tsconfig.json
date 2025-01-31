@@ -1,13 +1,9 @@
 {
   "extends": "../tsconfig.json",
-  "references": [
-    { "path": "../rob-web" },
-    { "path": "../rob-host" }
-  ],
   "compilerOptions": {
     "paths": {
       "rob-web": ["rob-web/src/index.ts"],
-      "rob-host": ["rob-host/src/index.ts"],
+      "rob-host": ["rob-host/src/index.ts"]
     }
   }
 }

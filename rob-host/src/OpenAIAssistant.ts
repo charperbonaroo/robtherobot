@@ -103,5 +103,6 @@ export class OpenAIAssistant {
 export namespace OpenAIAssistant {
   export interface Message {
     content: string;
+    role: string;
   }
 }

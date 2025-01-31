@@ -12,7 +12,7 @@ export function useAsync<T>(
       try {
         setResult(Monad.ofValue(await fn()));
       } catch (error) {
-        setResult(Monad.ofError(error));
+        setResult(Monad.ofError(error as Error));
       }
     })();
   }, deps);
