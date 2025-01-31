@@ -4,6 +4,8 @@
 
 .user {
   align-self: flex-end;
+  background-color: #eee;
+  padding: 10px;
 }
 
 .assistant {
