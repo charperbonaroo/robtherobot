@@ -16,12 +16,13 @@ export class OpenAIAssistant {
   addTools(...tools: AITool[]) {
     for (const tool of tools) {
       this.tools.push(tool);
-      this.messages.push({
-        role: "system",
-        content: `You've been given access to the following tool: ${tool.name}.\n`
-          + `Use it when you think is appropriate. The tool's description is:\n\n${tool.description}`
-      });
+      this.addSystemMessage(`You've been given access to the following tool: ${tool.name}.\n`
+          + `Use it when you think is appropriate. The tool's description is:\n\n${tool.description}`)
     }
+  }
+
+  addSystemMessage(content: string) {
+    this.messages.push({ role: "system", content });
   }
 
   async pushMessage(...messages: OpenAI.Chat.Completions.ChatCompletionMessageParam[]) {

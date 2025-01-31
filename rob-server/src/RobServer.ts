@@ -12,6 +12,17 @@ export class RobServer implements RobWeb.Async {
     this._cwd = OpenAIAssistantManager.ensureWorkingDirectory(cwd);
     this.assistant = new OpenAIAssistant("gpt-4o", this._cwd);
 
+    this.assistant.addSystemMessage(`
+      You're an assistant, ready to assist a developer. Before doing anything,
+      be sure to read and navigate the repo to get an idea what kind of project
+      you're in. Use ls to find potentially relevant files, and be sure to read
+      documentation.
+
+      If you modify a file, always re-read the file after changing to make sure
+      you didn't make any mistakes. Always double-check everything you do. Be
+      sure to complete whatever task given to you before responding.
+    `);
+
     this.assistant.addTools(
       new FileTools.LoggingReader(),
       new FileTools.LoggingWriter(),
