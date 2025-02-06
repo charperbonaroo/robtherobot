@@ -1,0 +1,13 @@
+.root {
+  display: flex;
+  flex-direction: column;
+}
+
+.response {
+  margin-bottom: 8px;
+  max-width: 80%;
+}
+
+.user {
+  align-self: flex-end;
+}

@@ -1,0 +1,4 @@
+.textarea {
+  overflow: hidden;
+  resize: none;
+}

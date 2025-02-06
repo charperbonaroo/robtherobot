@@ -7,7 +7,9 @@ export function classNames(...args: ClassNameParam[]): string|undefined {
 }
 
 function reduce(param: ClassNameParam, set: Set<string>) {
-  if (param instanceof Array) {
+  if (typeof param === "undefined" || param === null || param === false) {
+    return;
+  } else if (param instanceof Array) {
     for (const arg of param)
       reduce(arg, set);
   } else if (typeof param === "object") {
@@ -21,4 +23,4 @@ function reduce(param: ClassNameParam, set: Set<string>) {
   }
 }
 
-export type ClassNameParam = string|Record<string, boolean>|ClassNameParam[];
+export type ClassNameParam = undefined|null|false|string|Record<string, boolean>|ClassNameParam[];

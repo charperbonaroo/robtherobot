@@ -1,4 +1,5 @@
 import { DeferredValue } from "../util/DeferredValue";
+import { AsyncGeneratorPipe } from "../util/AsyncGeneratorPipe";
 import { Queryable } from "./Queryable";
 
 export class SocketClient implements Queryable {
@@ -13,18 +14,18 @@ export class SocketClient implements Queryable {
   private nextId = 1;
   private socket: WebSocket|null = null;
   private ready: DeferredValue<boolean>|null = null;
-  private queryResponses = new Map<number, DeferredValue<any>>();
+  private queryResponses = new Map<number, AsyncGeneratorPipe.Callback<any, any>>();
 
   constructor() {
     this.connect();
   }
 
-  async query<T>(payload: SocketClient.QueryPayload): Promise<T> {
+  query<T, TReturn>(payload: SocketClient.QueryPayload): AsyncGenerator<T, TReturn, void> {
     const id = this.getNextId();
-    const value = new DeferredValue<T>();
-    this.queryResponses.set(id, value);
-    await this.sendMessage({ id, payload });
-    return value.getAsync();
+    const [callback, generator] = AsyncGeneratorPipe.create<T, TReturn, void>();
+    this.queryResponses.set(id, callback);
+    this.sendMessage({ id, payload });
+    return generator;
   }
 
   async sendMessage(message: SocketClient.Message) {
@@ -61,16 +62,19 @@ export class SocketClient implements Queryable {
 
   private onMessage(event: MessageEvent) {
     console.debug("Message", event);
-    const { id, value, error } = JSON.parse(event.data);
+    const data = JSON.parse(event.data);
+    const { id, value, done, error } = data;
     if (id) {
       const deferred = this.queryResponses.get(id);
       if (!deferred)
         throw new Error(`No deferred value for ID=${id}`);
+
       if (error)
-        deferred.setError(error);
+        deferred({ error });
       else
-        deferred.setValue(value);
-      this.queryResponses.delete(id);
+        deferred({ done, value });
+      if (done)
+        this.queryResponses.delete(id);
     }
   }
 
@@ -81,7 +85,7 @@ export class SocketClient implements Queryable {
 
   private rejectAndClearQueryResponses(error: Error) {
     for (const value of this.queryResponses.values())
-      value.setError(error);
+      value({ error });
     this.queryResponses.clear();
   }
 

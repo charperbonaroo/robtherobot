@@ -10,6 +10,7 @@
   "workspaces": [
     "rob-cli",
     "rob-client",
+    "rob-gui",
     "rob-host",
     "rob-server",
     "rob-web"

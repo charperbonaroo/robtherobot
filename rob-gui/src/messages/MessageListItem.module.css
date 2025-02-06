@@ -1,15 +1,12 @@
 .root {
-  max-width: 80%;
 }
 
 .user {
-  align-self: flex-end;
   background-color: #eee;
   padding: 10px;
 }
 
 .assistant {
-  align-self: flex-start;
 }
 
 .role {
@@ -17,7 +14,6 @@
 }
 
 .content {
-
 }
 
 .content p:last-child {

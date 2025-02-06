@@ -1,20 +1,39 @@
 export interface RobWeb {
-  cwd(): string;
-  ls(path: string[]): string[];
-  send(prompt: string): RobWeb.Message;
+  cwd(): AsyncGenerator<void, string, void>;
+  ls(path: string[]): AsyncGenerator<void, string[], void>;
+  send(prompt: string): AsyncGenerator<RobWeb.Response, true, void>;
+  lastResponses(limit: number): AsyncGenerator<void, RobWeb.Response[], void>;
 }
 
 export namespace RobWeb {
-  export const KEYS = ["cwd", "ls", "send"] as const;
+  export const KEYS = ["cwd", "ls", "send", "lastResponses"] as const;
+
+  export interface ToolCall {
+    id: string;
+    name: string,
+    params: Record<string, unknown>,
+  }
 
   export interface Message {
-    content: string;
+    toolCalls: ToolCall[];
+    content: string|null;
     role: string;
   }
 
-  export type Async = {
-    [K in keyof RobWeb]: RobWeb[K] extends (...args: any[]) => infer R
-      ? (...args: Parameters<RobWeb[K]>) => Promise<R>
-      : never;
-  };
+  export interface MessageResponse {
+    type: "message";
+    message: Message;
+  }
+
+  export interface ToolResult {
+    id: string;
+    result: unknown;
+  }
+
+  export interface ToolResultResponse {
+    type: "tool_result",
+    toolResult: ToolResult;
+  }
+
+  export type Response = MessageResponse|ToolResultResponse;
 }

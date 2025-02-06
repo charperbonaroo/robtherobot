@@ -34,13 +34,21 @@ export class HttpServer {
   private onSocket(socket: WebSocket, request: http.IncomingMessage) {
     console.debug(`CONNECTED ${request.socket.remoteAddress}`);
 
-    socket.on("message", async (messageBuffer: Buffer) => {
-      const { id, payload: [command, ...args] } = JSON.parse(messageBuffer.toString("utf-8"));
+    socket.on("message", async <K extends keyof RobWeb>(messageBuffer: Buffer) => {
+      const { id, payload } = JSON.parse(messageBuffer.toString("utf-8"));
       let result: any;
+
+      const [command, ...args] = payload as [K, ...Parameters<RobWeb[K]>];
 
       try {
         if (RobWeb.KEYS.includes(command)) {
-          result = { id, value: await (this.rob as any)[command](...args) };
+          const stream: AsyncGenerator<any, any, any> = (this.rob[command] as any)(...args);
+          let result: IteratorResult<any, any>;
+          while (result = await stream.next()) {
+            socket.send(JSON.stringify({ id, done: result.done, value: result.value }));
+            if (result.done)
+              return;
+          }
         } else {
           result = { id, error: { message: `invalid-command`, command, args } };
         }

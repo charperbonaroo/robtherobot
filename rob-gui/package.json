@@ -1,0 +1,39 @@
+{
+  "name": "rob-gui",
+  "packageManager": "yarn@4.5.3",
+  "type": "commonjs",
+  "dependencies": {
+    "bootstrap": "^5.3.3",
+    "lodash": "^4.17.21",
+    "marked": "^15.0.6",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "rob-web": "workspace:*"
+  },
+  "scripts": {
+    "build": "yarn type-check && yarn build:skip-types",
+    "build:skip-types": "esbuild --sourcemap --bundle --loader:.png=file --outdir=dist src/index.ts",
+    "clean": "rm -rf public/static/*",
+    "dev": "ladle serve",
+    "lint": "eslint src",
+    "type-check": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@chromatic-com/storybook": "^3.2.4",
+    "@eslint/js": "^9.19.0",
+    "@ladle/react": "^5.0.1",
+    "@types/bootstrap": "^5",
+    "@types/lodash": "^4.17.13",
+    "@types/react": "^19.0.8",
+    "@types/react-dom": "^19",
+    "@typescript-eslint/eslint-plugin": "^8.22.0",
+    "@typescript-eslint/parser": "^8.22.0",
+    "esbuild": "^0.24.2",
+    "eslint": "^9.19.0",
+    "eslint-plugin-react": "^7.37.4",
+    "eslint-plugin-react-hooks": "^5.1.0",
+    "globals": "^15.14.0",
+    "typescript": "^5.7.2",
+    "typescript-eslint": "^8.22.0"
+  }
+}

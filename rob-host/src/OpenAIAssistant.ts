@@ -3,13 +3,17 @@ import { AITool } from "./AITool";
 
 export class OpenAIAssistant {
   private openai = new OpenAI();
-  private messages: OpenAI.Chat.Completions.ChatCompletionMessageParam[] = [];
+  private messages: OpenAIAssistant.Message[] = [];
   private tools: AITool[] = [];
 
   constructor(private model: OpenAI.Chat.ChatModel, private directory: string) {
   }
 
-  public getMessages() {
+  public getOpenaiMessages() {
+    return this.messages;
+  }
+
+  getMessages(): OpenAIAssistant.Message[] {
     return this.messages;
   }
 
@@ -25,7 +29,7 @@ export class OpenAIAssistant {
     this.messages.push({ role: "system", content });
   }
 
-  async pushMessage(...messages: OpenAI.Chat.Completions.ChatCompletionMessageParam[]) {
+  pushMessage(...messages: OpenAI.Chat.Completions.ChatCompletionMessageParam[]) {
     this.messages.push(...messages);
   }
 
@@ -40,12 +44,25 @@ export class OpenAIAssistant {
     });
   }
 
-  async sendMessage(...messages: OpenAI.Chat.Completions.ChatCompletionMessageParam[]) {
-    this.pushMessage(...messages);
-    return await this.run();
+  async sendMessage(...messages: OpenAIAssistant.Message[]) {
+    return await this.run(...messages);
   }
 
-  async run(): Promise<OpenAIAssistant.Message> {
+  async run(...messages: OpenAIAssistant.Message[]): Promise<OpenAIAssistant.Message> {
+    let last: OpenAIAssistant.Message|null = null;
+    for await (const value of this.runMessageStream(...messages))
+      last = value;
+    if (!last)
+      throw new Error(`Unexpected lack of message`);
+    return last;
+  }
+
+  async *runMessageStream(...messages: OpenAIAssistant.Message[]): AsyncGenerator<OpenAIAssistant.Message, true, void> {
+    for (const message of messages)
+      yield message;
+
+    this.pushMessage(...messages);
+
     const body: OpenAI.Chat.Completions.ChatCompletionCreateParamsNonStreaming = {
       model: this.model,
       messages: this.messages,
@@ -75,6 +92,7 @@ export class OpenAIAssistant {
 
       const choice = response.choices[0];
       this.messages.push(choice.message);
+      yield choice.message;
 
       if (choice.message.tool_calls?.length) {
         for (const tool_call of choice.message.tool_calls) {
@@ -84,26 +102,24 @@ export class OpenAIAssistant {
 
           const params = JSON.parse(tool_call.function.arguments);
           const result = await tool?.run(params, this.directory);
-          this.messages.push({
+          const message: OpenAIAssistant.Message = {
             role: "tool",
             content: JSON.stringify(result),
             tool_call_id: tool_call.id
-          });
+          }
+          this.messages.push(message);
+          yield message;
         }
 
         body.messages = this.messages;
       }
 
-      if (choice.message.content) {
-        return choice.message as OpenAIAssistant.Message;
-      }
+      if (choice.message.content)
+        return true;
     }
   }
 }
 
 export namespace OpenAIAssistant {
-  export interface Message {
-    content: string;
-    role: string;
-  }
+  export type Message = OpenAI.Chat.Completions.ChatCompletionMessageParam;
 }

@@ -2,7 +2,7 @@ import { RobWeb } from "rob-web";
 import { Queryable } from "./Queryable";
 import { SocketClient } from "./SocketClient";
 
-export class RobWebClient implements RobWeb.Async {
+export class RobWebClient implements RobWeb {
   private static _instance: RobWebClient|null = null;
 
   public static get instance() {
@@ -18,7 +18,7 @@ export class RobWebClient implements RobWeb.Async {
   }
 }
 
-export interface RobWebClient extends RobWeb.Async {}
+export interface RobWebClient extends RobWeb {}
 
 for (const key of RobWeb.KEYS) {
   (RobWebClient.prototype as any)[key] = function(

@@ -13,7 +13,7 @@
   "scripts": {
     "clean": "rm -rf public/static/*",
     "type-check": "tsc --noEmit",
-    "build:skip-types": "esbuild --sourcemap --bundle --outdir=public/static src/main.tsx",
+    "build:skip-types": "esbuild --sourcemap --bundle --loader:.png=file --outdir=public/static src/main.tsx",
     "build": "yarn type-check && yarn build:skip-types"
   },
   "devDependencies": {

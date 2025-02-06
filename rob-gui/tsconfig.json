@@ -2,8 +2,7 @@
   "extends": "../tsconfig.json",
   "compilerOptions": {
     "paths": {
-      "rob-web": ["rob-web/src/index.ts"],
-      "rob-gui": ["rob-gui/src/index.ts"]
+      "rob-web": ["rob-web/src/index.ts"]
     }
   }
 }

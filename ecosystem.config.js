@@ -1,12 +1,23 @@
 module.exports = {
   apps: [
     {
+      name: "🛠️ GUI",
+      cwd: "rob-gui",
+      script: "yarn build:skip-types",
+      stop_exit_codes: [0],
+      watch: [
+        "src", ".ladle"
+      ]
+    },
+    {
       name: "🛠️ Client",
       cwd: "rob-client",
       script: "yarn build:skip-types",
       stop_exit_codes: [0],
       watch: [
-        "src"
+        "src",
+        "../rob-web/dist",
+        "../rob-gui/dist",
       ]
     },
     {
@@ -37,6 +48,13 @@ module.exports = {
         "../rob-web/dist",
         "../rob-host/dist",
       ]
+    },
+    {
+      name: "🌐 GUI",
+      cwd: "rob-gui",
+      script: "yarn ladle serve",
+      watch: [],
+      kill_timeout: 3000
     },
     {
       name: "🌐 Server",
