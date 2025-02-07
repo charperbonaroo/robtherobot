@@ -34,7 +34,7 @@ export class RobServer implements RobWeb {
     return this._cwd;
   }
 
-  async *ls(path: string[]) {
+  async *ls(path: string[]): AsyncGenerator<never, string[], void> {
     const files = await readdir(this.safeJoin(path), { encoding: "utf-8" });
     return files.filter((path) => isNotJunk(path) && !path.startsWith("."));
   }
@@ -56,12 +56,6 @@ export class RobServer implements RobWeb {
   }
 
   private convertOpenaiMessage(message: OpenAIAssistant.Message): RobWeb.Response {
-    if (message.role === "tool") {
-      // ... ToolResultResponse
-      console.warn(message);
-      throw new Error("FOO");
-    }
-
     let content: string|null = null;
     if (typeof message.content === "undefined" || message.content === null)
       content = null;
@@ -72,6 +66,19 @@ export class RobServer implements RobWeb {
     else {
       console.warn(`Don't know how to handle: `, message.content);
       content = JSON.stringify(message.content);
+    }
+
+    if (message.role === "tool") {
+      if (!content) {
+        console.warn(message);
+        throw new Error(`Tool message had no content?`);
+      }
+
+      const toolResult: RobWeb.ToolResult = {
+        id: message.tool_call_id,
+        result: JSON.parse(content),
+      };
+      return { type: "tool_result", toolResult };
     }
 
     const toolCalls: RobWeb.ToolCall[] = [];
@@ -95,7 +102,8 @@ export class RobServer implements RobWeb {
   private safeJoin(path: string[]): string {
     const resolved = resolve(join(this._cwd, ...path));
     if (!resolved.startsWith(this._cwd))
-      throw new Error(`Path "${join(...path)}" resolves to "${resolved}", which is not a subdirectory of "${this._cwd}"`);
+      throw new Error(
+        `Path "${join(...path)}" resolves to "${resolved}", which is not a subdirectory of "${this._cwd}"`);
     return resolved;
   }
 }
