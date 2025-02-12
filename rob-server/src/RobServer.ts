@@ -10,7 +10,7 @@ export class RobServer implements RobWeb {
 
   constructor(cwd: string) {
     this._cwd = OpenAIAssistantManager.ensureWorkingDirectory(cwd);
-    this.assistant = new OpenAIAssistant("gpt-4o", this._cwd);
+    this.assistant = OpenAIAssistant.withOptions("gpt-4o", this._cwd, {});
 
     this.assistant.addSystemMessage(`
       You're an assistant, ready to assist a developer. Before doing anything,
@@ -21,13 +21,15 @@ export class RobServer implements RobWeb {
       If you modify a file, always re-read the file after changing to make sure
       you didn't make any mistakes. Always double-check everything you do. Be
       sure to complete whatever task given to you before responding.
+
+      At the start of conversation, it is now ${new Date().toISOString()}.
     `);
 
     this.assistant.addTools(
-      new FileTools.LoggingReader(),
-      new FileTools.LoggingWriter(),
-      new FileTools.LoggingShellTool(),
-    )
+      new FileTools.Reader(),
+      new FileTools.Writer(),
+      new FileTools.ShellTool(),
+    );
   }
 
   async *cwd() {

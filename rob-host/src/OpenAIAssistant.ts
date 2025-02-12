@@ -1,12 +1,19 @@
-import OpenAI from "openai";
+import OpenAI, { ClientOptions } from "openai";
 import { AITool } from "./AITool";
 
 export class OpenAIAssistant {
-  private openai = new OpenAI();
   private messages: OpenAIAssistant.Message[] = [];
   private tools: AITool[] = [];
 
-  constructor(private model: OpenAI.Chat.ChatModel, private directory: string) {
+  public static withOptions(model: OpenAI.Chat.ChatModel, directory: string, clientOptions: ClientOptions) {
+    return new OpenAIAssistant(model, directory, new OpenAI(clientOptions));
+  }
+
+  constructor(
+    private model: OpenAI.Chat.ChatModel,
+    private directory: string,
+    private openai = new OpenAI(),
+  ) {
   }
 
   public getOpenaiMessages() {
