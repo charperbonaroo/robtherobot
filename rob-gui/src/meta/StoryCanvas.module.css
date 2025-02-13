@@ -1,8 +1,0 @@
-.root {
-  overflow: hidden;
-}
-
-.body {
-  background-image: url('./checkerboard.png');
-  background-position: center center;
-}
