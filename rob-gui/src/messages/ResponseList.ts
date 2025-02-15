@@ -1,25 +1,24 @@
 import { css, html, LitElement, PropertyValues } from "lit";
 import { RobWeb } from "rob-web";
+import { customElement, property } from 'lit/decorators.js';
 
+@customElement("response-list")
 export class ResponseList extends LitElement {
-  declare responses: RobWeb.Response[]|null;
-
-  static properties = {
-    responses: { type: Array }
-  };
+  @property({ type: Array, attribute: false })
+  public responses?: RobWeb.Response[]|null;
 
   static styles = css`
-    .root {
+    :host {
       display: flex;
       flex-direction: column;
     }
 
-    .response {
+    response-list-item {
       margin-bottom: 8px;
       max-width: 80%;
     }
 
-    .response[type=user] {
+    response-list-item[data-role=user] {
       align-self: flex-end;
     }
   `
@@ -27,15 +26,12 @@ export class ResponseList extends LitElement {
   private toolCalls: Record<string, RobWeb.ToolCall> = {};
 
   render() {
-    return html`
-      <div class=root>
-        ${this.responses?.map((response) => html`
-          <div class=response data-type=${response.type}>
-            <response-list-item .response=${response} .toolCalls=${this.toolCalls} />
-          </div>
-        `)}
-      </div>
-    `
+    return this.responses?.map(this.renderResponse.bind(this));
+  }
+
+  private renderResponse(response: RobWeb.Response) {
+    const role = response.type === "message" ? response.message.role : response.type;
+    return html`<response-list-item data-role=${role} .response=${response} .toolCalls=${this.toolCalls} />`
   }
 
   protected willUpdate(changedProperties: PropertyValues): void {
@@ -47,5 +43,3 @@ export class ResponseList extends LitElement {
     }
   }
 }
-
-customElements.define("response-list", ResponseList);

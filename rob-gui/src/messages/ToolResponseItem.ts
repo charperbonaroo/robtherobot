@@ -1,17 +1,19 @@
-import { html, LitElement, TemplateResult } from 'lit';
+import { html, LitElement, nothing, TemplateResult } from 'lit';
 import { RobWeb } from 'rob-web';
 import { Bootstrap } from '../util';
+import { customElement, property } from "lit/decorators.js";
 
+@customElement("tool-response-item")
 export class ToolResponseItem extends LitElement {
-  declare toolCall: RobWeb.ToolCall;
-  declare toolResult: RobWeb.ToolResult['result'];
+  @property({ type: Object, attribute: false })
+  public toolCall?: RobWeb.ToolCall;
 
-  static properties = {
-    toolCall: { type: Object, attribute: false },
-    toolResult: { type: Object, attribute: false }
-  }
+  @property({ type: Object, attribute: false })
+  public toolResult?: RobWeb.ToolResult['result'];
 
   render() {
+    if (!this.toolCall) return nothing;
+
     const lines = (this.toolResult as any).lines as { content: string }[];
     const content = lines.map((line: any) => line.content).join('\n').trim();
     let header: TemplateResult<1>;
@@ -26,12 +28,8 @@ export class ToolResponseItem extends LitElement {
 
     return html`
       ${Bootstrap.link()}
-      <div>
-        <div>${header}</div>
-        <pre>${content}</pre>
-      </div>
+      <div>${header}</div>
+      <pre>${content}</pre>
     `;
   }
 }
-
-customElements.define('tool-response-item', ToolResponseItem);

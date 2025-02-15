@@ -1,7 +1,9 @@
 import { css, html, LitElement, unsafeCSS } from "lit"
 import { Bootstrap } from "../util"
 import checkerboardUrl from "./checkerboard.png";
+import { customElement } from 'lit/decorators.js';
 
+@customElement("story-canvas")
 export class StoryCanvas extends LitElement {
   static styles = css`
     .root {
@@ -10,7 +12,7 @@ export class StoryCanvas extends LitElement {
 
     .body {
       background-image: url(${unsafeCSS(checkerboardUrl)});
-      background-position: center center;
+      background-position: top left;
     }
   `
 
@@ -25,5 +27,3 @@ export class StoryCanvas extends LitElement {
     `
   }
 }
-
-customElements.define("story-canvas", StoryCanvas);

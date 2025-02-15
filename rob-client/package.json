@@ -13,8 +13,10 @@
   "scripts": {
     "clean": "rm -rf public/static/*",
     "type-check": "tsc --noEmit",
-    "build:skip-types": "esbuild --sourcemap --bundle --loader:.png=file --outdir=public/static src/bootstrap.css src/main.ts",
-    "build": "yarn type-check && yarn build:skip-types"
+    "build:skip-types": "yarn esbuild_base src/bootstrap.css src/main.ts",
+    "build": "yarn type-check && yarn build:skip-types",
+    "dev": "yarn esbuild_base --outdir=public/static --servedir=public src/bootstrap.css src/main.ts",
+    "esbuild_base": "esbuild --sourcemap --bundle --loader:.png=file --outdir=public/static"
   },
   "devDependencies": {
     "@types/bootstrap": "^5",

@@ -1,8 +1,11 @@
 import { css, html, LitElement } from "lit";
+import { customElement } from 'lit/decorators.js';
 
+@customElement("autoscroll-view")
 export class AutoscrollView extends LitElement {
   static styles = css`
     :host {
+      display: block;
       flex: 1 1 auto;
       overflow-y: auto;
       max-height: 100%;
@@ -24,5 +27,3 @@ export class AutoscrollView extends LitElement {
     this.scrollTop = this.scrollHeight;
   }
 }
-
-customElements.define("autoscroll-view", AutoscrollView);

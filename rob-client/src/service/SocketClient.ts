@@ -3,6 +3,8 @@ import { AsyncGeneratorPipe } from "../util/AsyncGeneratorPipe";
 import { Queryable } from "./Queryable";
 
 export class SocketClient implements Queryable {
+  public static url = "/ws";
+
   private static _instance: SocketClient|null = null;
 
   public static get instance() {
@@ -41,7 +43,7 @@ export class SocketClient implements Queryable {
     console.debug("Connecting");
     const ready = new DeferredValue<boolean>();
     this.ready = ready;
-    this.socket = new WebSocket("/ws");
+    this.socket = new WebSocket(SocketClient.url);
 
     this.socket.addEventListener("message", (event) => this.onMessage(event));
 

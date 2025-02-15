@@ -1,17 +1,16 @@
 import { css, html, LitElement } from "lit";
-import { RobWeb } from "rob-web";
 import { unsafeHTML } from "lit/directives/unsafe-html.js";
 import { marked } from "marked";
 import { Bootstrap } from "../util";
+import { customElement, property } from 'lit/decorators.js';
 
-export class MessageListItem extends LitElement implements Pick<RobWeb.Message, "role"|"content"> {
-  declare content: string|null;
-  declare role: string;
+@customElement("message-list-item")
+export class MessageListItem extends LitElement {
+  @property()
+  public content?: string|null;
 
-  static properties = {
-    content: { type: String },
-    role: { type: String }
-  };
+  @property()
+  public messageRole?: string;
 
   static styles = css`
     :host {
@@ -21,7 +20,7 @@ export class MessageListItem extends LitElement implements Pick<RobWeb.Message, 
       overflow: hidden;
     }
 
-    :host([role="user"]) {
+    :host([message-role="user"]) {
       background-color: #eee;
       padding: 10px;
     }
@@ -38,5 +37,3 @@ export class MessageListItem extends LitElement implements Pick<RobWeb.Message, 
     `;
   }
 }
-
-customElements.define('message-list-item', MessageListItem);

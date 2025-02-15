@@ -11,8 +11,10 @@
   },
   "scripts": {
     "build": "yarn type-check && yarn build:skip-types",
-    "build:skip-types": "esbuild --sourcemap --bundle --loader:.png=file --outdir=dist src/index.ts",
+    "build:skip-types": "yarn esbuild_base --outdir=dist --minify src/index.ts",
     "clean": "rm -rf dist",
+    "dev": "yarn esbuild_base --outdir=examples --serve=8010 --servedir=examples src/index.ts",
+    "esbuild_base": "esbuild --sourcemap --format=iife --global-name=RobGui --bundle --loader:.png=file",
     "type-check": "tsc --noEmit"
   },
   "devDependencies": {

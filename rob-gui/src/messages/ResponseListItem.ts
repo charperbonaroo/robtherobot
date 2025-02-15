@@ -1,19 +1,22 @@
 import { RobWeb } from "rob-web";
-import { html, LitElement } from "lit";
+import { html, LitElement, nothing } from "lit";
+import { customElement, property } from "lit/decorators.js";
 
+@customElement("response-list-item")
 export class ResponseListItem extends LitElement {
-  static properties = {
-    response: { type: Object, attribute: false },
-    toolCalls: { type: Object, attribute: false }
-  }
+  @property({ type: Object, attribute: false })
+  public response?: RobWeb.Response;
 
-  declare response: RobWeb.Response;
-  declare toolCalls: Record<string, RobWeb.ToolCall>;
+  @property({ type: Object, attribute: false })
+  public toolCalls?: Record<string, RobWeb.ToolCall>;
 
   render() {
+    if (!this.response)
+      return nothing;
     if (this.response.type === "message") {
       const message = this.response.message;
-      return html`<message-list-item role=${message.role} content=${message.content} />`;
+      return message.content
+        ? html`<message-list-item message-role=${message.role} content=${message.content} />` : ``;
     } else if (this.response.type === "tool_result") {
       const toolResult = this.response.toolResult.result;
       const toolCall = this.toolCalls && this.toolCalls[this.response.toolResult.id];
@@ -27,5 +30,3 @@ export class ResponseListItem extends LitElement {
     }
   }
 }
-
-customElements.define("response-list-item", ResponseListItem);

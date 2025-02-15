@@ -10,6 +10,13 @@ module.exports = {
       ]
     },
     {
+      name: "🌐 GUI",
+      cwd: "rob-gui",
+      script: "yarn dev",
+      stop_exit_codes: [0],
+      watch: []
+    },
+    {
       name: "🛠️ Client",
       cwd: "rob-client",
       script: "yarn build:skip-types",
@@ -19,6 +26,13 @@ module.exports = {
         "../rob-web/dist",
         "../rob-gui/dist",
       ]
+    },
+    {
+      name: "🌐 Client",
+      cwd: "rob-client",
+      script: "yarn dev",
+      stop_exit_codes: [0],
+      watch: []
     },
     {
       name: "🛠️ Host",

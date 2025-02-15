@@ -1,6 +1,8 @@
-import { css, html, LitElement, PropertyDeclarations } from "lit";
+import { css, html, LitElement } from "lit";
 import { Bootstrap, TextAreas } from "../util";
+import { customElement, property } from 'lit/decorators.js';
 
+@customElement("message-form")
 export class MessageForm extends LitElement {
   static styles = css`
     :host {
@@ -12,11 +14,8 @@ export class MessageForm extends LitElement {
     }
   `
 
-  declare disabled: boolean;
-
-  static properties: PropertyDeclarations = {
-    disabled: { type: Boolean },
-  };
+  @property()
+  public disabled?: boolean;
 
   render() {
     return html`
@@ -53,5 +52,3 @@ export class MessageForm extends LitElement {
     TextAreas.onEnter(textarea, () => this.handleSubmit());
   }
 }
-
-customElements.define("message-form", MessageForm);

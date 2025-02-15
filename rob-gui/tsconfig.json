@@ -3,6 +3,8 @@
   "compilerOptions": {
     "paths": {
       "rob-web": ["rob-web/src/index.ts"]
-    }
+    },
+    "experimentalDecorators": true,
+    "useDefineForClassFields": false
   }
 }

@@ -6,7 +6,8 @@
     "type-check": "tsc --noEmit",
     "build:skip-types": "esbuild --platform=node --target=node18 --sourcemap --bundle --outdir=dist src/main.ts",
     "build": "yarn type-check && yarn build:skip-types",
-    "start": "yarn build && node --no-deprecation dist/main.js"
+    "dev": "yarn build && yarn start",
+    "start": "node --no-deprecation dist/main.js"
   },
   "dependencies": {
     "bufferutil": "^4.0.9",

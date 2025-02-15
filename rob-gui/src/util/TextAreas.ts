@@ -12,6 +12,7 @@ export namespace TextAreas {
 
     const form = textarea.form;
     form?.addEventListener("reset", resizeTextarea);
+    resizeTextarea();
 
     return () => {
       textarea.removeEventListener("input", resizeTextarea);
