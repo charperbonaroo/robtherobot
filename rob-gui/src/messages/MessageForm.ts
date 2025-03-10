@@ -4,12 +4,8 @@ import { customElement, property } from 'lit/decorators.js';
 
 @customElement("message-form")
 export class MessageForm extends LitElement {
-  static styles = css`
-    :host {
-      display: contents;
-    }
-
-    form {
+  public static styles = css`
+    :host, form {
       display: contents;
     }
   `
@@ -17,7 +13,7 @@ export class MessageForm extends LitElement {
   @property()
   public disabled?: boolean;
 
-  render() {
+  protected render() {
     return html`
       ${Bootstrap.link()}
       <form @submit=${this.onSubmit}>
@@ -29,12 +25,18 @@ export class MessageForm extends LitElement {
     `;
   }
 
-  onSubmit(event: Event) {
+  protected firstUpdated() {
+    const textarea = this.shadowRoot!.querySelector("textarea") as HTMLTextAreaElement;
+    TextAreas.autogrow(textarea);
+    TextAreas.onEnter(textarea, () => this.handleSubmit());
+  }
+
+  private onSubmit(event: Event) {
     event.preventDefault();
     this.handleSubmit();
   }
 
-  handleSubmit() {
+  private handleSubmit() {
     const form = this.shadowRoot!.querySelector("form") as HTMLFormElement;
     const detail = Object.fromEntries(new FormData(form).entries());
     form.reset();
@@ -44,11 +46,5 @@ export class MessageForm extends LitElement {
       bubbles: true,
       composed: true
     }));
-  }
-
-  firstUpdated() {
-    const textarea = this.shadowRoot!.querySelector("textarea") as HTMLTextAreaElement;
-    TextAreas.autogrow(textarea);
-    TextAreas.onEnter(textarea, () => this.handleSubmit());
   }
 }
