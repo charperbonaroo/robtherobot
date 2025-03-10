@@ -2,7 +2,6 @@ import { AITool } from "../AITool";
 import { existsSync, mkdirSync, readFileSync, realpathSync, statSync, writeFileSync } from "fs";
 import { dirname, resolve } from "path";
 import { inspect } from "util";
-import * as chalk from "chalk";
 import { exec, ExecException } from "child_process";
 
 export namespace FileTools {
@@ -95,19 +94,6 @@ export namespace FileTools {
     return fragment.lines
       .map((line) => `${line.index.toString().padStart(lineNumberLength, "0")} ${line.content}`)
       .join("\n");
-  }
-
-  export class LoggingReader extends Reader {
-    protected async exec(params: ReaderExecParams): Promise<FileFragment|ErrorResponse> {
-      console.log(chalk.red(`READ ${inspect(params.path)}:${params.lineNumber} ${params.lineCount} ${params.maxLineLength}`));
-      const result = await super.exec(params);
-      if ("error" in result) {
-        console.error(chalk.red(`READ ERROR: ${result.error}: ${result.message}`));
-      } else {
-        console.log(chalk.gray(formatFragmentLines(result)));
-      }
-      return result;
-    }
   }
 
   export interface ReaderExecParams {
@@ -210,19 +196,6 @@ export namespace FileTools {
     deleteLineCount: number;
     maxLineLength: number;
     contextLineCount: number;
-  }
-
-  export class LoggingWriter extends Writer {
-    protected async exec(params: WriterExecParams): Promise<FileFragment|ErrorResponse> {
-      console.log(chalk.red(`WRITE ${inspect(params.path)}:${params.lineNumber}, DEL ${params.deleteLineCount}, APPEND\n${params.appendContent}`));
-      const result = await super.exec(params);
-      if ("error" in result) {
-        console.error(chalk.red(`WRITE ERROR: ${result.error}: ${result.message}`));
-      } else {
-        console.log(chalk.gray(formatFragmentLines(result)));
-      }
-      return result;
-    }
   }
 
   export interface ShellToolCacheEntry {
@@ -362,22 +335,6 @@ export namespace FileTools {
     lineCount: number;
     maxLineLength: number;
     execute: boolean;
-  }
-
-  export class LoggingShellTool extends ShellTool {
-    protected async exec(params: ShellToolExecParams): Promise<ShellToolResponse|ErrorResponse> {
-      console.log(chalk.red(`${params.cwd} $ ${params.command} `
-        + `(${params.execute ? "exec" : "read"} ${params.lineNumber}:${params.lineCount}:${params.maxLineLength})`));
-      const output = await super.exec(params);
-      if (output.error)
-        console.log(chalk.red(output.error));
-      if ("totalLineCount" in output)
-        console.log(chalk.gray(formatFragmentLines(output)));
-      else
-        console.log(chalk.red(output.message));
-
-      return output;
-    }
   }
 
   export interface ErrorResponse {

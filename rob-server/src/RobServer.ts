@@ -2,14 +2,14 @@ import { readdir } from "node:fs/promises";
 import { RobWeb } from "rob-web";
 import { join, resolve } from "node:path";
 import { isNotJunk } from "./util/junk";
-import { OpenAIAssistant, OpenAIAssistantManager, FileTools } from "rob-host";
+import { OpenAIAssistant, ensureWorkingDirectory, FileTools } from "rob-host";
 
 export class RobServer implements RobWeb {
   private _cwd: string;
   private assistant: OpenAIAssistant;
 
   constructor(cwd: string) {
-    this._cwd = OpenAIAssistantManager.ensureWorkingDirectory(cwd);
+    this._cwd = ensureWorkingDirectory(cwd);
     this.assistant = OpenAIAssistant.withOptions("gpt-4o", this._cwd, {});
 
     this.assistant.addSystemMessage(`

@@ -5,10 +5,10 @@
   "private": true,
   "scripts": {
     "start": "bin/start.sh",
-    "build": "yarn workspaces foreach --all --parallel run build"
+    "build": "yarn workspaces foreach --all --parallel run build",
+    "test": "yarn workspaces foreach --all --parallel run test"
   },
   "workspaces": [
-    "rob-cli",
     "rob-client",
     "rob-gui",
     "rob-host",

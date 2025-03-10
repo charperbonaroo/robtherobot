@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "bufferutil": "^4.0.9",
+    "commander": "^13.1.0",
     "esbuild": "^0.24.0",
     "express": "^4.21.2",
     "morgan": "^1.10.0",
@@ -20,6 +21,7 @@
     "ws": "^8.18.0"
   },
   "devDependencies": {
+    "@types/commander": "^2.12.5",
     "@types/express": "^5.0.0",
     "@types/morgan": "^1",
     "@types/node": "^22.12.0",

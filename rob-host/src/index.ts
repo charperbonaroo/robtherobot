@@ -1,4 +1,4 @@
 export * from "./OpenAIAssistant";
-export * from "./OpenAIAssistantManager";
 
-export * from "./tools/FileTools";
+export * from "./util";
+export * from "./tools";
