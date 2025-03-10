@@ -3,9 +3,7 @@
   "packageManager": "yarn@4.5.3",
   "type": "commonjs",
   "dependencies": {
-    "bootstrap": "^5.3.3",
     "lit": "^3.2.1",
-    "lodash": "^4.17.21",
     "marked": "^15.0.6",
     "rob-web": "workspace:*"
   },

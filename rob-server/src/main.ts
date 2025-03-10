@@ -45,9 +45,9 @@ program
   .option("-h, --host <host>", "Host", "127.0.0.1")
   .option("-d, --cwd <cwd>", "The working directory", process.cwd())
   .description("Run HTTP server at a given port")
-  .action(async (port, opts) => {
+  .action(async (opts) => {
     const server = new RobServer(opts.cwd);
-    await new HttpServer(server).listen(port, opts.host);
+    await new HttpServer(server).listen(opts.port, opts.host);
   })
 
 program.addHelpText('after', HELP_TEXT);
