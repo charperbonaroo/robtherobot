@@ -6,6 +6,7 @@
   "scripts": {
     "start": "bin/start.sh",
     "build": "yarn workspaces foreach --all --parallel run build",
+    "clean": "yarn workspaces foreach --all --parallel run clean",
     "test": "yarn workspaces foreach --all --parallel run test"
   },
   "workspaces": [

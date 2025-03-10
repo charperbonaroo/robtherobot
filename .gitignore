@@ -16,3 +16,5 @@ dist
 logs
 
 .envrc.local
+tsconfig.tsbuildinfo
+.cursor
