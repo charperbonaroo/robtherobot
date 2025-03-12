@@ -4,10 +4,11 @@
   "type": "commonjs",
   "private": true,
   "scripts": {
-    "start": "bin/start.sh",
+    "dev": "bin/dev.sh",
     "build": "yarn workspaces foreach --all --parallel run build",
     "build:skip-types": "yarn workspaces foreach --all --parallel run build:skip-types",
     "clean": "yarn workspaces foreach --all --parallel run clean",
+    "start": "(cd rob-server && yarn start)",
     "test": "yarn workspaces foreach --all --parallel run test"
   },
   "workspaces": [
