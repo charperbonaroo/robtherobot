@@ -3,7 +3,7 @@ import { AITool } from "./AITool";
 
 export class OpenAIAssistant {
   private messages: OpenAIAssistant.Message[] = [];
-  private tools: AITool[] = [];
+  protected tools: AITool[] = [];
 
   public static withOptions(model: OpenAI.Chat.ChatModel, directory: string, clientOptions: ClientOptions) {
     return new OpenAIAssistant(model, directory, new OpenAI(clientOptions));
@@ -12,7 +12,7 @@ export class OpenAIAssistant {
   constructor(
     private model: OpenAI.Chat.ChatModel,
     private directory: string,
-    private openai = new OpenAI(),
+    public openai = new OpenAI(),
   ) {
   }
 
@@ -20,11 +20,11 @@ export class OpenAIAssistant {
     return this.messages;
   }
 
-  getMessages(): OpenAIAssistant.Message[] {
+  public getMessages(): OpenAIAssistant.Message[] {
     return this.messages;
   }
 
-  addTools(...tools: AITool[]) {
+  public addTools(...tools: AITool[]) {
     for (const tool of tools) {
       this.tools.push(tool);
       this.addSystemMessage(`You've been given access to the following tool: ${tool.name}.\n`
@@ -32,11 +32,11 @@ export class OpenAIAssistant {
     }
   }
 
-  addSystemMessage(content: string) {
-    this.messages.push({ role: "system", content });
+  public addSystemMessage(content: string) {
+    this.pushMessage({ role: "system", content });
   }
 
-  pushMessage(...messages: OpenAI.Chat.Completions.ChatCompletionMessageParam[]) {
+  public pushMessage(...messages: OpenAI.Chat.Completions.ChatCompletionMessageParam[]) {
     this.messages.push(...messages);
   }
 
@@ -44,18 +44,18 @@ export class OpenAIAssistant {
    * Send a next message and return the replies.
    * @param prompt
    */
-  async send(prompt: string): Promise<OpenAIAssistant.Message> {
+  public async send(prompt: string): Promise<OpenAIAssistant.Message> {
     return await this.sendMessage({
       role: "user",
       content: [{ type: "text", text: prompt }]
     });
   }
 
-  async sendMessage(...messages: OpenAIAssistant.Message[]) {
+  public async sendMessage(...messages: OpenAIAssistant.Message[]) {
     return await this.run(...messages);
   }
 
-  async run(...messages: OpenAIAssistant.Message[]): Promise<OpenAIAssistant.Message> {
+  public async run(...messages: OpenAIAssistant.Message[]): Promise<OpenAIAssistant.Message> {
     let last: OpenAIAssistant.Message|null = null;
     for await (const value of this.runMessageStream(...messages))
       last = value;
@@ -64,7 +64,7 @@ export class OpenAIAssistant {
     return last;
   }
 
-  async *runMessageStream(...messages: OpenAIAssistant.Message[]): AsyncGenerator<OpenAIAssistant.Message, true, void> {
+  public async *runMessageStream(...messages: OpenAIAssistant.Message[]): AsyncGenerator<OpenAIAssistant.Message, true, void> {
     for (const message of messages)
       yield message;
 
@@ -98,7 +98,7 @@ export class OpenAIAssistant {
       response = await this.openai.chat.completions.create(body);
 
       const choice = response.choices[0];
-      this.messages.push(choice.message);
+      this.pushMessage(choice.message);
       yield choice.message;
 
       if (choice.message.tool_calls?.length) {
@@ -114,7 +114,7 @@ export class OpenAIAssistant {
             content: JSON.stringify(result),
             tool_call_id: tool_call.id
           }
-          this.messages.push(message);
+          this.pushMessage(message);
           yield message;
         }
 
