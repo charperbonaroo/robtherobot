@@ -9,6 +9,8 @@ export class OpenAIAssistantRepo {
   private migrationsRepo: MigrationsRepo;
   private insertStatement: StatementSync;
   private updateToolsStatement: StatementSync;
+  private selectOneStatement: StatementSync;
+
   private static MIGRATIONS = [
     `CREATE TABLE IF NOT EXISTS openai_assistants (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -30,6 +32,7 @@ export class OpenAIAssistantRepo {
       VALUES (?, ?, ?, '[]')
     `);
     this.updateToolsStatement = this.db.prepare("UPDATE openai_assistants SET tools = ? WHERE id = ?");
+    this.selectOneStatement = this.db.prepare("SELECT * FROM openai_assistants WHERE directory = ? ORDER BY id LIMIT 1");
   }
 
   public createAssistant(model: OpenAI.Chat.ChatModel, directory: string, clientOptions: ClientOptions) {
@@ -40,5 +43,19 @@ export class OpenAIAssistantRepo {
 
   public updateAssistantTools(id: number, toolNames: string[]) {
     this.updateToolsStatement.run(JSON.stringify(toolNames), id);
+  }
+
+  public findAssistant(directory: string) {
+    const row = this.selectOneStatement.get(directory) as any;
+    if (!row)
+      return null;
+    const clientOptions = JSON.parse(row.client_options);
+    const assistant = new PersistedOpenAIAssistant(this.injector, row.id as number, JSON.parse(row.tools), row.model, row.directory, new OpenAI(clientOptions));
+    assistant.restoreMessages();
+    return assistant;
+  }
+
+  public findOrCreateAssistant(directory: string, defaultModel: OpenAI.Chat.ChatModel, defaultClientOptions: ClientOptions) {
+    return this.findAssistant(directory) ?? this.createAssistant(defaultModel, directory, defaultClientOptions);
   }
 }

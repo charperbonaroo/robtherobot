@@ -11,7 +11,7 @@ describe("OpenAIAssistant", () => {
 
   beforeAll(() => {
     path = `.tmp/${Math.random()}`;
-    mkdirSync(path);
+    mkdirSync(path, { recursive: true });
     path = realpathSync(path);
   });
 

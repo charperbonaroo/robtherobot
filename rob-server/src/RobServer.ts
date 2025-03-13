@@ -2,15 +2,21 @@ import { readdir } from "node:fs/promises";
 import { RobWeb } from "rob-web";
 import { join, resolve } from "node:path";
 import { isNotJunk } from "./util/junk";
-import { OpenAIAssistant, ensureWorkingDirectory, FileTools } from "rob-host";
+import { OpenAIAssistant, ensureWorkingDirectory, FileTools, SqliteClient, OpenAIAssistantRepo } from "rob-host";
 
 export class RobServer implements RobWeb {
   private _cwd: string;
   private assistant: OpenAIAssistant;
+  private db: SqliteClient;
 
-  constructor(cwd: string) {
+  constructor(cwd: string, continueConversation: boolean = false) {
     this._cwd = ensureWorkingDirectory(cwd);
-    this.assistant = OpenAIAssistant.withOptions("gpt-4o", this._cwd, {});
+    this.db = new SqliteClient(".robtherobot.sqlite3");
+
+    const repo = this.db.get(OpenAIAssistantRepo);
+    this.assistant = continueConversation 
+      ? repo.findOrCreateAssistant(this._cwd, "gpt-4o", {}) 
+      : repo.createAssistant("gpt-4o", this._cwd, {});
 
     this.assistant.addSystemMessage(`
       You're an assistant, ready to assist a developer. Before doing anything,

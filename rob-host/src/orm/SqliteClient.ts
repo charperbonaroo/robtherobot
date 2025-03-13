@@ -11,8 +11,7 @@ export class SqliteClient {
 
   constructor(path: string) {
     this.db = new DatabaseSync(path);
-    this.db.exec("CREATE TABLE IF NOT EXISTS migrations (sql TEXT PRIMARY KEY)");
-
+    
     this.injector.set(this.db);
     this.injector.set(new MigrationsRepo(this.injector));
     this.injector.set(new OpenAIAssistantRepo(this.injector));

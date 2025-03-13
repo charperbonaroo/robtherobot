@@ -10,6 +10,7 @@ export class MigrationsRepo {
 
   constructor(injector: Injector) {
     this.db = injector.get(DatabaseSync);
+    this.db.exec("CREATE TABLE IF NOT EXISTS migrations (sql TEXT PRIMARY KEY)");
 
     this.queryMigrations = this.db.prepare("SELECT sql FROM migrations");
     this.migrations = this.queryMigrations.all().map((row: any) => (row as { sql: string }).sql);

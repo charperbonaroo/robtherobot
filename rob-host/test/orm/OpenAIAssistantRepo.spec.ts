@@ -13,10 +13,19 @@ describe("OpenAIAssistantRepo", () => {
   });
 
   it("creates a working OpenAIAssistant", async () => {
-    const assistant = repo.createAssistant(model, "test", {});
+    const assistant = repo.createAssistant(model, ".", {});
     const message = await assistant.send("This is just a test. Respond with 'Hello, world!'");
     expect(message.content).toContain("Hello, world!");
+  });
 
-    console.log(assistant.getOpenaiMessages());
+  it("finds restores a working assistant", async () => {
+    const assistant = repo.createAssistant(model, ".", {});
+    await assistant.send("My name is Kitty.");
+    const assistantMessages = assistant.getOpenaiMessages();
+
+    const restored = repo.findAssistant(".");
+    expect(restored?.getOpenaiMessages()).toEqual(assistantMessages);
+    const message = await restored!.send("Say my name.");
+    expect(message.content).toContain("Kitty");
   });
 });

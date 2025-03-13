@@ -17,6 +17,11 @@ export class PersistedOpenAIAssistant extends OpenAIAssistant {
     super(model, directory, openai);
   }
 
+  public restoreMessages() {
+    const repo = this.injector.get(OpenAIAssistantMessageRepo);
+    this.messages = repo.getMessages(this.id);
+  }
+
   public getUnboundToolNames() {
     return this.toolNames.filter(name => !this.tools.find(tool => tool.name === name));
   }

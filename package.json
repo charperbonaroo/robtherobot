@@ -8,7 +8,7 @@
     "build": "yarn workspaces foreach --all --parallel run build",
     "build:skip-types": "yarn workspaces foreach --all --parallel run build:skip-types",
     "clean": "yarn workspaces foreach --all --parallel run clean",
-    "start": "(cd rob-server && yarn start)",
+    "start": "(cd rob-server && NODE_NO_WARNINGS=1 yarn start \"$@\")",
     "test": "yarn workspaces foreach --all --parallel run test"
   },
   "workspaces": [

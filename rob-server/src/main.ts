@@ -33,7 +33,7 @@ program
   .option("-d, --cwd <cwd>", "The working directory", process.cwd())
   .argument('[prompt]')
   .action(async (prompt, opts) => {
-    const server = new RobServer(opts.cwd);
+    const server = new RobServer(opts.cwd, opts.continue);
     for await (const res of server.send(prompt)) {
       if (res.type === "message" && res.message.role === "assistant") {
         console.log(res.message.content);
@@ -46,7 +46,7 @@ program
   .option("-d, --cwd <cwd>", "The working directory", process.cwd())
   .description("Run HTTP server at a given port")
   .action(async (opts) => {
-    const server = new RobServer(opts.cwd);
+    const server = new RobServer(opts.cwd, opts.continue);
     await new HttpServer(server).listen(opts.port, opts.host);
   })
 

@@ -2,7 +2,7 @@ import OpenAI, { ClientOptions } from "openai";
 import { AITool } from "./AITool";
 
 export class OpenAIAssistant {
-  private messages: OpenAIAssistant.Message[] = [];
+  protected messages: OpenAIAssistant.Message[] = [];
   protected tools: AITool[] = [];
 
   public static withOptions(model: OpenAI.Chat.ChatModel, directory: string, clientOptions: ClientOptions) {

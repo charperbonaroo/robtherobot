@@ -6,7 +6,7 @@ import { OpenAIAssistant } from "../OpenAIAssistant";
 export class OpenAIAssistantMessageRepo {
   private db: DatabaseSync;
   private insertStatement: StatementSync;
-  private updateToolsStatement: StatementSync;
+  private selectManyStatement: StatementSync;
 
   private static MIGRATIONS = [
     `CREATE TABLE IF NOT EXISTS openai_assistant_messages (
@@ -23,16 +23,16 @@ export class OpenAIAssistantMessageRepo {
     injector.get(MigrationsRepo).ensureMigrationSqlMany(OpenAIAssistantMessageRepo.MIGRATIONS);
 
     this.insertStatement = this.db.prepare("INSERT INTO openai_assistant_messages (openai_assistant_id, message) VALUES (?, ?)");
-    this.updateToolsStatement = this.db.prepare("UPDATE openai_assistants SET tools = ? WHERE id = ?");
+    this.selectManyStatement = this.db.prepare("SELECT * FROM openai_assistant_messages WHERE openai_assistant_id = ? ORDER BY id ASC");
   }
 
-  public createMessage(openaiAssistantId: number, message: OpenAIAssistant.Message): OpenAIAssistant.Message & {id: number} {
+  public createMessage(openaiAssistantId: number, message: OpenAIAssistant.Message): number {
     const messageJson = JSON.stringify(message);
     const { lastInsertRowid: id } = this.insertStatement.run(openaiAssistantId, messageJson);
-    return Object.assign(JSON.parse(messageJson), { id });
+    return id as number;
   }
 
-  public updateAssistantTools(assistantId: number, tools: string[]): void {
-    this.updateToolsStatement.run(JSON.stringify(tools), assistantId);
+  public getMessages(openaiAssistantId: number): OpenAIAssistant.Message[] {
+    return this.selectManyStatement.all(openaiAssistantId).map((row: any) => JSON.parse(row.message));
   }
 }
