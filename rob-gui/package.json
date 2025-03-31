@@ -1,0 +1,24 @@
+{
+  "name": "rob-gui",
+  "packageManager": "yarn@4.5.3",
+  "type": "commonjs",
+  "dependencies": {
+    "lit": "^3.2.1",
+    "marked": "^15.0.6",
+    "rob-web": "workspace:*"
+  },
+  "scripts": {
+    "build": "yarn type-check && yarn build:skip-types",
+    "build:skip-types": "yarn esbuild_base --outdir=dist --minify src/index.ts",
+    "clean": "rm -rf dist",
+    "dev": "yarn esbuild_base --outdir=examples --serve=8010 --servedir=examples src/index.ts",
+    "esbuild_base": "esbuild --sourcemap --format=iife --global-name=RobGui --bundle --loader:.png=file",
+    "type-check": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@types/bootstrap": "^5",
+    "@types/lodash": "^4.17.13",
+    "esbuild": "^0.24.2",
+    "typescript": "^5.7.2"
+  }
+}

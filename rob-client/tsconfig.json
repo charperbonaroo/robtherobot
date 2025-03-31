@@ -1,0 +1,12 @@
+{
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "paths": {
+      "rob-web": ["rob-web/src/index.ts"],
+      "rob-gui": ["rob-gui/src/index.ts"]
+    },
+    "experimentalDecorators": true,
+    "useDefineForClassFields": false
+  },
+  "include": ["src", "../rob-gui/src/global.d.ts"]
+}

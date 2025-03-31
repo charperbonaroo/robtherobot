@@ -16,3 +16,7 @@ dist
 logs
 
 .envrc.local
+tsconfig.tsbuildinfo
+.cursor
+.tmp
+.robtherobot.sqlite3

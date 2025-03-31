@@ -1,0 +1,30 @@
+{
+  "name": "rob-server",
+  "version": "1.0.0",
+  "type": "commonjs",
+  "scripts": {
+    "type-check": "tsc --noEmit",
+    "build:skip-types": "esbuild --platform=node --target=node18 --sourcemap --bundle --outdir=dist src/main.ts",
+    "build": "yarn type-check && yarn build:skip-types",
+    "dev": "yarn build && yarn start",
+    "start": "node --no-deprecation dist/main.js"
+  },
+  "dependencies": {
+    "commander": "^13.1.0",
+    "esbuild": "^0.24.0",
+    "express": "^4.21.2",
+    "morgan": "^1.10.0",
+    "rob-host": "workspace:*",
+    "rob-web": "workspace:*",
+    "typescript": "^5.7.2",
+    "ws": "^8.18.0"
+  },
+  "devDependencies": {
+    "@types/commander": "^2.12.5",
+    "@types/express": "^5.0.0",
+    "@types/morgan": "^1",
+    "@types/node": "^22.12.0",
+    "@types/ws": "^8.5.14",
+    "nodemon": "^3.1.7"
+  }
+}

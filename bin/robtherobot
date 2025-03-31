@@ -7,4 +7,4 @@ CALLER_DIR="$PWD"
 cd "$TOOL_DIR" || { echo "Error: Unable to access $TOOL_DIR"; exit 1; }
 
 source .envrc
-$TOOL_CMD "$CALLER_DIR" "$@"
+$TOOL_CMD --cwd "$CALLER_DIR" "$@"

@@ -1,23 +1,20 @@
 {
   "compilerOptions": {
+    "module": "CommonJS",
     "target": "esnext",
-    "module": "esnext",
-    "strict": true,
-    "jsx": "react-jsx", // For React projects
-    "moduleResolution": "node",
+    "experimentalDecorators": false,
+    "jsx": "react",
+    "jsxFactory": "React.createElement",
+    "jsxFragmentFactory": "React.Fragment",
+    "jsxImportSource": "",
     "esModuleInterop": true,
-    "skipLibCheck": true,
+    "isolatedModules": true,
+    "useDefineForClassFields": true,
     "baseUrl": "./",
-    "paths": {
-      "@/*": [
-        "src/*"
-      ]
-    }
+    "alwaysStrict": true,
+    "strict": true,
+    "verbatimModuleSyntax": false,
+    "paths": {}
   },
-  "include": [
-    "src/**/*.ts"
-  ],
-  "exclude": [
-    "node_modules"
-  ]
+  "references": []
 }

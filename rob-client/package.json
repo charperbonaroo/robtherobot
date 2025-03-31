@@ -1,0 +1,25 @@
+{
+  "name": "rob-client",
+  "packageManager": "yarn@4.5.3",
+  "type": "commonjs",
+  "dependencies": {
+    "@lit/task": "^1.0.2",
+    "bootstrap": "^5.3.3",
+    "lit": "^3.2.1",
+    "marked": "^15.0.6",
+    "rob-web": "workspace:*"
+  },
+  "scripts": {
+    "clean": "rm -rf public/static/*",
+    "type-check": "tsc --noEmit",
+    "build:skip-types": "yarn esbuild_base src/bootstrap.css src/main.ts",
+    "build": "yarn type-check && yarn build:skip-types",
+    "dev": "yarn esbuild_base --outdir=public/static --servedir=public src/bootstrap.css src/main.ts",
+    "esbuild_base": "esbuild --sourcemap --bundle --loader:.png=file --outdir=public/static"
+  },
+  "devDependencies": {
+    "@types/bootstrap": "^5",
+    "esbuild": "^0.24.2",
+    "typescript": "^5.7.2"
+  }
+}
