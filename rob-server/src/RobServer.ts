@@ -11,11 +11,11 @@ export class RobServer implements RobWeb {
 
   constructor(cwd: string, continueConversation: boolean = false) {
     this._cwd = ensureWorkingDirectory(cwd);
-    this.db = new SqliteClient(".robtherobot.sqlite3");
+    this.db = new SqliteClient(this.safeJoin([".robtherobot.sqlite3"]));
 
     const repo = this.db.get(OpenAIAssistantRepo);
-    this.assistant = continueConversation 
-      ? repo.findOrCreateAssistant(this._cwd, "gpt-4o", {}) 
+    this.assistant = continueConversation
+      ? repo.findOrCreateAssistant(this._cwd, "gpt-4o", {})
       : repo.createAssistant("gpt-4o", this._cwd, {});
 
     this.assistant.addSystemMessage(`

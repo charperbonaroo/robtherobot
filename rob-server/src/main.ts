@@ -35,7 +35,9 @@ program
   .action(async (prompt, opts) => {
     const server = new RobServer(opts.cwd, opts.continue);
     for await (const res of server.send(prompt)) {
-      if (res.type === "message" && res.message.role === "assistant") {
+      if (res.type === "message"
+        && res.message.role === "assistant"
+        && res.message.content) {
         console.log(res.message.content);
       }
     }

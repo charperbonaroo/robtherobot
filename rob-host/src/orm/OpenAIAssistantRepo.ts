@@ -28,11 +28,11 @@ export class OpenAIAssistantRepo {
     this.migrationsRepo = injector.get(MigrationsRepo);
     this.migrationsRepo.ensureMigrationSqlMany(OpenAIAssistantRepo.MIGRATIONS);
     this.insertStatement = this.db.prepare(`
-      INSERT INTO openai_assistants (model, directory, client_options, tools) 
+      INSERT INTO openai_assistants (model, directory, client_options, tools)
       VALUES (?, ?, ?, '[]')
     `);
     this.updateToolsStatement = this.db.prepare("UPDATE openai_assistants SET tools = ? WHERE id = ?");
-    this.selectOneStatement = this.db.prepare("SELECT * FROM openai_assistants WHERE directory = ? ORDER BY id LIMIT 1");
+    this.selectOneStatement = this.db.prepare("SELECT * FROM openai_assistants WHERE directory = ? ORDER BY id DESC LIMIT 1");
   }
 
   public createAssistant(model: OpenAI.Chat.ChatModel, directory: string, clientOptions: ClientOptions) {

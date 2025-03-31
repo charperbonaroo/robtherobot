@@ -1,7 +1,8 @@
 {
   "compilerOptions": {
-    "module": "CommonJS",
-    "target": "esnext",
+    "target": "ES2022",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
     "experimentalDecorators": false,
     "jsx": "react",
     "jsxFactory": "React.createElement",
@@ -13,7 +14,10 @@
     "baseUrl": "./",
     "alwaysStrict": true,
     "strict": true,
+    "forceConsistentCasingInFileNames": true,
     "verbatimModuleSyntax": false,
+    "allowJs": true,
+    "checkJs": true,
     "paths": {}
   },
   "references": []
